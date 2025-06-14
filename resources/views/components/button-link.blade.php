@@ -1,0 +1,27 @@
+@props([
+    'href' => '#',
+    'color' => 'blue',
+    'target' => null,
+])
+
+@php
+    $baseClasses = 'inline-block px-4 py-2 rounded text-xs font-semibold focus:outline-none focus:ring ';
+
+    $colorClasses = [
+        'blue'    => 'bg-blue-600 hover:bg-blue-700 text-white',
+        'green'   => 'bg-green-600 hover:bg-green-700 text-white',
+        'red'     => 'bg-red-600 hover:bg-red-700 text-white',
+        'gray'    => 'bg-gray-600 hover:bg-gray-700 text-white',
+        'yellow'  => 'bg-yellow-500 hover:bg-yellow-600 text-white',
+        'purple'  => 'bg-purple-600 hover:bg-purple-700 text-white',
+        'pink'    => 'bg-pink-500 hover:bg-pink-600 text-white',
+    ];
+
+    $class = $colorClasses[$color] ?? $colorClasses['blue'];
+@endphp
+
+<a href="{{ $href }}"
+   {{ $attributes->merge(['class' => "$baseClasses $class"]) }}
+   @if ($target) target="{{ $target }}" @endif>
+    {{ $slot }}
+</a>
