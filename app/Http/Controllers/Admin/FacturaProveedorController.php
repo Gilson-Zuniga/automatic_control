@@ -5,20 +5,19 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\FacturaProveedor;
 use App\Models\FacturaProveedorItem;
-use App\Models\Inventario;
 use App\Models\Proveedor;
 use App\Models\Empresa;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Facades\Storage;
+
 
 class FacturaProveedorController extends Controller
 {
     public function index()
     {
-        $facturas = FacturaProveedor::with('proveedor', 'empresa')->latest()->paginate(10);
+        $facturas = FacturaProveedor::with('proveedor')->latest()->paginate(10);
         return view('admin.facturas_proveedores.index', compact('facturas'));
     }
 
@@ -27,72 +26,115 @@ class FacturaProveedorController extends Controller
         $proveedores = Proveedor::all();
         $empresas = Empresa::all();
         $productos = Producto::with('unidadMedida')->get();
-
         return view('admin.facturas_proveedores.create', compact('proveedores', 'empresas', 'productos'));
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-    'numero_factura' => 'required|unique:facturas_proveedores',
-    'proveedor_id' => 'required|exists:proveedores,id',
-    'empresa_id' => 'required|exists:empresas,id',
-    'fecha_pago' => 'required|date',
-    'items_json' => 'required|string',
-]);
+{
+    $request->validate([
+        'numero_factura' => 'required|unique:facturas_proveedores',
+        'fecha_pago' => 'required|date',
+        'proveedor_id' => 'required',
+        'empresa_id' => 'required',
+        'items_json' => 'required|string', // Validamos que venga el JSON
+    ]);
 
-$items = json_decode($request->items_json, true);
+    $items = json_decode($request->items_json, true);
 
-DB::transaction(function () use ($request, $items) {
-    $factura = FacturaProveedor::create($request->only([
-        'numero_factura', 'proveedor_id', 'empresa_id', 'fecha_pago',
-    ]) + ['total' => collect($items)->sum('subtotal')]);
-
-    foreach ($items as $itemData) {
-        $item = new FacturaProveedorItem($itemData);
-        $item->factura_id = $factura->id;
-        $item->save();
-
-        $inventario = Inventario::where('producto_id', $item->producto_id)
-            ->where('empresa_id', $factura->empresa_id)
-            ->first();
-
-        if ($inventario) {
-            $inventario->cantidad += $item->cantidad;
-            $inventario->save();
-        } else {
-            Inventario::create([
-                'nombre'        => 'Ingreso Factura #' . $factura->numero_factura,
-                'producto_id'   => $item->producto_id,
-                'unidad_medida' => $item->unidad_medida,
-                'cantidad'      => $item->cantidad,
-                'precio'        => $item->precio_unitario,
-                'descuento'     => $item->descuento ?? 0,
-                'empresa_id'    => $factura->empresa_id,
-            ]);
-        }
+    if (!is_array($items) || count($items) === 0) {
+        return back()->withInput()->with('error', 'No se recibieron ítems válidos.');
     }
 
-    // PDF
-    $pdf = Pdf::loadView('admin.facturas_proveedores.pdf', compact('factura'));
-    $pdfPath = 'facturas/pdf/factura_proveedor_' . $factura->id . '.pdf';
-    Storage::put('public/' . $pdfPath, $pdf->output());
+    DB::transaction(function () use ($request, $items) {
+        $factura = FacturaProveedor::create([
+            'numero_factura' => $request->numero_factura,
+            'proveedor_id' => $request->proveedor_id,
+            'empresa_id' => $request->empresa_id,
+            'fecha_pago' => $request->fecha_pago,
+            'total' => 0,
+        ]);
 
-    $factura->update(['pdf_path' => $pdfPath]);
-});
+        $total = 0;
 
+        foreach ($items as $item) {
+            if (!isset($item['producto_id'],$item['unidad_medida'], $item['cantidad'], $item['precio_unitario'], $item['descuento'],$item['impuesto'])) {
+                continue; // Ignorar ítems incompletos
+            }
+
+
+            $cantidad = floatval($item['cantidad']);
+            $precio = floatval($item['precio_unitario']);
+            $impuesto = floatval($item['impuesto']);
+            $subtotal = ($cantidad * $precio) + $impuesto;
+
+            FacturaProveedorItem::create([
+
+                'producto_id' => $item['producto_id'],
+                'unidad_medida' => $item['unidad_medida'],
+                'cantidad' => $cantidad,
+                'precio_unitario' => $precio,
+                'descuento' => $item['descuento'],
+                'impuesto' => $impuesto,
+                'subtotal' => $subtotal,
+                'factura_id' => $factura->id,
+
+            ]);
+
+            $total += $subtotal;
+        }
+
+        $factura->update(['total' => $total]);
+
+        // Generar PDF
+        $pdf = Pdf::loadView('admin.facturas_proveedores.pdf', ['factura' => $factura->load('items.producto')]);
+        $path = 'facturas/pdf/factura_' . $factura->id . '.pdf';
+        $pdf->save(public_path($path));
+        $factura->update(['pdf_path' => $path]);
+    });
+
+    return redirect()->route('admin.facturas_proveedores.index')->with('success', 'Factura creada correctamente');
+}
+
+
+    public function edit(FacturaProveedor $factura)
+    {
+        $proveedores = Proveedor::all();
+        $empresas = Empresa::all();
+        $productos = Producto::all();
+        $factura->load('items');
+        return view('admin.facturas_proveedores.edit', compact('factura', 'proveedores', 'empresas', 'productos'));
+    }
+
+    public function update(Request $request, FacturaProveedor $factura)
+    {
+        // Similar al store(), con validaciones y actualización de items
+    }
+
+    public function destroy(FacturaProveedor $factura)
+    {
+        // Eliminar primero los ítems relacionados
+        $factura->items()->delete(); // Asegúrate de tener la relación definida en el modelo
+
+        // Luego eliminar la factura
+        $factura->delete();
 
         return redirect()->route('admin.facturas_proveedores.index')
-            ->with('success', 'Factura registrada correctamente.');
+                            ->with('success', 'Factura eliminada correctamente.');
     }
 
-    public function edit(FacturaProveedor $facturaProveedor)
+
+    public function show(FacturaProveedor $factura)
     {
-        abort(403, 'La edición de facturas no está permitida.');
+        $factura->load('items.producto', 'proveedor', 'cliente');
+        return view('admin.facturas_proveedores.show', compact('factura'));
     }
 
-    public function update(Request $request, FacturaProveedor $facturaProveedor)
+    public function downloadPdf(FacturaProveedor $factura)
     {
-        abort(403, 'La actualización de facturas no está permitida.');
+        if ($factura->pdf_path && file_exists(public_path($factura->pdf_path))) {
+            return response()->download(public_path($factura->pdf_path));
+        }
+
+        abort(404, 'PDF no encontrado');
     }
 }

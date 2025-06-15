@@ -1,81 +1,272 @@
 @push('scripts')
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-    const productos = @json($productos);
-    const container = document.getElementById('items-container');
-    const btnAddItem = document.getElementById('add-item');
-    const form = document.getElementById('form-factura');
-
-    let index = 0;
-
-    const createItemRow = () => {
-        const row = document.createElement('div');
-        row.classList.add('grid', 'grid-cols-6', 'gap-4', 'border', 'p-4', 'rounded');
-
-        row.innerHTML = `
-            <div class="col-span-2">
-                <label class="form-label">Producto</label>
-                <select class="form-input producto_id" required>
-                    <option value="">Seleccione</option>
-                    ${productos.map(p => `<option value="${p.id}">${p.nombre}</option>`).join('')}
-                </select>
-            </div>
-            <div>
-                <label class="form-label">Unidad</label>
-                <input type="text" class="form-input unidad_medida" required>
-            </div>
-            <div>
-                <label class="form-label">Cantidad</label>
-                <input type="number" class="form-input cantidad" min="0.01" step="0.01" required>
-            </div>
-            <div>
-                <label class="form-label">Precio</label>
-                <input type="number" class="form-input precio_unitario" min="0" step="0.01" required>
-            </div>
-            <div>
-                <label class="form-label">Descuento</label>
-                <input type="number" class="form-input descuento" min="0" value="0">
-            </div>
-            <div class="col-span-6 text-right">
-                <button type="button" class="btn btn-danger remove-item">Eliminar</button>
-            </div>
-        `;
-
-        row.querySelector('.remove-item').addEventListener('click', () => {
-            row.remove();
-        });
-
-        container.appendChild(row);
-    };
-
-    btnAddItem.addEventListener('click', createItemRow);
-
-    form.addEventListener('submit', (e) => {
-        const items = [];
-        const rows = container.querySelectorAll('div.grid');
-
-        rows.forEach(row => {
-            const producto_id = row.querySelector('.producto_id').value;
-            const unidad_medida = row.querySelector('.unidad_medida').value;
-            const cantidad = parseFloat(row.querySelector('.cantidad').value);
-            const precio_unitario = parseFloat(row.querySelector('.precio_unitario').value);
-            const descuento = parseFloat(row.querySelector('.descuento').value || 0);
-
-            const subtotal = cantidad * precio_unitario - descuento;
-
-            items.push({
-                producto_id,
-                unidad_medida,
-                cantidad,
-                precio_unitario,
-                descuento,
-                impuesto: 0,
-                subtotal,
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const productos = @json($productos);
+            const itemsTable = document.getElementById('items-table');
+            const tbody = itemsTable.querySelector('tbody');
+            const addItemBtn = document.getElementById('add-item');
+            const form = document.getElementById('form-factura');
+            const itemsJsonInput = document.getElementById('items-json');
+            
+            // Elementos de resumen
+            const subtotalGeneral = document.getElementById('subtotal-general');
+            const descuentoGeneral = document.getElementById('descuento-general');
+            const impuestoGeneral = document.getElementById('impuesto-general');
+            const totalGeneral = document.getElementById('total-general');
+            
+            // Función para agregar una nueva fila
+            function addItemRow(item = null) {
+                const row = document.createElement('tr');
+                row.className = 'item-row bg-black-500 hover:bg-black-700';
+                
+                // Select de productos - ESTILOS MODIFICADOS
+                const productoCell = document.createElement('td');
+                productoCell.className = 'px-4 py-2';
+                const productoSelect = document.createElement('select');
+                productoSelect.className = 'w-full px-3 py-2 bg-gray-700 text-white border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 producto-select';
+                productoSelect.name = 'producto_id[]';
+                productoSelect.required = true;
+                
+                // Opción vacía inicial con estilo gris más claro
+                const emptyOption = document.createElement('option');
+                emptyOption.value = '';
+                emptyOption.textContent = 'Seleccione un producto';
+                emptyOption.className = 'bg-gray-600 text-white';
+                productoSelect.appendChild(emptyOption);
+                
+                // Llenar con productos - Aplicar estilos a cada opción
+                productos.forEach(producto => {
+                    const option = document.createElement('option');
+                    option.value = producto.id;
+                    option.textContent = producto.nombre;
+                    option.dataset.unidadMedida = producto.unidad_medida ? producto.unidad_medida.nombre : 'N/A';
+                    option.className = 'bg-gray-700 text-white'; // Estilo para las opciones
+                    
+                    if (item && item.producto_id == producto.id) {
+                        option.selected = true;
+                    }
+                    
+                    productoSelect.appendChild(option);
+                });
+                
+                productoCell.appendChild(productoSelect);
+                
+                // Celda de unidad de medida
+                const unidadCell = document.createElement('td');
+                unidadCell.className = 'px-4 py-2 unidad-medida';
+                unidadCell.textContent = item ? item.unidad_medida : '';
+                
+                // Celda de cantidad
+                const cantidadCell = document.createElement('td');
+                cantidadCell.className = 'px-4 py-2';
+                const cantidadInput = document.createElement('input');
+                cantidadInput.type = 'number';
+                cantidadInput.className = 'w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 cantidad';
+                cantidadInput.name = 'cantidad[]';
+                cantidadInput.step = '0.01';
+                cantidadInput.min = '0.01';
+                cantidadInput.required = true;
+                cantidadInput.value = item ? item.cantidad : '1';
+                cantidadCell.appendChild(cantidadInput);
+                
+                // Celda de precio
+                const precioCell = document.createElement('td');
+                precioCell.className = 'px-4 py-2';
+                const precioInput = document.createElement('input');
+                precioInput.type = 'number';
+                precioInput.className = 'w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 precio';
+                precioInput.name = 'precio[]';
+                precioInput.step = '0.01';
+                precioInput.min = '0';
+                precioInput.required = true;
+                precioInput.value = item ? item.precio_unitario : '';
+                precioCell.appendChild(precioInput);
+                
+                // Celda de descuento
+                const descuentoCell = document.createElement('td');
+                descuentoCell.className = 'px-4 py-2';
+                const descuentoInput = document.createElement('input');
+                descuentoInput.type = 'number';
+                descuentoInput.className = 'w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 descuento';
+                descuentoInput.name = 'descuento[]';
+                descuentoInput.step = '1';
+                descuentoInput.min = '0';
+                descuentoInput.max = '100';
+                descuentoInput.value = item ? item.descuento : '0';
+                descuentoCell.appendChild(descuentoInput);
+                
+                // Celda de subtotal
+                const subtotalCell = document.createElement('td');
+                subtotalCell.className = 'px-4 py-2 subtotal';
+                subtotalCell.textContent = item ? formatCurrency(item.subtotal) : '$0.00';
+                
+                // Celda de acciones
+                const accionesCell = document.createElement('td');
+                accionesCell.className = 'px-4 py-2 text-center';
+                const deleteBtn = document.createElement('button');
+                deleteBtn.type = 'button';
+                deleteBtn.className = 'text-red-600 hover:text-red-800 delete-item';
+                deleteBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>';
+                accionesCell.appendChild(deleteBtn);
+                
+                // Ensamblar la fila
+                row.appendChild(productoCell);
+                row.appendChild(unidadCell);
+                row.appendChild(cantidadCell);
+                row.appendChild(precioCell);
+                row.appendChild(descuentoCell);
+                row.appendChild(subtotalCell);
+                row.appendChild(accionesCell);
+                
+                tbody.appendChild(row);
+                
+                // Event listeners para la nueva fila
+                productoSelect.addEventListener('change', function() {
+                    const selectedOption = this.options[this.selectedIndex];
+                    const unidadMedida = selectedOption.dataset.unidadMedida;
+                    row.querySelector('.unidad-medida').textContent = unidadMedida;
+                    updateItem(row);
+                });
+                
+                cantidadInput.addEventListener('input', () => updateItem(row));
+                precioInput.addEventListener('input', () => updateItem(row));
+                descuentoInput.addEventListener('input', () => updateItem(row));
+                
+                deleteBtn.addEventListener('click', function() {
+                    row.remove();
+                    updateSummary();
+                    saveItemsToJson();
+                });
+                
+                return row;
+            }
+            
+            // Función para actualizar los cálculos de un ítem
+            function updateItem(row) {
+                const cantidad = parseFloat(row.querySelector('.cantidad').value) || 0;
+                const precio = parseFloat(row.querySelector('.precio').value) || 0;
+                const descuento = parseFloat(row.querySelector('.descuento').value) || 0;
+                
+                // Calcular subtotal con descuento
+                let subtotal = cantidad * precio;
+                const valorDescuento = subtotal * (descuento / 100);
+                subtotal -= valorDescuento;
+                
+                // Calcular impuesto (19% del subtotal)
+                const impuesto = subtotal * 0.19;
+                
+                // Mostrar subtotal (sin impuesto)
+                row.querySelector('.subtotal').textContent = formatCurrency(subtotal);
+                
+                // Actualizar resumen
+                updateSummary();
+                saveItemsToJson();
+            }
+            
+            // Función para actualizar el resumen general
+            function updateSummary() {
+                let subtotal = 0;
+                let totalDescuentos = 0;
+                let totalImpuestos = 0;
+                
+                document.querySelectorAll('.item-row').forEach(row => {
+                    const cantidad = parseFloat(row.querySelector('.cantidad').value) || 0;
+                    const precio = parseFloat(row.querySelector('.precio').value) || 0;
+                    const descuento = parseFloat(row.querySelector('.descuento').value) || 0;
+                    
+                    let itemSubtotal = cantidad * precio;
+                    const itemDescuento = itemSubtotal * (descuento / 100);
+                    itemSubtotal -= itemDescuento;
+                    
+                    const itemImpuesto = itemSubtotal * 0.19;
+                    
+                    subtotal += itemSubtotal;
+                    totalDescuentos += itemDescuento;
+                    totalImpuestos += itemImpuesto;
+                });
+                
+                const totalNeto = subtotal + totalImpuestos;
+                
+                subtotalGeneral.value = formatCurrency(subtotal);
+                descuentoGeneral.value = formatCurrency(totalDescuentos);
+                impuestoGeneral.value = formatCurrency(totalImpuestos);
+                totalGeneral.value = formatCurrency(totalNeto);
+            }
+            
+            // Función para guardar los items en el input hidden como JSON
+            function saveItemsToJson() {
+                const itemsData = [];
+                
+                document.querySelectorAll('.item-row').forEach(row => {
+                    const productoSelect = row.querySelector('.producto-select');
+                    const productoId = productoSelect.value;
+                    const productoText = productoSelect.options[productoSelect.selectedIndex].text;
+                    const unidadMedida = row.querySelector('.unidad-medida').textContent;
+                    const cantidad = parseFloat(row.querySelector('.cantidad').value) || 0;
+                    const precio = parseFloat(row.querySelector('.precio').value) || 0;
+                    const descuento = parseFloat(row.querySelector('.descuento').value) || 0;
+                    
+                    let subtotal = cantidad * precio;
+                    const valorDescuento = subtotal * (descuento / 100);
+                    subtotal -= valorDescuento;
+                    const impuesto = subtotal * 0.19;
+                    
+                    itemsData.push({
+                        producto_id: productoId,
+                        producto_nombre: productoText,
+                        unidad_medida: unidadMedida,
+                        cantidad: cantidad,
+                        precio_unitario: precio,
+                        descuento: descuento,
+                        subtotal: subtotal,
+                        impuesto: impuesto
+                    });
+                });
+                
+                itemsJsonInput.value = JSON.stringify(itemsData);
+            }
+            
+            // Función para formatear moneda
+            function formatCurrency(amount) {
+                return '$' + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            }
+            
+            // Event listener para agregar nuevo ítem
+            addItemBtn.addEventListener('click', function() {
+                addItemRow();
             });
+            
+            // Event listener para el formulario
+            form.addEventListener('submit', function(e) {
+                // Validar que haya al menos un ítem
+                if (document.querySelectorAll('.item-row').length === 0) {
+                    e.preventDefault();
+                    alert('Debe agregar al menos un ítem a la factura');
+                    return;
+                }
+                
+                // Validar que todos los ítems tengan producto seleccionado
+                let valid = true;
+                document.querySelectorAll('.producto-select').forEach(select => {
+                    if (!select.value) {
+                        valid = false;
+                        select.classList.add('border-red-500');
+                    } else {
+                        select.classList.remove('border-red-500');
+                    }
+                });
+                
+                if (!valid) {
+                    e.preventDefault();
+                    alert('Todos los ítems deben tener un producto seleccionado');
+                    return;
+                }
+                
+                saveItemsToJson();
+            });
+            
+            // Agregar una fila vacía al cargar la página
+            addItemRow();
         });
-
-        document.getElementById('items-json').value = JSON.stringify(items);
-    });
-});
-</script>
-@endpush
+    </script>
+    @endpush

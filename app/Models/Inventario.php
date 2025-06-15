@@ -5,6 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Inventario extends Model
 {
+
+    protected $table ='inventarios';
     protected $fillable = [
         'nombre',
         'producto_id',
@@ -17,11 +19,15 @@ class Inventario extends Model
 
     public function producto()
     {
-        return $this->belongsTo(Producto::class);
+        return $this->belongsTo(Producto::class,'producto_id','id');
     }
 
+    public function proveedor()
+    {
+        return $this->belongsTo(Proveedor::class);
+    }
     public function empresa()
     {
-        return $this->belongsTo(Empresa::class);
+        return $this->belongsTo(Empresa::class,'empresa_id','id');
     }
 }

@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\ProveedorController;
 use App\Http\Controllers\Admin\ProductoController;
 use App\Http\Controllers\Admin\EmpresaController;
 use App\Http\Controllers\Admin\FacturaProveedorController;
-use App\Http\Controllers\InventarioController;
+use App\Http\Controllers\Admin\InventarioController;
 use Illuminate\Support\Facades\Route;
 
 Route::resource('categorias',CategoriaController::class);
@@ -16,7 +16,7 @@ Route::resource('proveedores',ProveedorController::class)->parameters([
 Route::resource('productos',ProductoController::class);
 Route::resource('empresas',EmpresaController::class);
 Route::resource('facturas_proveedores',FacturaProveedorController::class);
-Route::resource('inventario',InventarioController::class);
+Route::resource('inventarios',InventarioController::class);
 
 
 

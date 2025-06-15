@@ -33,17 +33,26 @@
                     <tr>
                         <td>{{ $factura->id }}</td>
                         <td>{{ $factura->numero_factura }}</td>
-                        <td>{{ $factura->$proveedor->nombre }}</td>
-                        <td>{{ $factura->$empresa->nombre }}</td>
+                        <td>{{ $factura->proveedor->nombre ?? 'N/A' }}</td>
+                        <td>{{ $factura->empresa->nombre ?? 'N/A' }}</td>
                         <td>{{ $factura->fecha_pago }}</td>
-                        <td>{{ $factura->total }}</td>
-                        <td>{{ $factura->pdf_path }}</td>
+                        <td>${{ number_format($factura->total, 2, ',', '.') }}</td>
+                        <td>
+                            @if($factura->pdf_path)
+                                <a href="{{ asset($factura->pdf_path) }}" target="_blank" class="inline-block px-2 py-1 bg-indigo-600 text-white text-xs rounded hover:bg-indigo-700">
+                                    Ver PDF
+                                </a>
+                            @else
+                                <span class="text-gray-500 text-xs">Sin archivo</span>
+                            @endif
+                        </td>
+
                         <td width="">
                             <div class="flex justify-end gap-2">
                             <x-button-link href="#" color="green">
                                     Pagar
                                 </x-button-link>
-                                <form class="confirmar-eliminar" action="{{ route('admin.proveedores.destroy',$proveedor->id)}}" method="POST">
+                                <form class="confirmar-eliminar" action="{{ route('admin.facturas_proveedores.destroy',$factura->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <x-button type="submit" color="red">

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Proveedor;
 use App\Models\TipoArticulo;
 use App\Models\Categoria;
+use App\Models\Inventario;
 
 
 
@@ -49,6 +50,10 @@ class Producto extends Model
         public function unidadMedida()
         {
             return $this->belongsTo(UnidadMedida::class);
+        }
+        public function inventario()
+        {
+            return $this->belongsTo(Inventario::class);
         }
 
 

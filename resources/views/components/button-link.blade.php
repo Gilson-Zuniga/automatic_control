@@ -21,7 +21,7 @@
 @endphp
 
 <a href="{{ $href }}"
-   {{ $attributes->merge(['class' => "$baseClasses $class"]) }}
-   @if ($target) target="{{ $target }}" @endif>
-    {{ $slot }}
+    {{ $attributes->merge(['class' => "$baseClasses $class"]) }}
+    @if ($target) target="{{ $target }}" @endif>
+        {{ $slot }}
 </a>

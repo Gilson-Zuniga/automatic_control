@@ -21,12 +21,12 @@ class FacturaProveedor extends Model
 
     public function proveedor()
     {
-        return $this->belongsTo(Proveedor::class, 'proveedor_id');
+        return $this->belongsTo(Proveedor::class);
     }
 
     public function empresa()
     {
-        return $this->belongsTo(Empresa::class, 'Empresa_id');
+        return $this->belongsTo(Empresa::class);
     }
 
     public function items()

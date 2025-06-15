@@ -19,8 +19,8 @@
             [
                 'name' => 'Inventario',
                 'icon' => 'table-cells',
-                'url' => route('admin.inventario.index'),
-                'current' => request()->routeIs('admin.inventario.*'),
+                'url' => route('admin.inventarios.index'),
+                'current' => request()->routeIs('admin.inventarios.*'),
             ],
         ],
 
