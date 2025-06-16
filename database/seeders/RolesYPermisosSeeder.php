@@ -15,6 +15,12 @@ class RolesYPermisosSeeder extends Seeder
 
         // Crear permisos (todos con guard_name 'web')
         $permissions = [
+            
+            // Asignacion de roles
+            'admin.users.index',
+            'admin.users.create',
+            'admin.users.update',
+
             // Factura Proveedores
             'admin.facturas_proveedores.index',
             'admin.facturas_proveedores.create',

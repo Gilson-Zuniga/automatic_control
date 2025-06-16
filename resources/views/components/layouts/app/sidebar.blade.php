@@ -74,6 +74,13 @@
                 'url' => route('admin.empresas.index'),
                 'current' => request()->routeIs('admin.empresas.*'),
             ],
+            
+            [
+                'name' => 'Roles Usuarios',
+                'icon' => 'users',
+                'url' => route('admin.users.index'),
+                'current' => request()->routeIs('admin.users.*'),
+            ]
         ]
     ]
 @endphp
