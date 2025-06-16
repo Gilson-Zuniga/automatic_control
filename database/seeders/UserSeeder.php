@@ -16,6 +16,12 @@ class UserSeeder extends Seeder
             'password' => bcrypt('admin123'),
         ])->assignRole('admin');
 
+        User::factory()->create([
+            'name' => 'Mostrador',
+            'email' => 'yipiti@gmail.com',
+            'password' => bcrypt('admin123'),
+        ])->assignRole('cliente');
+
         // Usuarios auxiliares
         User::factory(9)->create()->each(function ($user) {
             $user->assignRole('aux');

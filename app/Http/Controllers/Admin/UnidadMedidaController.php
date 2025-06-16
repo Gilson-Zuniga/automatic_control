@@ -13,7 +13,9 @@ class UnidadMedidaController extends Controller
      */
     public function index()
     {
-        //
+        $unidadMedidas = UnidadMEdida::all();
+
+        return view('admin.unidades_medidas.index', compact ('unidadMedidas'));
     }
 
     /**
@@ -21,7 +23,7 @@ class UnidadMedidaController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.unidades_medidas.create');
     }
 
     /**
@@ -29,7 +31,23 @@ class UnidadMedidaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'nombre' => 'required|string|min:3|max:255',
+            'prefijo' => 'required|string|max:6',
+        ]);
+
+        UnidadMedida::create([
+            'nombre' => $data['nombre'],
+            'prefijo' => $data['prefijo']
+        ]);
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡ Bien crack !',
+            'text' => 'Se ha registado una nueva unidad de medida con éxito'
+        ]);
+
+        return redirect()->route('admin.unidades_medidas.index');
     }
 
     /**
@@ -37,7 +55,7 @@ class UnidadMedidaController extends Controller
      */
     public function show(UnidadMedida $unidadMedida)
     {
-        //
+
     }
 
     /**
@@ -45,7 +63,7 @@ class UnidadMedidaController extends Controller
      */
     public function edit(UnidadMedida $unidadMedida)
     {
-        //
+        return view('admin.unidades_medidas.edit', compact('unidadMedida'));   
     }
 
     /**
@@ -53,7 +71,23 @@ class UnidadMedidaController extends Controller
      */
     public function update(Request $request, UnidadMedida $unidadMedida)
     {
-        //
+        $data = $request->validate([
+            'nombre' => 'required|string|min:3|max:255',
+            'prefijo' => 'required|string|max:6|'
+        ]);
+
+        $unidadMedida->update([
+            'nombre' => $data['nombre'],
+            'prefijo' => $data['prefijo']
+]);
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡ Bien crack !',
+            'text' => 'Se ha actualizado la unidad de medida con éxito'
+        ]);
+
+        return redirect()->route('admin.unidades_medidas.index');
     }
 
     /**
@@ -61,6 +95,14 @@ class UnidadMedidaController extends Controller
      */
     public function destroy(UnidadMedida $unidadMedida)
     {
-        //
+        $unidadMedida->delete();
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡ Bien crack !',
+            'text' => 'Se ha eliminado la unidad de medida con éxito'
+        ]);
+
+        return redirect()->route('admin.unidades_medidas.index');
     }
 }

@@ -41,6 +41,13 @@
             ],
 
             [
+                'name' => 'Unidades de Medidas',
+                'icon' => 'beaker',
+                'url' => route('admin.unidades_medidas.index'),
+                'current' => request()->routeIs('admin.unidades_medidas.*'),
+            ],
+
+            [
                 'name' => 'Items',
                 'icon' => 'clipboard-document-list',
                 'url' => route('admin.productos.index'),
