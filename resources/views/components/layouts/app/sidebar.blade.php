@@ -57,12 +57,19 @@
                 'url' => route('admin.facturas_proveedores.index'),
                 'current' => request()->routeIs('admin.facturas_proveedores.*'),
             ],
+
+            [
+                'name' => 'Facturas Clientes',
+                'icon' => 'clipboard-document-list',
+                'url' => '#',
+                'current' => request()->routeIs('#'),
+            ]
         ],
 
         'Perfiles' => [
 
             [
-                'name' => 'Empresa',
+                'name' => 'Tienda',
                 'icon' => 'building-storefront',
                 'url' => route('admin.empresas.index'),
                 'current' => request()->routeIs('admin.empresas.*'),

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ProductoController;
 use App\Http\Controllers\Admin\EmpresaController;
 use App\Http\Controllers\Admin\FacturaProveedorController;
 use App\Http\Controllers\Admin\InventarioController;
+use App\Http\Controllers\Admin\FacturaClienteController;
 use Illuminate\Support\Facades\Route;
 
 Route::resource('categorias',CategoriaController::class);
@@ -17,6 +18,3 @@ Route::resource('productos',ProductoController::class);
 Route::resource('empresas',EmpresaController::class);
 Route::resource('facturas_proveedores',FacturaProveedorController::class);
 Route::resource('inventarios',InventarioController::class);
-
-
-

@@ -92,7 +92,13 @@ class FacturaProveedorController extends Controller
         $factura->update(['pdf_path' => $path]);
     });
 
-    return redirect()->route('admin.facturas_proveedores.index')->with('success', 'Factura creada correctamente');
+    session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡ Bien crack !',
+            'text' => 'Se ha registrado una nueva factura con éxito'
+        ]);
+
+    return redirect()->route('admin.facturas_proveedores.index');
 }
 
 
@@ -118,8 +124,13 @@ class FacturaProveedorController extends Controller
         // Luego eliminar la factura
         $factura->delete();
 
-        return redirect()->route('admin.facturas_proveedores.index')
-                            ->with('success', 'Factura eliminada correctamente.');
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡ Bien crack !',
+            'text' => 'Se ha eliminado la factura con éxito'
+        ]);
+
+        return redirect()->route('admin.facturas_proveedores.index');
     }
 
 

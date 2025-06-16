@@ -19,20 +19,18 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Gilson Zuñiga',
-            'email' => 'gilsonzuniga@gmail.com',
-            'password' => bcrypt('admin123')
-        ]);
         
         
-
+        
         $this->call([
+        RolesYPermisosSeeder::class,
+        UserSeeder::class,
         ProveedorSeeder::class,
         CategoriaSeeder::class,
         TipoArticuloSeeder::class,
         UnidadMedidaSeeder::class,
         ProductoSeeder::class,
+        
     ]);
 
     }
