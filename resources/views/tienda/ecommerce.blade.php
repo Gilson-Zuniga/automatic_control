@@ -9,12 +9,17 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
     <style id="app-style">
         [x-cloak] { display: none !important; }
         
         .swiper {
             width: 100%;
-            height: 300px;
+            height: 500px;
         }
         
         .swiper-slide {
@@ -47,10 +52,11 @@
     </style>
 </head>
 <body class="bg-gray-100">
+    <div class="bg-yellow-200"><a href="javascript:void(0)" class="text-gray-600 hover:text-gray-800">Esta es una página demostrativa de nuestro E-Commerce. ¿Deseas regresar al inicio?</a></div>
 
     <div x-data="app()" class="min-h-screen flex flex-col">
         <!-- Navbar -->
-        <nav class="bg-indigo-600 text-white shadow-md sticky top-0 z-50">
+        <nav class="bg-gray-600 text-white shadow-md sticky top-0 z-50">
             <div class="container mx-auto px-4 py-3">
                 <div class="flex items-center justify-between">
                     <!-- Logo -->
@@ -102,7 +108,7 @@
                             </span>
                         </button>
                         <button @click="toggleProfileModal()">
-                            <i class="fas fa-user-circle text-xl"></i>
+                            <i class="fas fa-user-circle text-xxl"></i>
                         </button>
                         <button @click="toggleOrdersModal()">
                             <i class="fas fa-clipboard-list text-xl"></i>
@@ -129,44 +135,65 @@
         
         <!-- Main content -->
         <main class="flex-grow">
-            <!-- Hero Banner Carousel -->
-            <div class="swiper banner-swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide bg-gradient-to-r from-blue-500 to-indigo-700">
-                        <div class="container mx-auto px-6 flex items-center justify-between">
-                            <div class="text-white max-w-md">
-                                <h2 class="text-4xl font-bold mb-4">Nuevos Auriculares Bluetooth</h2>
-                                <p class="mb-6">Sonido inigualable con 30 horas de batería</p>
-                                <button class="bg-white text-indigo-600 px-6 py-2 rounded-lg font-semibold hover:bg-opacity-90 transition">Ver oferta</button>
-                            </div>
-                            <img src="https://cdn.pixabay.com/photo/2018/01/16/10/18/headphones-3085681_1280.jpg" alt="Auriculares" class="h-56 object-contain">
-                        </div>
-                    </div>
-                    <div class="swiper-slide bg-gradient-to-r from-pink-500 to-purple-700">
-                        <div class="container mx-auto px-6 flex items-center justify-between">
-                            <div class="text-white max-w-md">
-                                <h2 class="text-4xl font-bold mb-4">Smartwatches en oferta</h2>
-                                <p class="mb-6">Hasta 40% de descuento en modelos seleccionados</p>
-                                <button class="bg-white text-purple-600 px-6 py-2 rounded-lg font-semibold hover:bg-opacity-90 transition">Comprar ahora</button>
-                            </div>
-                            <img src="https://cdn.pixabay.com/photo/2015/06/25/17/21/smart-watch-821557_1280.jpg" alt="Smartwatch" class="h-56 object-contain">
-                        </div>
-                    </div>
-                    <div class="swiper-slide bg-gradient-to-r from-amber-500 to-red-600">
-                        <div class="container mx-auto px-6 flex items-center justify-between">
-                            <div class="text-white max-w-md">
-                                <h2 class="text-4xl font-bold mb-4">Nuevas Laptops Gaming</h2>
-                                <p class="mb-6">Potencia y rendimiento a otro nivel</p>
-                                <button class="bg-white text-red-600 px-6 py-2 rounded-lg font-semibold hover:bg-opacity-90 transition">Explorar</button>
-                            </div>
-                            <img src="https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg" alt="Laptop" class="h-56 object-contain">
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-pagination"></div>
-                <div class="swiper-button-next text-white"></div>
-                <div class="swiper-button-prev text-white"></div>
+          <!-- Hero Banner con curva moderna -->
+<div class="swiper banner-swiper">
+    <div class="swiper-wrapper">
+
+        <!-- Slide 1 -->
+        <div class="swiper-slide relative bg-gray-900 min-h-[500px] flex items-center">
+            <div class="absolute inset-0">
+                <img src="https://cdn.pixabay.com/photo/2018/01/16/10/18/headphones-3085681_1280.jpg"
+                     class="w-full h-full object-cover opacity-30" alt="Auriculares">
             </div>
+
+            <!-- Bloque de fondo curveado -->
+            <div class="relative z-10 container mx-auto px-6 py-12 flex flex-col md:flex-row items-center justify-between w-full">
+                <div class="relative bg-white/90 text-gray-900 p-8 rounded-3xl shadow-xl max-w-xl clip-custom">
+                    <h2 class="text-4xl font-bold mb-4">Auriculares Bluetooth</h2>
+                    <p class="mb-6">Sonido nítido, cancelación activa y hasta 30h de batería.</p>
+                    <button class="bg-gray-800 text-white px-6 py-2 rounded-md hover:bg-gray-700 transition font-semibold">Ver oferta</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="swiper-slide relative bg-zinc-900 min-h-[500px] flex items-center">
+            <div class="absolute inset-0">
+                <img src="https://cdn.pixabay.com/photo/2015/06/25/17/21/smart-watch-821557_1280.jpg"
+                     class="w-full h-full object-cover opacity-30" alt="Smartwatch">
+            </div>
+            <div class="relative z-10 container mx-auto px-6 py-12 flex flex-col md:flex-row items-center justify-between w-full">
+                <div class="relative bg-white/90 text-gray-900 p-8 rounded-3xl shadow-xl max-w-xl clip-custom">
+                    <h2 class="text-4xl font-bold mb-4">Smartwatches en oferta</h2>
+                    <p class="mb-6">Hasta 40% de descuento en modelos seleccionados.</p>
+                    <button class="bg-zinc-800 text-white px-6 py-2 rounded-md hover:bg-zinc-700 transition font-semibold">Comprar ahora</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="swiper-slide relative bg-gray-800 min-h-[500px] flex items-center">
+            <div class="absolute inset-0">
+                <img src="https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg"
+                     class="w-full h-full object-cover opacity-30" alt="Laptop Gaming">
+            </div>
+            <div class="relative z-10 container mx-auto px-6 py-12 flex flex-col md:flex-row items-center justify-between w-full">
+                <div class="relative bg-white/90 text-gray-900 p-8 rounded-3xl shadow-xl max-w-xl clip-custom">
+                    <h2 class="text-4xl font-bold mb-4">Laptops Gaming</h2>
+                    <p class="mb-6">Potencia, velocidad y rendimiento para gamers exigentes.</p>
+                    <button class="bg-gray-900 text-white px-6 py-2 rounded-md hover:bg-gray-700 transition font-semibold">Explorar</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Controles Swiper -->
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-next text-white"></div>
+    <div class="swiper-button-prev text-white"></div>
+</div>
+
             
             <!-- Featured Categories -->
             <section class="py-8 bg-white">
@@ -210,39 +237,34 @@
             </section>
             
             <!-- Featured Products -->
-            <section class="py-8">
-                <div class="container mx-auto px-4">
-                    <h2 class="text-2xl font-bold mb-6">Productos Destacados</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        <template x-for="product in featuredProducts" :key="product.id">
-                            <div class="bg-white rounded-lg shadow-md overflow-hidden product-card">
-                                <img :src="product.image" :alt="product.name" class="w-full h-48 object-cover">
-                                <div class="p-4">
-                                    <h3 class="font-semibold text-lg mb-2" x-text="product.name"></h3>
-                                    <div class="flex items-center mb-2">
-                                        <div class="flex text-amber-400">
-                                            <template x-for="i in 5">
-                                                <i class="fas fa-star" :class="i <= product.rating ? 'text-amber-400' : 'text-gray-300'"></i>
-                                            </template>
-                                        </div>
-                                        <span class="text-gray-600 text-sm ml-2" x-text="product.reviews + ' reseñas'"></span>
-                                    </div>
-                                    <div class="flex justify-between items-center">
-                                        <div>
-                                            <span class="text-lg font-bold text-indigo-600" x-text="'$' + product.price.toFixed(2)"></span>
-                                            <span x-show="product.oldPrice" class="text-sm text-gray-500 line-through ml-2" x-text="'$' + product.oldPrice.toFixed(2)"></span>
-                                        </div>
-                                        <button @click="openProductModal(product)" 
-                                                class="bg-indigo-600 text-white p-2 rounded-full hover:bg-indigo-700">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </template>
+<div class="overflow-x-auto mx-auto px-4 py-8">
+    <h2 class="text-2xl font-bold mb-6">Productos Destacados</h2>
+    <div class="flex space-x-4 pb-4">
+        @foreach($productos as $producto)
+            <div class="flex-shrink-0 w-64 bg-white shadow-md rounded-lg overflow-hidden hover:shadow-xl transition duration-300 flex flex-col h-full">
+                @if($producto->foto && filter_var($producto->foto, FILTER_VALIDATE_URL))
+                    <img src="{{ $producto->foto }}" alt="{{ $producto->nombre }}" class="w-full h-56 object-cover rounded-t-lg">
+                @else
+                    <div class="w-full h-56 flex items-center justify-center bg-gray-200 text-gray-500 rounded-t-lg">
+                        <span class="text-lg">Sin imagen</span>
+                    </div>
+                @endif
+
+                <div class="p-4 flex flex-col flex-grow">
+                    <h5 class="text-xl font-semibold mb-2 line-clamp-2">{{ $producto->nombre }}</h5>
+                    <p class="text-lg text-green-600 font-bold mb-4">${{ number_format($producto->precio, 0, ',', '.') }}</p>
+                    <div class="mt-auto">
+                        <a href="{{ route('carrito.agregar', $producto->id) }}"
+                           class="block w-full bg-blue-500 hover:bg-blue-600 text-white text-center font-medium py-2 px-4 rounded transition duration-200">
+                            Añadir al carrito
+                        </a>
                     </div>
                 </div>
-            </section>
+            </div>
+        @endforeach
+    </div>
+</div>
+
             
             <!-- Daily Deals -->
             <section class="py-8 bg-gradient-to-r from-pink-500 to-purple-600 text-white">
@@ -783,8 +805,48 @@
         </div>
     </div>
 
+<div class="max-w-7xl mx-auto px-4 py-8">
+    <h2 class="text-3xl font-bold mb-6 text-center">Lista de productos</h2>
 
-    
+    @if($productos->isEmpty())
+        <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded max-w-md mx-auto text-center">
+            No hay productos disponibles.
+        </div>
+    @else
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            @foreach($productos as $producto)
+                <div class="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-xl transition duration-300 flex flex-col h-full">
+                    @if($producto->foto && filter_var($producto->foto, FILTER_VALIDATE_URL))
+                        <img src="{{ $producto->foto }}" alt="{{ $producto->nombre }}" class="w-full h-56 object-cover rounded-t-lg">
+                    @else
+                        <div class="w-full h-56 flex items-center justify-center bg-gray-200 text-gray-500 rounded-t-lg">
+                            <span class="text-lg">Sin imagen</span>
+                        </div>
+                    @endif
+                    
+                    <div class="p-4 flex flex-col flex-grow">
+                        <h5 class="text-xl font-semibold mb-2 line-clamp-2">{{ $producto->nombre }}</h5>
+                        <p class="text-lg text-green-600 font-bold mb-4">${{ number_format($producto->precio, 0, ',', '.') }}</p>
+                        <div class="mt-auto">
+                            <a href="{{ route('carrito.agregar', $producto->id) }}"
+                               class="block w-full bg-blue-500 hover:bg-blue-600 text-white text-center font-medium py-2 px-4 rounded transition duration-200">
+                                Añadir al carrito
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    @endif
+</div>
+
+
+
+
+    <script>
+    const productosDesdeLaravel = @json($productos);
+</script>
+
     <script id="app-script">
         function app() {
             return {
@@ -1234,14 +1296,17 @@
         }
     </script>
 
+
+
+
     <style>
         /* Toggle Switch Styles */
         .toggle-checkbox:checked {
             right: 0;
-            border-color: #4F46E5;
+            border-color:rgb(68, 68, 72);
         }
         .toggle-checkbox:checked + .toggle-label {
-            background-color: #4F46E5;
+            background-color:rgb(129, 129, 132);
         }
         .toggle-checkbox {
             right: 0;

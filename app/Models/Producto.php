@@ -17,17 +17,19 @@ class Producto extends Model
 
     use HasFactory;
 
-    protected $fillable = [
+    protected $table = 'productos';
 
+    protected $fillable = [
         'nombre',
-        'unidad_medida_id',
         'precio',
-        'proveedor_id', 
+        'unidad_medida_id',
+        'descuento',
+        'proveedor_id',
         'categoria_id',
-        'tipo_articulos_id', 
-        'foto', 
-        'descripcion', 
-        
+        'tipo_articulos_id',
+        'foto',
+        'descripcion',
+        'activo'
         ];
         
         public function proveedor()
@@ -55,6 +57,13 @@ class Producto extends Model
         {
             return $this->belongsTo(Inventario::class);
         }
+        public function getImagenUrlAttribute()
+        {
+            return 'https://miwebexterna.com/images/' . $this->imagen;
+        }
 
+        public function carritos() {
+            return $this->hasMany(Carrito::class);
+}
 
 }

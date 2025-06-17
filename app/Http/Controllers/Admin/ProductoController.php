@@ -25,6 +25,7 @@ class ProductoController extends Controller
         return view('admin.productos.index', compact(
             'productos', 'proveedores', 'categorias', 'tipoArticulos', 'unidadMedidas'
         ));
+
     }
 
     public function create()
