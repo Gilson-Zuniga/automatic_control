@@ -61,7 +61,7 @@
           <a href="#products" class="btn btn-laravel btn-lg">Empezar ahora</a>
         </div>
         <div class="col-lg-6 d-none d-lg-block">
-          <img src="https://cdn.pixabay.com/photo/2018/09/28/19/07/ethics-3709719_1280.png" alt="Dashboard" class="img-fluid">
+          <img src="{{ asset('img/dashboard.jpg') }}" alt="Dashboard" class="img-fluid imgDashboard">
         </div>
       </div>
     </div>

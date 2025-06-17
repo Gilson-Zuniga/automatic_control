@@ -338,3 +338,7 @@
       margin-bottom: 1rem;
       display: none;
     }
+
+    .imgDashboard {
+      border-radius: 10px;
+    }
