@@ -1,0 +1,340 @@
+
+    :root {
+      --laravel-dark: #343a40;
+      --laravel-red: #e3342f;
+      --laravel-light: #f8f9fa;
+      --body-bg: var(--laravel-dark);
+      --body-color: var(--laravel-light);
+      --card-bg: rgba(52, 58, 64, 0.8);
+      --navbar-bg: rgba(33, 37, 41, 0.95);
+      --border-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: var(--body-bg);
+      color: var(--body-color);
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    /* Light theme styles */
+    body.light-theme {
+      --body-bg: #f8f9fa;
+      --body-color: #343a40;
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --navbar-bg: rgba(248, 249, 250, 0.95);
+      --border-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    body.light-theme .navbar {
+      background-color: var(--navbar-bg);
+    }
+    
+    body.light-theme .navbar-dark .navbar-nav .nav-link {
+      color: var(--body-color);
+    }
+    
+    body.light-theme .feature-card,
+    body.light-theme .product-card,
+    body.light-theme .modal-content {
+      background-color: var(--card-bg);
+      color: var(--body-color);
+      border-color: var(--border-color);
+    }
+    
+    body.light-theme footer {
+      background-color: var(--navbar-bg);
+      color: var(--body-color);
+    }
+    
+    body.light-theme .footer-links a {
+      color: var(--body-color);
+    }
+    
+    /* Theme toggle button */
+    #themeToggle {
+      background: transparent;
+      border: 1px solid var(--laravel-red);
+      color: var(--body-color);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    #themeToggle:hover {
+      background-color: var(--laravel-red);
+      color: white;
+    }
+    
+    .navbar {
+      background-color: rgba(33, 37, 41, 0.95);
+      padding: 1rem 0;
+    }
+    
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+    
+    .navbar-brand img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    .btn-laravel {
+      background-color: var(--laravel-red);
+      border-color: var(--laravel-red);
+      color: white;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-laravel:hover {
+      background-color: #c82333;
+      border-color: #c82333;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(227, 52, 47, 0.3);
+    }
+    
+    .hero-section {
+      background: linear-gradient(rgba(33, 37, 41, 0.9), rgba(33, 37, 41, 0.9)), url('https://cdn.pixabay.com/photo/2018/03/27/21/43/startup-3267505_1280.jpg');
+      background-size: cover;
+      background-position: center;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-text h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+    }
+    
+    .hero-text p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    .feature-card {
+      background-color: rgba(52, 58, 64, 0.8);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 1rem 0;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      height: 100%;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      border-color: var(--laravel-red);
+    }
+    
+    .feature-icon {
+      background-color: var(--laravel-red);
+      color: white;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .features-section {
+      padding: 5rem 0;
+    }
+    
+    .section-title {
+      position: relative;
+      margin-bottom: 3rem;
+      padding-bottom: 1rem;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 80px;
+      height: 4px;
+      background-color: var(--laravel-red);
+    }
+    
+    .product-card {
+      background-color: rgba(52, 58, 64, 0.8);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      height: 100%;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .product-img {
+      height: 200px;
+      object-fit: cover;
+      width: 100%;
+    }
+    
+    .product-info {
+      padding: 1.5rem;
+    }
+    
+    .product-price {
+      color: var(--laravel-red);
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    
+    .modal-content {
+      background-color: var(--laravel-dark);
+      color: var(--laravel-light);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .modal-header, .modal-footer {
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .modal-title {
+      color: var(--laravel-red);
+    }
+    
+    footer {
+      background-color: rgba(33, 37, 41, 0.95);
+      padding: 3rem 0;
+      margin-top: 3rem;
+    }
+    
+    .footer-links h5 {
+      color: var(--laravel-red);
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+    
+    .footer-links a {
+      color: var(--laravel-light);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 0.8rem;
+      transition: all 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: var(--laravel-red);
+      transform: translateX(5px);
+    }
+    
+    .social-icons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--laravel-light);
+      margin-right: 10px;
+      transition: all 0.3s ease;
+    }
+    
+    .social-icons a:hover {
+      background-color: var(--laravel-red);
+      transform: translateY(-3px);
+    }
+    
+    .copyright {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(33, 37, 41, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--laravel-red);
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .carousel-item {
+      height: 300px;
+    }
+    
+    .carousel-caption {
+      background-color: rgba(33, 37, 41, 0.7);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--laravel-red);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 99;
+    }
+    
+    .back-to-top.visible {
+      opacity: 1;
+      cursor: pointer;
+    }
+    
+    .back-to-top:hover {
+      transform: translateY(-5px);
+    }
+    
+    .error-message {
+      background-color: rgba(220, 53, 69, 0.2);
+      color: #dc3545;
+      border: 1px solid #dc3545;
+      border-radius: 5px;
+      padding: 10px 15px;
+      margin-bottom: 1rem;
+      display: none;
+    }
