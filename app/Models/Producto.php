@@ -51,10 +51,13 @@ class Producto extends Model
         {
             return $this->belongsTo(UnidadMedida::class);
         }
+        // App\Models\Producto.php
+
         public function inventario()
         {
-            return $this->belongsTo(Inventario::class);
+            return $this->hasOne(Inventario::class, 'producto_id'); // clave foránea en inventarios
         }
+
 
 
 }

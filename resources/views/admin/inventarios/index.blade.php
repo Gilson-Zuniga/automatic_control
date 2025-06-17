@@ -31,7 +31,7 @@
                     <tr>
                         <td>{{ $inventario->producto->id }}</td>
                         <td>{{ $inventario->producto->nombre }}</td>
-                        <td>{{ $inventario->producto->unidad_medida_id }}</td>
+                        <td>{{ $inventario->unidad_medida }}</td>
                         <td>{{ $inventario->cantidad }}</td>
                         <td>{{ $inventario->producto->precio }}</td>
                         <td>{{ $inventario->producto->descuento }}</td>
