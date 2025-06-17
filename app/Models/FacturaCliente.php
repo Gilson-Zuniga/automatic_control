@@ -33,5 +33,6 @@ class FacturaCliente extends Model
     {
         return $this->hasMany(FacturaClienteItem::class);
     }
+    
 }
 

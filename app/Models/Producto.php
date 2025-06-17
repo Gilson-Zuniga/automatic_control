@@ -53,9 +53,11 @@ class Producto extends Model
         {
             return $this->belongsTo(UnidadMedida::class);
         }
+        // App\Models\Producto.php
+
         public function inventario()
         {
-            return $this->belongsTo(Inventario::class);
+            return $this->hasOne(Inventario::class, 'producto_id'); // clave foránea en inventarios
         }
         public function getImagenUrlAttribute()
         {
@@ -65,5 +67,6 @@ class Producto extends Model
         public function carritos() {
             return $this->hasMany(Carrito::class);
 }
+
 
 }

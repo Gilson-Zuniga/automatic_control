@@ -22,3 +22,4 @@ Route::resource('facturas_proveedores',FacturaProveedorController::class);
 Route::resource('inventarios',InventarioController::class);
 Route::resource('users',USerController::class);
 Route::resource('unidades_medidas',UnidadMedidaController::class)->parameters(['unidades_medidas' => 'unidadMedida']);
+Route::resource('facturas_clientes',FacturaClienteController::class);

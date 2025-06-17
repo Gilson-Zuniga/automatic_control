@@ -5,7 +5,7 @@ use Livewire\Volt\Volt;
 use App\Http\Controllers\TiendaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CarritoController;
-
+use App\Http\Controllers\InicioController;
 
 
 Route::get('/', function () {
@@ -43,6 +43,8 @@ Route::middleware('auth')->group(function () {
 
 
 });
+
+Route::get('/inicio', [InicioController::class, 'index'])->name('inicio.index');
 
 
 require __DIR__.'/auth.php';

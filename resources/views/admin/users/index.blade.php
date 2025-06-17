@@ -1,10 +1,10 @@
-<x-layouts.app :title="'Ver Usuarios | Automatic Control'"> 
+<x-layouts.app :title="'Ver Roles | Automatic Control'"> 
 
     <div class="mb-8 flex justify-between items-center">
         <flux:breadcrumbs>
 
             <flux:breadcrumbs.item href="{{route('dashboard')}}">Dashboard</flux:breadcrumbs.item>
-            <flux:breadcrumbs.item >Usuarios</flux:breadcrumbs.item>
+            <flux:breadcrumbs.item >Roles de Usuarios</flux:breadcrumbs.item>
         </flux:breadcrumbs>
 
 

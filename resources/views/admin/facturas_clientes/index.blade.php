@@ -33,7 +33,7 @@
                     <tr>
                         <td>{{ $factura->id }}</td>
                         <td>{{ $factura->numero_factura }}</td>
-                        <td>{{ $factura->users->name ?? 'N/A' }}</td>
+                        <td>{{ $factura->cliente->name ?? 'N/A'  }}</td>
                         <td>{{ $factura->empresa->nombre ?? 'N/A' }}</td>
                         <td>{{ $factura->created_at }}</td>
                         <td>${{ number_format($factura->total, 2, ',', '.') }}</td>
