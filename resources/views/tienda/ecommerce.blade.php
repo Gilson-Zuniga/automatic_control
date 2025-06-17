@@ -52,7 +52,7 @@
     </style>
 </head>
 <body class="bg-gray-100">
-    <div class="bg-yellow-200"><a href="javascript:void(0)" class="text-gray-600 hover:text-gray-800">Esta es una página demostrativa de nuestro E-Commerce. ¿Deseas regresar al inicio?</a></div>
+    <div class="bg-yellow-200"><a href="javascript:void(0)" class="text-gray-600 hover:text-gray-800 ml-4">Esta es una página demostrativa de nuestro E-Commerce. ¿Deseas regresar al inicio?</a></div>
 
     <div x-data="app()" class="min-h-screen flex flex-col">
         <!-- Navbar -->
@@ -61,7 +61,7 @@
                 <div class="flex items-center justify-between">
                     <!-- Logo -->
                     <div class="flex items-center space-x-2">
-                        <a href="javascript:void(0)" class="text-2xl font-bold">TechShop</a>
+                        <a href="javascript:void(0)" class="text-2xl font-bold">BazurtoShop</a>
                     </div>
                     
 
