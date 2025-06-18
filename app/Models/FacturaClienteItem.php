@@ -30,4 +30,10 @@ class FacturaClienteItem extends Model
     {
         return $this->belongsTo(Producto::class);
     }
+    public function inventario(): BelongsTo
+    {
+        return $this->belongsTo(Inventario::class, 'producto_id');
+    }
+
+    
 }

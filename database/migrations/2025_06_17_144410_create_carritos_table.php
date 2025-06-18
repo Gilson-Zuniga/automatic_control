@@ -1,30 +1,21 @@
 <?php
-
-use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
+return new class extends \Illuminate\Database\Migrations\Migration {
     public function up(): void
     {
-            Schema::create('carritos', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('user_id')->constrained()->onDelete('cascade');
-        $table->foreignId('producto_id')->constrained()->onDelete('cascade');
-        $table->integer('cantidad')->default(1);
-        $table->timestamps();
-    });
+        Schema::table('users', function (Blueprint $table) {
+            if (!Schema::hasColumn('users', 'last_login_at')) {
+                $table->timestamp('last_login_at')->nullable();
+            }
+        });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('carritos');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('last_login_at');
+        });
     }
 };

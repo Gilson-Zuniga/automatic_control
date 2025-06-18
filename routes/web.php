@@ -6,13 +6,13 @@ use App\Http\Controllers\TiendaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\InicioController;
-
+use App\Http\Controllers\DashboardController; 
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
+Route::get('dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
