@@ -150,6 +150,7 @@
                 precioInput.name = 'precio[]';
                 precioInput.step = '0.01';
                 precioInput.min = '0';
+                precioInput.readOnly = true;
                 precioInput.required = true;
                 precioInput.value = item ? item.precio_unitario : '';
                 precioCell.appendChild(precioInput);
@@ -164,6 +165,7 @@
                 descuentoInput.step = '1';
                 descuentoInput.min = '0';
                 descuentoInput.max = '100';
+                descuentoInput.readOnly= true;
                 descuentoInput.value = item ? item.descuento : '0';
                 descuentoCell.appendChild(descuentoInput);
                 

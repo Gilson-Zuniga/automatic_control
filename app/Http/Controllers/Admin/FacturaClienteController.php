@@ -12,6 +12,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EnviarCorreo;
+
 use Illuminate\Support\Facades\File;
 
 class FacturaClienteController extends Controller
@@ -58,7 +61,7 @@ class FacturaClienteController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'empresa_id' => 'required|exists:empresas,id', // Corregido si usas empresas.id
+            'empresa_id' => 'required|exists:empresas,id', 
             'cliente_id' => 'required|exists:users,id',
             'items_json' => 'required|string',
         ]);
@@ -135,9 +138,32 @@ class FacturaClienteController extends Controller
             $factura->pdf_path = $rutaPDF;
             $factura->save();
 
+            // Enviar correo al cliente
+            $factura->load('cliente', 'items.producto');
+
+            $cliente = $factura->cliente;
+
+            if ($cliente && $cliente->email) {
+                Mail::to($cliente->email)->send(new EnviarCorreo($factura, $rutaPDF));
+            }
+
+
             DB::commit();
 
-            return redirect()->route('admin.facturas_clientes.index')->with('success', 'Factura registrada correctamente.');
+            $cliente = $factura->cliente;
+
+            if ($cliente && $cliente->email) {
+                Mail::to($cliente->email)->send(new EnviarCorreo($factura, $rutaPDF));
+            }
+
+
+            session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡ Bien crack !',
+            'text' => 'Se ha registrado una nueva factura con éxito'
+        ]);
+
+            return redirect()->route('admin.facturas_clientes.index');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->withInput()->with('error', 'Error al guardar la factura: ' . $e->getMessage());
