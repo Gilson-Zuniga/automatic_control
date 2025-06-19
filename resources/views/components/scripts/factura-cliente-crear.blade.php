@@ -89,7 +89,13 @@
                 
                 // Si no hay productos, mostrar alerta
                 if (getProductosDisponibles().length === 0) {
-                    alert('La empresa seleccionada no tiene productos disponibles en inventario');
+                    window.dispatchEvent(new CustomEvent('flux-alert', {
+                        detail: {
+                            message: 'La empresa seleccionada no tiene productos disponibles',
+                            type: 'error' // opciones: success, warning, error
+                        }
+}));
+
                 }
             });
             
@@ -224,8 +230,24 @@
                         cantidadInput.setAttribute('max', stock);
                         
                         // Mostrar alerta si el stock es bajo
-                        if (stock < 5) {
-                            alert(`¡Atención! Stock bajo para ${selectedOption.text.split(' (Stock')[0]}. Solo quedan ${stock} unidades.`);
+                        if (stock < 5) {                            
+                            window.dispatchEvent(new CustomEvent('flux-alert', {
+                                detail: {
+                                    message: `¡Atención! Stock bajo para ${selectedOption.text.split(' (Stock')[0]}. Solo quedan ${stock} unidades.`,
+                                    type: 'error'
+                                }
+                        }));
+
+                        }
+                        
+                        if (stock < 10) {                            
+                            window.dispatchEvent(new CustomEvent('flux-alert', {
+                                detail: {
+                                    message: `¡Atención! Stock bajo para ${selectedOption.text.split(' (Stock')[0]}. Solo quedan ${stock} unidades.`,
+                                    type: 'warning'
+                                }
+                        }));
+
                         }
                     }
                     updateItem(row);
@@ -344,8 +366,13 @@
             addItemBtn.addEventListener('click', function() {
                 // Verificar si hay productos disponibles antes de agregar
                 if (getProductosDisponibles().length === 0) {
-                    alert('No hay productos disponibles para la empresa seleccionada');
-                    return;
+                    window.dispatchEvent(new CustomEvent('flux-alert', {
+                        detail: {
+                            message: 'No hay productos disponibles para esta empresa',
+                            type: 'error' // opciones: success, warning, error
+                        }
+                }));
+
                 }
                 
                 addItemRow();
@@ -356,7 +383,12 @@
                 // Validar que haya al menos un ítem
                 if (document.querySelectorAll('.item-row').length === 0) {
                     e.preventDefault();
-                    alert('Debe agregar al menos un ítem a la factura');
+                    window.dispatchEvent(new CustomEvent('flux-alert', {
+                        detail: {
+                            message: 'Debe agregar al menos un item a la factura',
+                            type: 'error' // opciones: success, warning, error
+                        }
+                }));
                     return;
                 }
                 
@@ -373,7 +405,12 @@
                 
                 if (!valid) {
                     e.preventDefault();
-                    alert('Todos los ítems deben tener un producto seleccionado');
+                    window.dispatchEvent(new CustomEvent('flux-alert', {
+                        detail: {
+                            message: 'Todos los items deben tener un producto seleccionado',
+                            type: 'error' // opciones: success, warning, error
+                        }
+                    }));
                     return;
                 }
                 
@@ -384,7 +421,12 @@
                     
                     if (recibido < total) {
                         e.preventDefault();
-                        alert('El monto recibido debe ser mayor o igual al total de la factura');
+                        window.dispatchEvent(new CustomEvent('flux-alert', {
+                        detail: {
+                            message: 'El monto recibido debe ser mayor al de la factura',
+                            type: 'error' // opciones: success, warning, error
+                        }
+                    }));
                         return;
                     }
                 }

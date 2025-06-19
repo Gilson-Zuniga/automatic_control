@@ -241,7 +241,12 @@
                 // Validar que haya al menos un ítem
                 if (document.querySelectorAll('.item-row').length === 0) {
                     e.preventDefault();
-                    alert('Debe agregar al menos un ítem a la factura');
+                    window.dispatchEvent(new CustomEvent('flux-alert', {
+                        detail: {
+                            message: 'Debe agregar al menos un item a la factura',
+                            type: 'error' // opciones: success, warning, error
+                        }
+                    }));
                     return;
                 }
                 
@@ -258,7 +263,12 @@
                 
                 if (!valid) {
                     e.preventDefault();
-                    alert('Todos los ítems deben tener un producto seleccionado');
+                    window.dispatchEvent(new CustomEvent('flux-alert', {
+                        detail: {
+                            message: 'Todos los items deben tener un producto seleccionado',
+                            type: 'error' // opciones: success, warning, error
+                        }
+                    }));
                     return;
                 }
                 
