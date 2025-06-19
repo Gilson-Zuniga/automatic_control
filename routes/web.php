@@ -7,39 +7,31 @@ use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\DashboardController; 
 
+// Rutas públicas (no requieren login)
+Route::get('/', [TiendaController::class, 'mostrarEcommerce'])->name('home');
+Route::get('/home', [TiendaController::class, 'mostrarEcommerce']);
+Route::get('/inicio', [InicioController::class, 'index'])->name('inicio.index');
 
+// Rutas protegidas
+Route::middleware(['auth', 'verified'])->group(function () {
 
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
-
-Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
     Volt::route('settings/password', 'settings.password')->name('settings.password');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 
-    
-
-    Route::get('/', [TiendaController::class, 'mostrarEcommerce']);
-
-
-
-Route::post('/carrito/agregar', [CarritoController::class, 'agregar'])->name('carrito.agregar');
-
-Route::middleware('auth')->group(function () {
+    // Carrito solo accesible con login
     Route::get('/carrito', [CarritoController::class, 'index'])->name('carrito.index');
     Route::get('/carrito/agregar/{id}', [CarritoController::class, 'agregar'])->name('carrito.agregar');
     Route::delete('/carrito/eliminar/{id}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
     Route::post('/carrito/comprar', [CarritoController::class, 'comprar'])->name('carrito.comprar');
 });
 
+// Ruta pública para agregar al carrito desde el ecommerce (si quieres permitirlo)
+Route::post('/carrito/agregar', [CarritoController::class, 'agregar'])->name('carrito.agregar.public');
 
-});
-
-Route::get('/inicio', [InicioController::class, 'index'])->name('inicio.index');
-Route::get('/home', [TiendaController::class, 'mostrarEcommerce'])->name('home');
-
+//  Incluye rutas de autenticación (login, registro, etc.)
 require __DIR__.'/auth.php';
