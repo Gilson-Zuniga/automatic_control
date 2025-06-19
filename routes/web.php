@@ -40,6 +40,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/inicio', [InicioController::class, 'index'])->name('inicio.index');
-
+Route::get('/home', [TiendaController::class, 'mostrarEcommerce'])->name('home');
 
 require __DIR__.'/auth.php';
