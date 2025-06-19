@@ -3,14 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\TiendaController;
-use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\DashboardController; 
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+
+
 
 Route::get('dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
@@ -23,13 +21,10 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/password', 'settings.password')->name('settings.password');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 
-    Route::get('/ecommerce', function () {
-        return view('tienda.ecommerce');
-    });
+    
 
-    Route::get('/ecommerce', [TiendaController::class, 'mostrarEcommerce']);
+    Route::get('/', [TiendaController::class, 'mostrarEcommerce']);
 
-   Route::get('/ecommerce', [TiendaController::class, 'mostrarEcommerce']);
 
 
 Route::post('/carrito/agregar', [CarritoController::class, 'agregar'])->name('carrito.agregar');
