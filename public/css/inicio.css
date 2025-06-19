@@ -102,7 +102,7 @@
     }
     
     .hero-section {
-      background: linear-gradient(rgba(33, 37, 41, 0.9), rgba(33, 37, 41, 0.9)), url('https://cdn.pixabay.com/photo/2018/03/27/21/43/startup-3267505_1280.jpg');
+      background: linear-gradient(rgba(33, 37, 41, 0.9), rgba(33, 37, 41, 0.9)), url('../img/fondo.jpg');
       background-size: cover;
       background-position: center;
       min-height: 90vh;

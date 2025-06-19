@@ -3,15 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Producto;
+use App\Models\Inventario;
+use Illuminate\Http\Request;
 
 class TiendaController extends Controller
 {
     public function mostrarEcommerce()
     {
-        $productos = Producto::where('activo', 1)->get();
-        return view('tienda.ecommerce', compact('productos'));
-
-        
+        $productos = Inventario::with(['inventario', 'producto'])->get();
+        return view('tienda.index', compact('productos'));
     }
 }

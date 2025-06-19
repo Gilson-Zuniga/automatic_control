@@ -240,9 +240,9 @@
 <div class="overflow-x-auto mx-auto px-4 py-8">
     <h2 class="text-2xl font-bold mb-6">Productos Destacados</h2>
     <div class="flex space-x-4 pb-4">
-        @foreach($productos as $producto)
+        @foreach($productos as $tienda)
             <div class="flex-shrink-0 w-64 bg-white shadow-md rounded-lg overflow-hidden hover:shadow-xl transition duration-300 flex flex-col h-full">
-                @if($producto->foto && filter_var($producto->foto, FILTER_VALIDATE_URL))
+                @if($tienda->producto->foto && filter_var($tienda->producto->foto, FILTER_VALIDATE_URL))
                     <img src="{{ $producto->foto }}" alt="{{ $producto->nombre }}" class="w-full h-56 object-cover rounded-t-lg">
                 @else
                     <div class="w-full h-56 flex items-center justify-center bg-gray-200 text-gray-500 rounded-t-lg">
@@ -358,7 +358,7 @@
                     </div>
                 </div>
                 <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
-                    <p>&copy; 2025 TechShop. Todos los derechos reservados.</p>
+                    <a href="/inicio">&copy; 2025 TechShop. Todos los derechos reservados.</a>
                 </div>
             </div>
         </footer>
