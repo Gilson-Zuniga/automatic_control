@@ -1,15 +1,11 @@
-<x-layouts.app :title="'Ver Tipos de Artículo'">
+<x-layouts.app :title="'Ver Tipos de Artículo | Automatic Control'">
 
     <div class="mb-8 flex justify-between items-center">
         <flux:breadcrumbs>
             <flux:breadcrumbs.item href="{{ route('dashboard') }}">Dashboard</flux:breadcrumbs.item>
             <flux:breadcrumbs.item>Tipos de Artículo</flux:breadcrumbs.item>
         </flux:breadcrumbs>
-
-        <a href="{{ route('admin.tipos_articulos.create') }}"
-           class="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition text-xs">
-            Nuevo
-        </a>
+        <x-button-link href="{{ route('admin.tipos_articulos.create') }}" >Nuevo</x-button-link>
     </div>
 
     <div class="card mt-8 ">
@@ -30,10 +26,9 @@
                         <td>{{ $tipo->categoria->nombre ?? 'Sin categoría' }}</td>
                         <td>
                             <div class="flex justify-end gap-2">
-                                <a href="{{ route('admin.tipos_articulos.edit', $tipo) }}"
-                                   class="inline-block px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 text-xs">
+                                <x-button-link href="{{ route('admin.tipos_articulos.edit', $tipo) }}" color="yellow">
                                     Editar
-                                </a>
+                                </x-button-link>
                                 <form class="confirmar-eliminar" action="{{ route('admin.tipos_articulos.destroy', $tipo->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
@@ -52,3 +47,4 @@
     @include('components.scripts.datatable-delete')
 
 </x-layouts.app>
+

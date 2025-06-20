@@ -29,7 +29,7 @@ class Producto extends Model
         'tipo_articulos_id',
         'foto',
         'descripcion',
-        'activo'
+
         ];
         
         public function proveedor()

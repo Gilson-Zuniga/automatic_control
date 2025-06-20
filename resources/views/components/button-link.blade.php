@@ -5,7 +5,7 @@
 ])
 
 @php
-    $baseClasses = 'inline-block px-4 py-2 rounded text-xs font-semibold focus:outline-none focus:ring ';
+    $baseClasses = 'inline-block px-4 py-2 text-white rounded text-sm transition-colors duration-200 font-semibold';
 
     $colorClasses = [
         'blue'    => 'bg-blue-600 hover:bg-blue-700 text-white',

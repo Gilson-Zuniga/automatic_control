@@ -8,7 +8,6 @@
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
-<<<<<<< HEAD
         <!-- Styles -->
         <style>
             /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
@@ -49,7 +48,6 @@
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
                 <div class="text-center mt-2 text-gray-600 dark:text-gray-400 text-sm">
                     Laravel {{ Illuminate\Foundation\Application::VERSION }} (PHP {{ PHP_VERSION }})
-=======
                     
                     <!-- Search Bar -->
                     <div class="relative w-full max-w-xl mx-4" x-data="{ isOpen: false, searchQuery: '', suggestions: [] }">
@@ -402,7 +400,6 @@
                             </div>
                         </div>
                     </div>
->>>>>>> 13a3d67e1719e27000a7b6a812d0c42f1af02bce
                 </div>
             </div>
         </div>

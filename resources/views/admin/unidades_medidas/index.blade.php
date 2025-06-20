@@ -2,19 +2,13 @@
 
     <div class="mb-8 flex justify-between items-center">
         <flux:breadcrumbs>
-
             <flux:breadcrumbs.item href="{{route('dashboard')}}">Dashboard</flux:breadcrumbs.item>
             <flux:breadcrumbs.item >Unidades de Medida</flux:breadcrumbs.item>
         </flux:breadcrumbs>
-
-        <a href="{{ route('admin.unidades_medidas.create') }}" class="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition text-xs">
-            Nuevo
-        </a>
-
+        <x-button-link href="{{ route('admin.unidades_medidas.create') }}" >Nuevo</x-button-link>
     </div>
+
     <div class="card mt-8">
-        
-        
         <table id="tabla-unidades_medidas" class="display table datatable">
             <thead>
                 <tr>
@@ -45,7 +39,6 @@
                                 </form>
                             </div>
                         </td>
-
                     </tr>
                 @endforeach
             </tbody>

@@ -48,9 +48,9 @@
                                     : asset('storage/' . $producto->foto);
                             @endphp
                             <img src="{{ $foto }}"
-                                 alt="Foto"
-                                 class="w-16 h-16 object-cover rounded cursor-pointer"
-                                 onclick="mostrarModalImagen('{{ $foto }}')">
+                                alt="Foto"
+                                class="w-16 h-16 object-cover rounded cursor-pointer"
+                                onclick="mostrarModalImagen('{{ $foto }}')">
                         @else
                             <span class="text-gray-500 italic">Sin imagen</span>
                         @endif

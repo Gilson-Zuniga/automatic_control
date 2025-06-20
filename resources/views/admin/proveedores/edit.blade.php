@@ -1,4 +1,4 @@
-<x-layouts.app :title="'Registrar Proveedores'">
+<x-layouts.app :title="'Editar Proveedores |  Automatic Control'">
     <flux:breadcrumbs class="mb-8">
         <flux:breadcrumbs.item href="{{ route('dashboard') }}">Dashboard</flux:breadcrumbs.item>
         <flux:breadcrumbs.item :href="route('admin.proveedores.index')">Proveedores</flux:breadcrumbs.item>
@@ -61,10 +61,10 @@
             />
 
             <!-- Botones -->
-                <div class="flex justify-end space-x-2">
-                    <x-button-link href="{{ route('admin.proveedores.index') }}" color="red">Cancelar</x-button-link>
-                    <x-button type="submit" color="blue">Actualizar</x-button>             
-                </div>
+            <div class="flex justify-end space-x-2">
+                <x-button-link href="{{ route('admin.proveedores.index') }}" color="red">Cancelar</x-button-link>
+                <x-button type="submit" color="blue">Actualizar</x-button>             
+            </div>
         </form>
     </div>
 </x-layouts.app>

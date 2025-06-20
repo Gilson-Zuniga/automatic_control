@@ -22,9 +22,11 @@ class CategoriaController extends Controller
 
     public function store(Request $request)
     {
+        
         $data = $request->validate([
-            'nombre' => 'required|string|min:3|max:255',
+            'nombre' => 'required|string|min:3|max:255|unique:categorias',
             'tipo_articulo' => 'required|string|min:3|max:255',
+            
         ]);
 
         $categoria = Categoria::create([
@@ -59,7 +61,7 @@ class CategoriaController extends Controller
     public function update(Request $request, Categoria $categoria)
     {
         $data = $request->validate([
-            'nombre' => 'required|string|min:3|max:255',
+            'nombre' => 'required|string|min:3|max:255|unique:categorias',
         ]);
 
         $categoria->update([
@@ -68,7 +70,7 @@ class CategoriaController extends Controller
 
         session()->flash('swal', [
             'icon' => 'success',
-            'title' => '¡ Bien crack !',
+            'title' => '¡ Muy bien !',
             'text' => 'Se ha actualizado la categoría con éxito'
         ]);
 
@@ -81,7 +83,7 @@ class CategoriaController extends Controller
 
         session()->flash('swal', [
             'icon' => 'success',
-            'title' => '¡ Bien crack !',
+            'title' => '¡ Muy bien !',
             'text' => 'Se ha eliminado la categoría con éxito'
         ]);
 

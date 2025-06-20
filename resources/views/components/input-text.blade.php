@@ -8,7 +8,6 @@
 
 <div >
     <label for="{{ $name }}" class="form-label mb-2">{{ $label }}</label>
-
     @if ($type === 'file')
         <input
             type="file"

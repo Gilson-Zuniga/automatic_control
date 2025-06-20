@@ -1,20 +1,12 @@
 <x-layouts.app :title="'Ver Proveedores | Automatic Control'"> 
-
     <div class="mb-8 flex justify-between items-center">
         <flux:breadcrumbs>
-
             <flux:breadcrumbs.item href="{{route('dashboard')}}">Dashboard</flux:breadcrumbs.item>
             <flux:breadcrumbs.item >Proveedores</flux:breadcrumbs.item>
         </flux:breadcrumbs>
-
-        <a href="{{ route('admin.proveedores.create') }}" class="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition text-xs">
-            Nuevo
-        </a>
-
+        <x-button-link href="{{ route('admin.proveedores.create') }}" color="blue">Nuevo</x-button-link>
     </div>
     <div class="card mt-8">
-        
-        
         <table id="tabla-proveedores" class="display table datatable">
             <thead>
                 <tr>
@@ -40,10 +32,7 @@
                         <td>{{ $proveedor->ubicacion }}</td>
                         <td width="">
                             <div class="flex justify-end gap-2">
-                                <a href="{{ route('admin.proveedores.edit',$proveedor) }}"
-                                class="inline-block px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 text-xs ">
-                                    Editar
-                                </a>
+                                <x-button-link href="{{ route('admin.proveedores.edit',$proveedor) }}"  color="yellow">Editar</x-button-link>
                                 <form class="confirmar-eliminar" action="{{ route('admin.proveedores.destroy',$proveedor->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
@@ -53,7 +42,6 @@
                                 </form>
                             </div>
                         </td>
-
                     </tr>
                 @endforeach
             </tbody>

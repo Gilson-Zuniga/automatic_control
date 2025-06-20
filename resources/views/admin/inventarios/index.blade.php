@@ -1,4 +1,4 @@
-<x-layouts.app :title="'Ver Inventario'"> 
+<x-layouts.app :title="'Ver Inventario || Automatic Control'"> 
 
     <div class="mb-8 flex justify-between items-center">
         <flux:breadcrumbs>
@@ -38,8 +38,6 @@
                         <td>{{ $inventario->empresa->nombre }}</td>
                         <td>{{ $inventario->created_at }}</td>
                         <td>{{ $inventario->updated_at }}</td>
-
-
                     </tr>
                 @endforeach
             </tbody>

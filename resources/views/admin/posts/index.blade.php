@@ -1,19 +1,13 @@
-<x-layouts.app :title="'Ver Posts'"> 
+<x-layouts.app :title="'Ver Posts | Automatic Control'"> 
 
     <div class="mb-8 flex justify-between items-center">
         <flux:breadcrumbs>
-
             <flux:breadcrumbs.item href="{{route('dashboard')}}">Dashboard</flux:breadcrumbs.item>
             <flux:breadcrumbs.item >Posts</flux:breadcrumbs.item>
         </flux:breadcrumbs>
-
-        <a href="{{ route('admin.posts.create') }}" class="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition text-xs">
-            Nuevo
-        </a>
-
+        <x-button-link href="{{ route('admin.posts.create') }}" color="blue">Nuevo</x-button-link>
     </div>
     <div class="card mt-8">
-        
         
         <table id="tabla-posts" class="display table datatable">
             <thead>
@@ -40,20 +34,16 @@
                         <td>{{ $post->updated_at }}</td>
                         <td width="">
                             <div class="flex justify-end gap-2">
-                                <a href="{{ route('admin.posts.edit',$post) }}"
-                                class="inline-block px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 text-xs ">
+                                <x-button-link href="{{ route('admin.posts.edit', $post) }}" color="yellow">
                                     Editar
-                                </a>
+                                </x-button-link>
                                 <form class="confirmar-eliminar" action="{{ route('admin.posts.destroy',$post->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <x-button type="submit" color="red">
-                                        Eliminar
-                                    </x-button>
+                                    <x-button type="submit" color="red">Eliminar</x-button>               
                                 </form>
                             </div>
                         </td>
-
                     </tr>
                 @endforeach
             </tbody>

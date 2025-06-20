@@ -32,7 +32,7 @@ class ProveedorController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'nombre' => 'required|string|min:3|max:255',
+            'nombre' => 'required|string|min:3|max:255|unique:proveedores',
             'nit' => 'required|string|min:10|max:12|unique:proveedores,nit',
             'telefono' => 'required|string|min:10|max:10',
             'email' => 'required|string|max:255|unique:proveedores,email',
