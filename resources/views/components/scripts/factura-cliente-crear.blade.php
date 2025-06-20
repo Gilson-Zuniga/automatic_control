@@ -117,7 +117,7 @@
                 const productoCell = document.createElement('td');
                 productoCell.className = 'px-4 py-2';
                 const productoSelect = document.createElement('select');
-                productoSelect.className = 'w-full px-3 py-2 bg-gray-700 text-white border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 producto-select';
+                productoSelect.className = 'w-full px-3 py-2 dark:bg-black-700 dark:text-white border border-white-600 rounded-md shadow-sm focus:outline-none focus:ring-black-500 focus:border-white-500 producto-select';
                 productoSelect.name = 'producto_id[]';
                 productoSelect.required = true;
                 
@@ -125,7 +125,7 @@
                 const emptyOption = document.createElement('option');
                 emptyOption.value = '';
                 emptyOption.textContent = 'Seleccione un producto';
-                emptyOption.className = 'bg-gray-600 text-white';
+                emptyOption.className = 'bg-white-600 dark:text-white';
                 productoSelect.appendChild(emptyOption);
                 productoCell.appendChild(productoSelect);
                 

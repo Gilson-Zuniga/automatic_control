@@ -141,11 +141,7 @@ class FacturaClienteController extends Controller
             // Enviar correo al cliente
             $factura->load('cliente', 'items.producto');
 
-            $cliente = $factura->cliente;
 
-            if ($cliente && $cliente->email) {
-                Mail::to($cliente->email)->send(new EnviarCorreo($factura, $rutaPDF));
-            }
 
 
             DB::commit();

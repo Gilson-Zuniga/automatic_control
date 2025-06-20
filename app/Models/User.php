@@ -28,6 +28,7 @@ class User extends Authenticatable
         'last_login_at'
     ];
 
+
     protected static function booted()
     {
         static::created(function ($user) {

@@ -5,6 +5,7 @@ use App\Models\FacturaCliente;
 use App\Models\FacturaClienteItem;
 use App\Models\Inventario;
 use App\Models\User;
+use App\Models\Post;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -34,10 +35,15 @@ class DashboardController extends Controller
             ->get();
         
         $totalVentasHoy = FacturaCliente::whereDate('created_at', today())->sum('total');
+        $totalVentasSemana = FacturaCliente::whereBetween('created_at', [
+            Carbon::now()->startOfWeek(), // lunes a las 00:00
+            Carbon::now()->endOfWeek(),   // domingo a las 23:59
+        ])->sum('total');
         $totalFacturas = FacturaCliente::count();
         $totalInventario = Inventario::sum('cantidad');
         $totalProductos = Inventario::count();
-        $ultimasFacturas = FacturaCliente::latest()->take(5)->get();
+        $totalUsuarios = User::count();
+        $ultimasFacturas = FacturaCliente::with('cliente')->latest()->take(5)->get();
 
         $totalUsuarios = User::count();
 
@@ -45,15 +51,22 @@ class DashboardController extends Controller
             ->whereDate('last_login_at', Carbon::today())
             ->count();
 
+        $posts = Post::with('user')->latest()->take(5)->get(); // últimos 5
+        
+
         return view('dashboard', compact(
             'ventasPorMes',
             'productosBajos',
             'productosMasVendidos',
+            'totalVentasSemana',
             'totalVentasHoy',
             'totalFacturas',
             'totalInventario',
             'totalProductos',
-            'ultimasFacturas'
+            'ultimasFacturas',
+            'totalUsuarios',
+            'posts'
+
 ));
 
     }

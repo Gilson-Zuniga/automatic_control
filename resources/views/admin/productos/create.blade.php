@@ -1,4 +1,4 @@
-<x-layouts.app :title="'Registrar Producto'">
+<x-layouts.app :title="'Registrar Producto | Automatic Control'">
     <flux:breadcrumbs class="mb-8">
         <flux:breadcrumbs.item href="{{ route('dashboard') }}">Dashboard</flux:breadcrumbs.item>
         <flux:breadcrumbs.item :href="route('admin.productos.index')">Productos</flux:breadcrumbs.item>
@@ -50,7 +50,7 @@
                     required
                 />
 
-                {{-- Tipo de Artículo (IMPORTANTE: corregido nombre del campo) --}}
+                {{-- Tipo de Artículo --}}
                 <x-input-select
                     name="tipo_articulos_id"
                     label="Tipo de Artículo"

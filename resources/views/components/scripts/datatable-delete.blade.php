@@ -8,7 +8,6 @@
             }
         });
     });
-
     // SweetAlert2 para eliminar
     document.addEventListener('DOMContentLoaded', function () {
         const forms = document.querySelectorAll('.confirmar-eliminar');

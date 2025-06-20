@@ -10,6 +10,7 @@ return Application::configure(basePath: dirname(__DIR__))
         web: __DIR__.'/../routes/web.php',
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
+        //Ruta admin configurada y autenticada
         then: function(){
             Route::middleware('web', 'auth')
             ->prefix('/admin')

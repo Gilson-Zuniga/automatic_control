@@ -1,13 +1,13 @@
-<x-layouts.app :title="'Ver Proveedores | Automatic Control'"> 
+<x-layouts.app :title="'Ver Posts'"> 
 
     <div class="mb-8 flex justify-between items-center">
         <flux:breadcrumbs>
 
             <flux:breadcrumbs.item href="{{route('dashboard')}}">Dashboard</flux:breadcrumbs.item>
-            <flux:breadcrumbs.item >Proveedores</flux:breadcrumbs.item>
+            <flux:breadcrumbs.item >Posts</flux:breadcrumbs.item>
         </flux:breadcrumbs>
 
-        <a href="{{ route('admin.proveedores.create') }}" class="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition text-xs">
+        <a href="{{ route('admin.posts.create') }}" class="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition text-xs">
             Nuevo
         </a>
 
@@ -15,36 +15,36 @@
     <div class="card mt-8">
         
         
-        <table id="tabla-proveedores" class="display table datatable">
+        <table id="tabla-posts" class="display table datatable">
             <thead>
                 <tr>
                     <th>id</th>
-                    <th>Nit</th>
-                    <th>Nombre</th>
-                    <th>Telefono</th>
-                    <th>Email</th>
-                    <th>Direccion</th>
-                    <th>Ubicacion</th>
+                    <th>Titulo</th>
+                    <th>Asunto</th>
+                    <th>Contenido</th>
+                    <th>Usuario</th>
+                    <th>Creacion</th>
+                    <th>Modificado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($proveedores as $proveedor)
+                @foreach ($posts as $post)
                     <tr>
-                        <td>{{ $proveedor->id }}</td>
-                        <td>{{ $proveedor->nit }}</td>
-                        <td>{{ $proveedor->nombre }}</td>
-                        <td>{{ $proveedor->telefono }}</td>
-                        <td>{{ $proveedor->email }}</td>
-                        <td>{{ $proveedor->direccion }}</td>
-                        <td>{{ $proveedor->ubicacion }}</td>
+                        <td>{{ $post->id }}</td>
+                        <td>{{ $post->titulo }}</td>
+                        <td>{{ $post->asunto }}</td>
+                        <td>{{ $post->contenido }}</td>
+                        <td>{{ $post->user?->name ?? 'Sin autor' }}</td>
+                        <td>{{ $post->created_at }}</td>
+                        <td>{{ $post->updated_at }}</td>
                         <td width="">
                             <div class="flex justify-end gap-2">
-                                <a href="{{ route('admin.proveedores.edit',$proveedor) }}"
+                                <a href="{{ route('admin.posts.edit',$post) }}"
                                 class="inline-block px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 text-xs ">
                                     Editar
                                 </a>
-                                <form class="confirmar-eliminar" action="{{ route('admin.proveedores.destroy',$proveedor->id)}}" method="POST">
+                                <form class="confirmar-eliminar" action="{{ route('admin.posts.destroy',$post->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <x-button type="submit" color="red">

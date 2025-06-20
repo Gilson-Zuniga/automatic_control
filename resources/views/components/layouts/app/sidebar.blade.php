@@ -8,6 +8,13 @@
                 'url' => route('dashboard'),
                 'current' => request()->routeIs('dashboard'),
             ],
+            
+            [
+                'name' => 'Posts',
+                'icon' => 'pencil-square',
+                'url' => route('admin.posts.index'),
+                'current' => request()->routeIs('admin.posts.*'),
+            ],
 
             [
                 'name' => 'Proveedores',
@@ -15,6 +22,8 @@
                 'url' => route('admin.proveedores.index'),
                 'current' => request()->routeIs('admin.proveedores.*'),
             ],
+
+            
 
             [
                 'name' => 'Inventario',

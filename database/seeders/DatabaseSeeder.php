@@ -2,10 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Categoria;
-use App\Models\TipoArticulo;
-use App\Models\Proveedor;
 use Illuminate\Database\Seeder;
 
 use function Laravel\Prompts\password;
@@ -30,8 +26,11 @@ class DatabaseSeeder extends Seeder
         TipoArticuloSeeder::class,
         UnidadMedidaSeeder::class,
         ProductoSeeder::class,
+
         
     ]);
+    
+   
 
     }
 }
