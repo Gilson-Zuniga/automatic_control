@@ -6,19 +6,17 @@ use App\Http\Controllers\TiendaController;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\DashboardController; 
-use Illuminate\Support\Facades\Mail;
 
+// Rutas públicas (no requieren login)
+Route::get('/', [TiendaController::class, 'mostrarEcommerce'])->name('home');
+Route::get('/home', [TiendaController::class, 'mostrarEcommerce']);
+Route::get('/inicio', [InicioController::class, 'index'])->name('inicio.index');
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+// Rutas protegidas
+Route::middleware(['auth', 'verified'])->group(function () {
 
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
-
-Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
