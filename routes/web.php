@@ -7,6 +7,7 @@ use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\DashboardController; 
 
+
 // Rutas públicas (no requieren login)
 Route::get('/', [InicioController::class, 'index'])->name('home');
 Route::get('/home', [InicioController::class, 'index'])->name('inicio.index');
@@ -35,3 +36,7 @@ Route::post('/carrito/agregar', [CarritoController::class, 'agregar'])->name('ca
 
 //  Incluye rutas de autenticación (login, registro, etc.)
 require __DIR__.'/auth.php';
+
+Route::get('/productos', [App\Http\Controllers\TiendaController::class, 'mostrarProductos'])->name('productos.index');
+
+Route::get('/productos', [TiendaController::class, 'mostrarProductos'])->name('productos.index');
