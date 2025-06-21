@@ -410,3 +410,11 @@ body.light-theme #card-logo  {
 body:not(.light-theme) #card-logo  {
   color: white;
 }
+#logo3d{
+    width: 100%;
+    height: 400px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

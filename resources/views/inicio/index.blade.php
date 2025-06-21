@@ -10,6 +10,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link id="app-style" href="{{ asset('css/inicio.css') }}" rel="stylesheet">
+  <script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module" src="{{ asset('js/logo3d.js') }}"></script>
+
 </head>
 <body>
   <!-- Loading Overlay -->
@@ -60,7 +71,7 @@
           <a href="#products" class="btn btn-laravel btn-lg">Empezar ahora</a>
         </div>
         <div class="col-lg-6 d-none d-lg-block">
-          <img src="{{ asset('img/control-inventario.webp') }}" alt="Dashboard" class="img-fluid imgDashboard">
+          <div id="logo3d" style="width: 100%; height: 400px;"></div>
         </div>
       </div>
     </div>
