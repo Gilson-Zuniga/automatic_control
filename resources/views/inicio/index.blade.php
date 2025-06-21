@@ -54,7 +54,7 @@
             </button>
           </li>
           <li class="nav-item">
-            <a class="btn btn-laravel ms-lg-3" href="#products">Empezar ahora</a>
+            <a class="btn btn-laravel ms-lg-3" href="{{ url('login') }}">Iniciar sesión</a>
           </li>
         </ul>
       </div>
