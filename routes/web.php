@@ -7,10 +7,11 @@ use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\DashboardController; 
 
+
 // Rutas públicas (no requieren login)
-Route::get('/', [TiendaController::class, 'mostrarEcommerce'])->name('home');
-Route::get('/home', [TiendaController::class, 'mostrarEcommerce']);
-Route::get('/inicio', [InicioController::class, 'index'])->name('inicio.index');
+Route::get('/', [InicioController::class, 'index'])->name('home');
+Route::get('/home', [InicioController::class, 'index'])->name('inicio.index');
+Route::get('/tienda', [TiendaController::class, 'mostrarEcommerce'])->name('tienda.index');
 
 // Rutas protegidas
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -35,3 +36,7 @@ Route::post('/carrito/agregar', [CarritoController::class, 'agregar'])->name('ca
 
 //  Incluye rutas de autenticación (login, registro, etc.)
 require __DIR__.'/auth.php';
+
+Route::get('/productos', [App\Http\Controllers\TiendaController::class, 'mostrarProductos'])->name('productos.index');
+
+Route::get('/productos', [TiendaController::class, 'mostrarProductos'])->name('productos.index');

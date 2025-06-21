@@ -31,6 +31,8 @@
           themeIcon.classList.add('fa-moon');
           localStorage.setItem('theme', 'dark');
         }
+
+        
       });
       
       // Smooth scrolling for anchor links

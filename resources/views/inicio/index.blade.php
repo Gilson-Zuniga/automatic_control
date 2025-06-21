@@ -10,6 +10,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link id="app-style" href="{{ asset('css/inicio.css') }}" rel="stylesheet">
+  <script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module" src="{{ asset('js/logo3d.js') }}"></script>
+
 </head>
 <body>
   <!-- Loading Overlay -->
@@ -21,7 +32,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container">
       <a class="navbar-brand" href="javascript:void(0)">
-        <img src="https://cdn.pixabay.com/photo/2017/03/16/21/18/logo-2150297_640.png" alt="Logo">
+        <img src="{{ asset('img/logoBlanco.png') }}" alt="Logo">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -60,7 +71,7 @@
           <a href="#products" class="btn btn-laravel btn-lg">Empezar ahora</a>
         </div>
         <div class="col-lg-6 d-none d-lg-block">
-          <img src="{{ asset('img/dashboard.jpg') }}" alt="Dashboard" class="img-fluid imgDashboard">
+          <div id="logo3d" style="width: 100%; height: 400px;"></div>
         </div>
       </div>
     </div>
@@ -69,6 +80,53 @@
   <!-- New Inventory Management Section -->
   <section class="py-5 bg-dark" id="inventory-management">
     <div class="container">
+        <div class="row"> 
+            <div class="col-md-3 mb-3"> 
+                    <div class="card h-100 bg-dark text-white border-0">
+                 <img src="{{ asset('img/inventarioCheck.svg') }}" class="card-img-top w-50 mx-auto" alt="card-logo" id="card-logo">
+                    <div class="card-body">
+                        <h5 class="card-title">Inventario eficiente</h5>
+                        <p class="card-text">Mantener un registro actualizado de todos los productos y sus movimientos</p>
+              
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                   <div class="card h-100 bg-dark text-white border-0">
+                    <img src="{{ asset('img/tablet.svg') }}" class="card-img-top w-50 mx-auto" alt="card-logo" id="card-logo">
+                    <div class="card-body">
+                        <h5 class="card-title">Portabilidad</h5>
+                        <p class="card-text">Ten acceso a tu inventario desde cualquier parte del mundo con acceso a internet.</p>
+                     
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                    <div class="card h-100 bg-dark text-white border-0">
+                   <img src="{{ asset('img/camion.svg') }}" class="card-img-top w-50 mx-auto" alt="card-logo" id="card-logo">
+                    <div class="card-body">
+                        <h5 class="card-title">Nunca desabastecido</h5>
+                        <p class="card-text">Siempre estarás avisado cuando se esté acabando el stock para que puedas reaccionar a tiempo.</p>
+                       
+                    </div>
+                </div>
+            </div>
+                        <div class="col-md-3 mb-3">
+               <div class="card h-100 bg-dark text-white border-0">
+                 <img src="{{ asset('img/admin.svg') }}" class="card-img-top w-50 mx-auto" alt="card-logo" id="card-logo">
+                    <div class="card-body">
+                        <h5 class="card-title">Seguridad</h5>
+                        <p class="card-text">Puedes estar tranquilo con nosotros, nuestra plataforma tiene altos estándares de seguridad.</p>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+  <!-- 
+  <div class="container">
       <h2 class="section-title">Nuestra Gestión de Inventarios</h2>
       <div class="row">
         <div class="col-lg-6">
@@ -94,7 +152,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
   </section>
 
   <!-- Features Section -->
@@ -374,5 +432,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script id="app-script" src="{{ asset('js/inicio.js') }}"></script>
+
+
 </body>
 </html>
