@@ -152,8 +152,10 @@
           </div>
         </div>
       </div>
-    </div>-->
-  </section>
+    </div>
+    </section>
+    -->
+  
 
   <!-- Features Section -->
   <section class="features-section" id="features">
@@ -378,7 +380,8 @@
         <div class="col-md-2 footer-links">
           <h5>Enlaces</h5>
           <a href="#features">Características</a>
-          <a href="#products">Productos</a>
+          <a href="/tienda">Productos</a>
+          <a href="/tienda">Ecommerce</a>
           <a href="javascript:void(0)">Documentación</a>
           <a href="javascript:void(0)">Blog</a>
         </div>
