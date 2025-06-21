@@ -112,7 +112,9 @@
             <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
             <a href="{{ route('dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
-                <x-app-logo />
+                <img src="{{ asset('img/logo-icon.svg') }}" alt="Logo" class="h-10 w-auto" />
+                <h1 class="mb-0.5 truncate leading-tight font-semibold">Automatic Control</h1>
+
             </a>
 
             <flux:navlist variant="outline">

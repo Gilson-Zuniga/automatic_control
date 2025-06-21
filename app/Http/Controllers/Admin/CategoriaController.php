@@ -40,7 +40,7 @@ class CategoriaController extends Controller
 
         session()->flash('swal', [
             'icon' => 'success',
-            'title' => '¡ Bien crack !',
+            'title' => '¡ Muy bien !',
             'text' => 'Se ha creado la categoría con éxito'
         ]);
 
@@ -70,7 +70,7 @@ class CategoriaController extends Controller
 
         session()->flash('swal', [
             'icon' => 'success',
-            'title' => '¡ Muy bien !',
+            'title' => '¡ Actualizado !',
             'text' => 'Se ha actualizado la categoría con éxito'
         ]);
 
@@ -83,7 +83,7 @@ class CategoriaController extends Controller
 
         session()->flash('swal', [
             'icon' => 'success',
-            'title' => '¡ Muy bien !',
+            'title' => '¡ Eliminado !',
             'text' => 'Se ha eliminado la categoría con éxito'
         ]);
 
