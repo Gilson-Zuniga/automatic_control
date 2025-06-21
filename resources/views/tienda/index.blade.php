@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 <!-- JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-
+ <link id="app-style" href="{{ asset('css/inicio.css') }}" rel="stylesheet">
     <style id="app-style">
         [x-cloak] { display: none !important; }
         
@@ -277,7 +277,7 @@
 </div>
 
             <!-- Daily Deals -->
-            <section class="py-8 bg-gradient-to-r from-gray-500 to-red-600 text-white">
+            <section class="py-8 bg-gradient-to-r from-gray-500 to-stone-600 text-white">
                 <div class="container mx-auto px-4">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-2xl font-bold">Ofertas del Día</h2>
@@ -316,7 +316,23 @@
                 </div>
             </section>
         </main>
-        
+
+  <!-- Botón flotante -->
+  <div id="boton-flotante" onclick="toggleVentana()">☰ Info</div>
+
+  <!-- Ventana deslizante -->
+  <div id="ventana-deslizante" class="flex flex-row">
+<a href="/">
+    <img 
+        src="{{ asset('img/logoNegro.png') }}" 
+        alt="Logo"
+        style="max-height: 23px;"
+        style="max-width: 30px;"
+        style="padding-right:5px;">
+</a>
+<div style="padding-left:15px"> Ir aquí</div>
+  </div>
+
         <!-- Footer -->
         <footer class="bg-gray-800 text-white py-8">
             <div class="container mx-auto px-4">
@@ -367,11 +383,12 @@
                         </ul>
                     </div>
                 </div>
-                <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
-                    <a href="/inicio">&copy; 2025 BazurtoShop. Todos los derechos reservados.</a>
-                    <img src="{{ asset ('img/logoNegro.png') }}">
+                <div class="border-top border-dark mt-5 pt-3 text-muted">
+                   <div class="d-flex justify-content-center align-items-center gap-2">
+                    </div>
+                    <div class="container-fluid d-flex justify-content-center text-center mt-5"><span>2025 BazurtoShop. Todos los derechos reservados.</span></div>
+                       
                 </div>
-            </div>
         </footer>
         
         <!-- Product Modal -->
@@ -1297,8 +1314,12 @@
         }
     </script>
 
-
-
+  <script>
+    function toggleVentana() {
+      const panel = document.getElementById('ventana-deslizante');
+      panel.classList.toggle('activa');
+    }
+  </script>
 
     <style>
         /* Toggle Switch Styles */
