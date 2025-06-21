@@ -125,6 +125,7 @@
     </div>
 </section>
 
+
   <!-- 
   <div class="container">
       <h2 class="section-title">Nuestra Gestión de Inventarios</h2>
@@ -153,7 +154,7 @@
         </div>
       </div>
     </div>-->
-  </section>
+  
 
   <!-- Features Section -->
   <section class="features-section" id="features">
@@ -237,10 +238,18 @@
     </div>
   </section>
 
+<div class="col-lg-6 hero-text contenedorInfo">
+<h3 class="text-center">Con la solución de gestión de inventario de Automatic Control,<br> tendrás control total en tiempo real, evitando quiebres de stock,<br> mejorando la eficiencia operativa y optimizando tus rutas de distribución.</h3>
+</div>
+
+
+
+
+
   <!-- Products Section -->
   <section class="py-5" id="products">
     <div class="container">
-      <h2 class="section-title">Nuestros productos</h2>
+      <h2 class="section-title">Obten tu plan</h2>
       <div class="error-message" id="productsError">
         Ha ocurrido un error al cargar los productos. Por favor, intenta de nuevo más tarde.
       </div>
