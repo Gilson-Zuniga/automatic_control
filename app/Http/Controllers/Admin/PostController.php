@@ -104,15 +104,31 @@ class PostController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Post $post)
-    {
+{
+    try {
+        $user = auth()->user();
+
+        // Solo puede eliminar si es autor del post o si tiene el rol 'admin'
+        if ($user->id !== $post->user_id && !$user->hasRole('admin')) {
+            abort(403, 'No tienes permiso para eliminar este post.');
+        }
+
         $post->delete();
 
         session()->flash('swal', [
             'icon' => 'success',
             'title' => '¡ Bien crack !',
-            'string' => 'Se ha eliminado el post con éxito'
+            'text' => 'Se ha eliminado el post con éxito.'
         ]);
-
-        return redirect()->route('admin.posts.index');
+    } catch (\Throwable $e) {
+        session()->flash('swal', [
+            'icon' => 'error',
+            'title' => 'Error',
+            'text' => 'Ocurrió un error al eliminar el post. Intenta nuevamente.'
+        ]);
     }
+
+    return redirect()->route('admin.posts.index');
+}
+
 }

@@ -1,4 +1,4 @@
-<x-layouts.app :title="'Editar Producto'">
+<x-layouts.app :title="'Editar Producto | Automatic Control'">
     <flux:breadcrumbs class="mb-8">
         <flux:breadcrumbs.item href="{{ route('dashboard') }}">Dashboard</flux:breadcrumbs.item>
         <flux:breadcrumbs.item :href="route('admin.productos.index')">Productos</flux:breadcrumbs.item>

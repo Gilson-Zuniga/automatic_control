@@ -1,4 +1,4 @@
-<x-layouts.app :title="'Ver Empresa'"> 
+<x-layouts.app :title="'Ver Empresa | Automatic Control'"> 
 
     <div class="mb-8 flex justify-between items-center">
         <flux:breadcrumbs>

@@ -99,7 +99,7 @@ class ProveedorController extends Controller
 
         session()->flash('swal', [
             'icon' => 'success',
-            'title' => '¡ Bien crack !',
+            'title' => '¡ Actualizado !',
             'text' => 'Se ha actualizado los datos del proveedor con éxito'
         ]);
 
@@ -115,7 +115,7 @@ class ProveedorController extends Controller
 
         session()->flash('swal', [
             'icon' => 'success',
-            'title' => '¡ Bien crack !',
+            'title' => '¡ Eliminado !',
             'text' => 'Se ha eliminado el proveedor con éxito'
         ]);
 

@@ -43,7 +43,7 @@ class UnidadMedidaController extends Controller
 
         session()->flash('swal', [
             'icon' => 'success',
-            'title' => '¡ Bien crack !',
+            'title' => '¡ Muy bien !',
             'text' => 'Se ha registado una nueva unidad de medida con éxito'
         ]);
 
@@ -83,7 +83,7 @@ class UnidadMedidaController extends Controller
 
         session()->flash('swal', [
             'icon' => 'success',
-            'title' => '¡ Bien crack !',
+            'title' => '¡ Actualizado !',
             'text' => 'Se ha actualizado la unidad de medida con éxito'
         ]);
 
@@ -99,7 +99,7 @@ class UnidadMedidaController extends Controller
 
         session()->flash('swal', [
             'icon' => 'success',
-            'title' => '¡ Bien crack !',
+            'title' => '¡ Eliminado !',
             'text' => 'Se ha eliminado la unidad de medida con éxito'
         ]);
 

@@ -1,4 +1,4 @@
-<x-layouts.app :title="'Ver Productos'"> 
+<x-layouts.app :title="'Ver Productos | Automatic Control'"> 
     <div class="mb-8 flex justify-between items-center">
         <flux:breadcrumbs>
             <flux:breadcrumbs.item href="{{ route('dashboard') }}">Dashboard</flux:breadcrumbs.item>

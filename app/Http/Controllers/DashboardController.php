@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\FacturaCliente;
 use App\Models\FacturaClienteItem;
+use App\Models\FacturaProveedor;
 use App\Models\Inventario;
 use App\Models\User;
 use App\Models\Post;
@@ -44,7 +45,7 @@ class DashboardController extends Controller
         $totalProductos = Inventario::count();
         $totalUsuarios = User::count();
         $ultimasFacturas = FacturaCliente::with('cliente')->latest()->take(5)->get();
-
+        $ultimasFacturasProveedores = FacturaProveedor::with('proveedor')->latest()->take(5)->get();   
         $totalUsuarios = User::count();
 
         $usuariosHoy = DB::table('users')
@@ -65,6 +66,7 @@ class DashboardController extends Controller
             'totalProductos',
             'ultimasFacturas',
             'totalUsuarios',
+            'ultimasFacturasProveedores',
             'posts'
 
 ));

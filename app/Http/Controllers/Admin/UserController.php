@@ -63,7 +63,7 @@ class UserController extends Controller
 
         session()->flash('swal', [
             'icon' => 'success',
-            'title' => '¡ Bien crack !',
+            'title' => '¡ Asígando !',
             'text' => 'Se asignó correctamente un rol al usuario'
         ]);
 
