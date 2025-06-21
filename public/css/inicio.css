@@ -342,3 +342,71 @@
     .imgDashboard {
       border-radius: 10px;
     }
+
+    /* Sobrescribe tarjetas de Bootstrap si tienen bg-dark */
+body.light-theme .card.bg-dark,
+body.light-theme .bg-dark {
+  background-color: var(--card-bg) !important;
+  color: var(--body-color) !important;
+  border-color: var(--border-color) !important;
+}
+
+body.light-theme .text-white {
+  color: var(--body-color) !important;
+}
+
+/* Hero Section background claro */
+body.light-theme .hero-section {
+  background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), url('../img/fondo.jpg');
+  background-size: cover;
+  background-position: center;
+  color: var(--body-color);
+}
+
+/* Carousel claro */
+body.light-theme .carousel-caption {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: var(--body-color);
+}
+
+body.light-theme .carousel-caption h3,
+body.light-theme .carousel-caption p {
+  color: var(--body-color);
+}
+
+/* Modal claro */
+body.light-theme .modal-content {
+  background-color: var(--card-bg);
+  color: var(--body-color);
+  border: 1px solid var(--border-color);
+}
+
+body.light-theme .modal-header,
+body.light-theme .modal-footer {
+  border-color: var(--border-color);
+}
+
+/* Botón activo */
+body.light-theme .btn-laravel {
+  color: white;
+  background-color: var(--laravel-red);
+  border-color: var(--laravel-red);
+}
+
+body.light-theme #card-logo {
+filter: brightness(0) saturate(100%) invert(20%) sepia(10%) saturate(250%) hue-rotate(180deg) brightness(90%) contrast(85%);
+}
+
+#card-logo {
+  width: 70px;
+  height: 70px;
+  fill: currentColor;
+}
+
+body.light-theme #card-logo  {
+  color: #343a40;
+}
+
+body:not(.light-theme) #card-logo  {
+  color: white;
+}
