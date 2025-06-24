@@ -54,16 +54,31 @@
                     :options="$categorias->pluck('nombre', 'id')"
                     :selected="$producto->categoria_id"
                     required
+                    id="categoria_id"
                 />
 
                 {{-- Tipo de Artículo --}}
-                <x-input-select
-                    name="tipo_articulos_id"
-                    label="Tipo de Artículo"
-                    :options="$tipoArticulos->pluck('nombre', 'id')"
-                    :selected="$producto->tipo_articulos_id"
-                    required
-                />
+                <div>
+                    <label for="tipo_articulos_id" class="form-label ">Tipo de Artículo</label>
+                    <select
+                        name="tipo_articulos_id"
+                        id="tipo_articulos_id"
+                        class="form-input w-full mb-4 rounded-md border-gray-300 shadow-sm focus:ring focus:ring-blue-200"
+                        required
+                    >
+                        @php
+                            $tiposFiltrados = $tipoArticulos->where('categoria_id', $producto->categoria_id);
+                        @endphp
+                        @forelse($tiposFiltrados as $tipo)
+                            <option value="{{ $tipo->id }}" {{ $producto->tipo_articulos_id == $tipo->id ? 'selected' : '' }}>
+                                {{ $tipo->nombre }}
+                            </option>
+                        @empty
+                            <option value="">No hay tipos disponibles</option>
+                        @endforelse
+                    </select>
+                    @error('tipo_articulos_id') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
+                </div>
 
                 {{-- Unidad de Medida --}}
                 <x-input-select
@@ -81,7 +96,7 @@
                         type="file"
                         name="foto"
                         id="foto"
-                        class="form-input"
+                        class="form-input w-full"
                         accept="image/*"
                     >
                     @error('foto') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
@@ -102,33 +117,80 @@
                         name="descripcion"
                         id="descripcion"
                         rows="4"
-                        class="form-input"
+                        class="form-input w-full"
                     >{{ old('descripcion', $producto->descripcion) }}</textarea>
                     @error('descripcion') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
                 </div>
             </div>
 
             <!-- Botones -->
-                <div class="flex justify-end space-x-2">
-                    <x-button-link href="{{ route('admin.productos.index') }}" color="red">Cancelar</x-button-link>
-                    <x-button type="submit" color="blue">Actualizar</x-button>             
-                </div>
+            <div class="flex justify-end space-x-2 mt-4">
+                <x-button-link href="{{ route('admin.productos.index') }}">Cancelar</x-button-link>
+                <x-button type="submit" >Actualizar</x-button>
+            </div>
         </form>
     </div>
+
+    @push('styles')
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" rel="stylesheet" />
+    @endpush
 
     @push('scripts')
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
-        <script>
-            $('#proveedor_id, #categoria_id, #tipo_articulos_id, #unidad_medida_id').select2({
-                width: '100%',
-                placeholder: 'Seleccione una opción',
-                allowClear: true
-            });
-        </script>
-    @endpush
 
-    @push('styles')
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script>
+    const tipoArticulos = @json($tipoArticulos);
+    const tipoArticuloActual = "{{ $producto->tipo_articulos_id }}";
+
+    document.getElementById('categoria_id').addEventListener('change', function () {
+        const categoriaId = this.value;
+        const tipoArticuloSelect = document.getElementById('tipo_articulos_id');
+
+        // Limpiar las opciones existentes
+        tipoArticuloSelect.innerHTML = '';
+
+        const filtrados = tipoArticulos.filter(t => t.categoria_id == categoriaId);
+
+        if (filtrados.length) {
+            let found = false;
+
+            filtrados.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.id;
+                option.text = item.nombre;
+
+                if (item.id == tipoArticuloActual) {
+                    option.selected = true;
+                    found = true;
+                }
+
+                tipoArticuloSelect.appendChild(option);
+            });
+
+            if (!found) {
+                $('#tipo_articulos_id').val('').trigger('change');
+            }
+        } else {
+            const option = document.createElement('option');
+            option.value = '';
+            option.text = 'No hay tipos disponibles';
+            tipoArticuloSelect.appendChild(option);
+        }
+
+        // Refrescar select2
+        $('#tipo_articulos_id').trigger('change');
+    });
+
+    // Si se carga por primera vez, asegúrate de que select2 funcione bien
+    $(document).ready(function () {
+        $('#proveedor_id, #categoria_id, #tipo_articulos_id, #unidad_medida_id').select2({
+            width: '100%',
+            placeholder: 'Seleccione una opción',
+            allowClear: true
+        });
+    });
+</script>
+
     @endpush
 </x-layouts.app>

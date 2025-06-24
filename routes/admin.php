@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UnidadMedidaController;
 use App\Http\Controllers\Admin\FacturaClienteController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\ReporteFacturaClienteController;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
@@ -27,4 +28,10 @@ Route::resource('users',USerController::class);
 Route::resource('unidades_medidas',UnidadMedidaController::class)->parameters(['unidades_medidas' => 'unidadMedida']);
 Route::resource('facturas_clientes',FacturaClienteController::class);
 Route::resource('posts',PostController::class);
+
+Route::get('reportes/facturas-clientes', [ReporteFacturaClienteController::class, 'index']);
+
+Route::get('reportes/facturas-clientes/exportar', [ReporteFacturaClienteController::class, 'exportarExcel'])
+    ->name('reportes.facturas.exportar');
+
 

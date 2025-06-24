@@ -1,20 +1,22 @@
 @push('scripts')
-<script>
-    // DataTables
-    $(document).ready(function () {
-        $('.datatable').DataTable({
-            language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
-            }
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+    <script>
+        // Inicializar DataTables
+        $(document).ready(function () {
+            $('.datatable').DataTable({
+                responsive: true,
+                autoWidth: false,
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                }
+            });
         });
-    });
-    // SweetAlert2 para eliminar
-    document.addEventListener('DOMContentLoaded', function () {
-        const forms = document.querySelectorAll('.confirmar-eliminar');
 
-        forms.forEach(form => {
-            form.addEventListener('submit', function (e) {
+        // SweetAlert2 para eliminar usando delegación de eventos
+        document.addEventListener('DOMContentLoaded', function () {
+            $(document).on('submit', '.confirmar-eliminar', function (e) {
                 e.preventDefault();
+                const form = this;
 
                 Swal.fire({
                     title: '¿Estás seguro?',
@@ -32,6 +34,5 @@
                 });
             });
         });
-    });
-</script>
+    </script>
 @endpush

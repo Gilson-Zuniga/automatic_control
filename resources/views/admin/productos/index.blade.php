@@ -5,13 +5,11 @@
             <flux:breadcrumbs.item>Productos</flux:breadcrumbs.item>
         </flux:breadcrumbs>
 
-        <a href="{{ route('admin.productos.create') }}" class="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition text-xs">
-            Nuevo
-        </a>
+        <x-button-crear href="{{ route('admin.productos.create') }}" >Nuevo</x-button-crear>
     </div>
 
-    <div class="card mt-8">
-        <table id="tabla-productos" class="display table datatable">
+    <div class="card mt-8 overflow-x-auto w-full">
+        <table id="tabla-productos" class="display table datatable min-w-full table-auto">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -33,7 +31,7 @@
                     <td>{{ $producto->id }}</td>
                     <td>{{ $producto->nombre }}</td>
                     <td>{{ $producto->unidadMedida->prefijo ?? 'Sin unidad' }}</td>
-                    <td>${{ $producto->precio }}</td>
+                    <td>${{ number_format($producto->precio, 2)}}</td>
                     <td>{{ $producto->descuento }}%</td>
                     <td>{{ $producto->proveedor->nombre }}</td>
                     <td>{{ $producto->categoria->nombre }}</td>
@@ -65,7 +63,7 @@
 
                     <td>
                         <div class="flex justify-end gap-2">
-                            <x-button-link href="{{ route('admin.productos.edit', $producto) }}" color="yellow">
+                            <x-button-link href="{{ route('admin.productos.edit', $producto) }}" color="gray">
                                     Editar
                                 </x-button-link>
 

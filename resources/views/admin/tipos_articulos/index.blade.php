@@ -5,11 +5,11 @@
             <flux:breadcrumbs.item href="{{ route('dashboard') }}">Dashboard</flux:breadcrumbs.item>
             <flux:breadcrumbs.item>Tipos de Artículo</flux:breadcrumbs.item>
         </flux:breadcrumbs>
-        <x-button-link href="{{ route('admin.tipos_articulos.create') }}" >Nuevo</x-button-link>
+        <x-button-crear href="{{ route('admin.tipos_articulos.create') }}" >Nuevo</x-button-crear>
     </div>
 
-    <div class="card mt-8 ">
-        <table id="tabla-tipo-articulos " class="display table datatable">
+    <div class="card mt-8 overflow-x-auto w-full ">
+        <table id="tabla-tipo-articulos " class="display table datatable min-w-full table-auto">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -26,13 +26,13 @@
                         <td>{{ $tipo->categoria->nombre ?? 'Sin categoría' }}</td>
                         <td>
                             <div class="flex justify-end gap-2">
-                                <x-button-link href="{{ route('admin.tipos_articulos.edit', $tipo) }}" color="yellow">
+                                <x-button-link href="{{ route('admin.tipos_articulos.edit', $tipo) }}" >
                                     Editar
                                 </x-button-link>
                                 <form class="confirmar-eliminar" action="{{ route('admin.tipos_articulos.destroy', $tipo->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <x-button type="submit" color="red">
+                                    <x-button type="submit">
                                         Eliminar
                                     </x-button>
                                 </form>

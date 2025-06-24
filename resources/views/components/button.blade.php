@@ -1,6 +1,6 @@
 @props([
     'type' => 'submit',
-    'color' => 'blue', // blue, gray, red, green, yellow, indigo, purple, pink
+    'color' => 'red', // blue, gray, red, green, yellow, indigo, purple, pink
 ])
 
 @php
@@ -17,7 +17,7 @@
         'pink'    => 'bg-pink-500 hover:bg-pink-600',
     ];
 
-    $class = $colorClasses[$color] ?? $colorClasses['blue'];
+    $class = $colorClasses[$color] ?? $colorClasses['red'];
 @endphp
 
 <button type="{{ $type }}" {{ $attributes->merge(['class' => "$baseClasses $class"]) }}>
