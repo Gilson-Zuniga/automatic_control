@@ -421,11 +421,61 @@ body:not(.light-theme) #card-logo  {
   background: linear-gradient(rgba(33, 37, 41, 0.9), rgba(33, 37, 41, 0.9)), url('../img/fondo3.jpg');
 
 }
+
+
+.heroImg{
+  display:flex;
+  justify-content: center;
+  width: 60%;
+  height: auto;
+  border-radius: 40px;
+
+}
+
 #logo3d{
     width: 100%;
     height: 400px;
     position: relative;
     display: flex;
     justify-content: center;
-    align-items: center;
 }
+
+ .circle-img {
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+
+
+    .whatsapp-btn {
+      background-color: #25D366;
+      color: white;
+      font-weight: bold;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .whatsapp-btn img {
+      width: 24px;
+      margin-right: 10px;
+    }
+
+    .team-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid white;
+  }
+
+  /* Ajusta el tamaño de la imagen del equipo en pantallas pequeñas */
+    @media (max-width: 767px) {
+    .circle-img {
+      margin-bottom: 20px;
+    }
+  }

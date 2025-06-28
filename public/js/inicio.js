@@ -17,23 +17,6 @@
         themeIcon.classList.add('fa-sun');
       }
       
-      // Toggle theme on button click
-      themeToggle.addEventListener('click', function() {
-        document.body.classList.toggle('light-theme');
-        
-        // Update icon
-        if (document.body.classList.contains('light-theme')) {
-          themeIcon.classList.remove('fa-moon');
-          themeIcon.classList.add('fa-sun');
-          localStorage.setItem('theme', 'light');
-        } else {
-          themeIcon.classList.remove('fa-sun');
-          themeIcon.classList.add('fa-moon');
-          localStorage.setItem('theme', 'dark');
-        }
-
-        
-      });
       
       // Smooth scrolling for anchor links
       $('a[href^="#"]').on('click', function(event) {
