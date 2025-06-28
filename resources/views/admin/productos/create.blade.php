@@ -32,6 +32,8 @@
                     label="Descuento (%)"
                     type="number"
                     step="0.01"
+                    value="0"
+                    required
                 />
 
                 {{-- Proveedor --}}
@@ -48,15 +50,19 @@
                     label="Categoría"
                     :options="$categorias->pluck('nombre', 'id')"
                     required
+                    id="categoria_id"
                 />
 
                 {{-- Tipo de Artículo --}}
-                <x-input-select
-                    name="tipo_articulos_id"
-                    label="Tipo de Artículo"
-                    :options="$tipoArticulos->pluck('nombre', 'id')"
-                    required
-                />
+                <div>
+                    <label for="tipo_articulos_id" class="form-label">Tipo de Articulo</label>
+                    <select  name="tipo_articulos_id" id="tipo_articulos_id" class="form-input w-full mb-4 rounded-md border-gray-300 shadow-sm focus:ring focus:ring-blue-200"  required>
+                        <option value="">Seleccione una categoría primero</option>
+                    </select>
+                    @error("tipo_articulo_id")
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
 
                 {{-- Unidad de Medida --}}
                 <x-input-select
@@ -101,8 +107,8 @@
 
             <!-- Botones -->
             <div class="flex justify-end space-x-2 mt-4">
-                <x-button-link href="{{ route('admin.productos.index') }}" color="red">Cancelar</x-button-link>
-                <x-button type="submit" color="blue">Crear</x-button>             
+                <x-button-link href="{{ route('admin.productos.index') }}">Cancelar</x-button-link>
+                <x-button type="submit" >Crear</x-button>             
             </div>
         </form>
     </div>
@@ -117,9 +123,38 @@
                 allowClear: true
             });
         </script>
+        <script>
+    const tipoArticulos = @json($tipoArticulos);
+
+    document.getElementById('categoria_id').addEventListener('change', function () {
+        const categoriaId = this.value;
+        const tipoArticuloSelect = document.getElementById('tipo_articulos_id');
+        
+        // Limpiar select
+        tipoArticuloSelect.innerHTML = '';
+
+        // Filtrar los tipos que pertenecen a la categoría seleccionada
+        const filtrados = tipoArticulos.filter(t => t.categoria_id == categoriaId);
+
+        if (filtrados.length) {
+            filtrados.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.id;
+                option.text = item.nombre;
+                tipoArticuloSelect.appendChild(option);
+            });
+        } else {
+            const option = document.createElement('option');
+            option.value = '';
+            option.text = 'No hay tipos disponibles';
+            tipoArticuloSelect.appendChild(option);
+        }
+    });
+</script>
+
     @endpush
 
-    @push('styles')
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" rel="stylesheet" />
-    @endpush
+
+
+
 </x-layouts.app>

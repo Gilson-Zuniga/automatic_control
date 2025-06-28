@@ -15,4 +15,12 @@ class TiendaController extends Controller
         $productos = Producto::select('id', 'nombre', 'precio', 'foto')->get();
 
         return view('tienda.index', compact('productos'));
-}};
+    }
+    
+        public function mostrarEcommerce()
+    {
+        $productos = Producto::all(); // o lo que tú necesites cargar
+        return view('tienda.index', compact('productos'));
+    }
+
+};

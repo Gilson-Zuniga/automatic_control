@@ -26,7 +26,7 @@
                         <th class="px-4 py-2 text-left">Producto</th>
                         <th class="px-4 py-2 text-left">Unidad</th>
                         <th class="px-4 py-2 text-left">Cantidad</th>
-                        <th class="px-4 py-2 text-left">Precio</th>
+                        <th class="px-4 py-2 text-left">Precio Sin IVA</th>
                         <th class="px-4 py-2 text-left">Descuento (%)</th>
                         <th class="px-4 py-2 text-left">Subtotal</th>
                         <th class="px-4 py-2 text-center">Acción</th>
@@ -36,7 +36,7 @@
             </table>
         </div>
 
-        <button type="button" id="add-item" class="mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
+        <button type="button" id="add-item" class="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
             + Agregar Ítem
         </button>
         
@@ -61,9 +61,13 @@
             </div>
         </div>
 
-        <div class="mt-8 flex gap-4">
-            <x-button type="submit" color="green">Guardar Factura</x-button>
-            <a href="{{ route('admin.facturas_proveedores.index') }}" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Cancelar</a>
+        <div class="mt-8 flex gap-4 ">
+            <x-button-link href="{{ route('admin.facturas_proveedores.index') }}" >
+                    Cancelar
+                </x-button-link>
+            <x-button type="submit">Guardar Factura</x-button>
+            <div class="flex justify-end gap-2">
+                
         </div>
     </form>
 

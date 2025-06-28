@@ -97,6 +97,23 @@
                 'url' => route('admin.users.index'),
                 'current' => request()->routeIs('admin.users.*'),
             ]
+        ],
+
+        'Reportes de Facturacíon' => [
+
+            [
+                'name' => 'Reporte Ventas',
+                'icon' => 'building-storefront',
+                'url' => route('admin.reportes.facturas-clientes.index'),
+                'current' => request()->routeIs('admin.empresas.*'),
+            ],
+            
+            [
+                'name' => 'Roles Usuarios',
+                'icon' => 'users',
+                'url' => route('admin.users.index'),
+                'current' => request()->routeIs('admin.users.*'),
+            ]
         ]
     ]
 @endphp

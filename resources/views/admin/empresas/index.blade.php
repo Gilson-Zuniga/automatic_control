@@ -2,20 +2,16 @@
 
     <div class="mb-8 flex justify-between items-center">
         <flux:breadcrumbs>
-
             <flux:breadcrumbs.item href="{{route('dashboard')}}">Dashboard</flux:breadcrumbs.item>
             <flux:breadcrumbs.item >Empresa</flux:breadcrumbs.item>
         </flux:breadcrumbs>
-
-        <a href="{{ route('admin.empresas.create') }}" class="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition text-xs">
-            Nuevo
-        </a>
-
+        <x-button-crear href="{{ route('admin.empresas.create') }}" >Nuevo</x-button-crear>
     </div>
-    <div class="card mt-8">
+
+    <div class="card mt-8 overflow-x-auto w-full">
         
         
-        <table id="tabla-empresas" class="display table datatable">
+        <table id="tabla-empresas" class="display table datatable min-w-full table-auto">
             <thead>
                 <tr>
                     <th>id</th>
@@ -40,14 +36,11 @@
                         <td>{{ $empresa->ubicacion }}</td>
                         <td width="">
                             <div class="flex justify-end gap-2">
-                                <a href="{{ route('admin.empresas.edit',$empresa) }}"
-                                class="inline-block px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 text-xs ">
-                                    Editar
-                                </a>
+                                <x-button-link href="{{ route('admin.empresas.edit',$empresa) }}">Editar</x-button-link>
                                 <form class="confirmar-eliminar" action="{{ route('admin.empresas.destroy',$empresa->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <x-button type="submit" color="red">
+                                    <x-button type="submit" >
                                         Eliminar
                                     </x-button>
                                 </form>

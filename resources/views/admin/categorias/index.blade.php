@@ -5,12 +5,11 @@
             <flux:breadcrumbs.item href="{{route('dashboard')}}">Dashboard</flux:breadcrumbs.item>
             <flux:breadcrumbs.item >Categorias</flux:breadcrumbs.item>
         </flux:breadcrumbs>
-        <x-button-link href="{{ route('admin.categorias.create') }}" >Nuevo</x-button-link>
+        <x-button-crear href="{{ route('admin.categorias.create') }}" >Nuevo</x-button-crear>
     </div>
-    <div class="card mt-8">
-        
-        
-        <table id="tabla-categorias" class="display table datatable ">
+
+    <div class="card mt-8 overflow-x-auto w-full">
+        <table id="tabla-categorias" class="display table datatable min-w-full table-auto">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -25,7 +24,7 @@
                         <td>{{ $categoria->nombre }}</td>
                         <td width="">
                             <div class="flex justify-end gap-2">
-                                <x-button-link href="{{ route('admin.categorias.edit', $categoria) }}" color="yellow">
+                                <x-button-link href="{{ route('admin.categorias.edit', $categoria) }}" >
                                     Editar
                                 </x-button-link>
 

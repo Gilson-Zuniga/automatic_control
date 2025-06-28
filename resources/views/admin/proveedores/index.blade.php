@@ -4,10 +4,10 @@
             <flux:breadcrumbs.item href="{{route('dashboard')}}">Dashboard</flux:breadcrumbs.item>
             <flux:breadcrumbs.item >Proveedores</flux:breadcrumbs.item>
         </flux:breadcrumbs>
-        <x-button-link href="{{ route('admin.proveedores.create') }}" color="blue">Nuevo</x-button-link>
+        <x-button-crear href="{{ route('admin.proveedores.create') }}" color="red">Nuevo</x-button-link>
     </div>
-    <div class="card mt-8">
-        <table id="tabla-proveedores" class="display table datatable">
+    <div class="card mt-8 overflow-x-auto w-full">
+        <table id="tabla-proveedores" class="display table datatable min-w-full table-auto">
             <thead>
                 <tr>
                     <th>id</th>
@@ -32,11 +32,11 @@
                         <td>{{ $proveedor->ubicacion }}</td>
                         <td width="">
                             <div class="flex justify-end gap-2">
-                                <x-button-link href="{{ route('admin.proveedores.edit',$proveedor) }}"  color="yellow">Editar</x-button-link>
+                                <x-button-link href="{{ route('admin.proveedores.edit',$proveedor) }}"  >Editar</x-button-link>
                                 <form class="confirmar-eliminar" action="{{ route('admin.proveedores.destroy',$proveedor->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <x-button type="submit" color="red">
+                                    <x-button type="submit" >
                                         Eliminar
                                     </x-button>
                                 </form>

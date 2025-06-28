@@ -49,12 +49,11 @@
             <a class="nav-link" href="#contact">Contacto</a>
           </li>
           <li class="nav-item d-flex align-items-center mx-2">
-            <button id="themeToggle" type="button" aria-label="Toggle theme">
-              <i class="fas fa-moon"></i>
-            </button>
+          
           </li>
           <li class="nav-item">
-            <a class="btn btn-laravel ms-lg-3" href="#products">Empezar ahora</a>
+            <a class="btn btn-laravel ms-lg-3" href="{{ route('login') }}">Iniciar sesión</a>
+
           </li>
         </ul>
       </div>
@@ -77,7 +76,7 @@
     </div>
   </section>
 
-  <!-- New Inventory Management Section -->
+   <!-- New Inventory Management Section -->
   <section class="py-5 bg-dark" id="inventory-management">
     <div class="container">
         <div class="row"> 
@@ -124,6 +123,42 @@
         </div>
     </div>
 </section>
+
+  <!-------Info-------->
+ <div class="container py-5">
+    <div class="row align-items-center">
+      <div class="col-lg-6 mb-4">
+        <h1 class="display-5 fw-bold">Optimiza tu <em class="text-danger">gestión de inventarios</em></h1>
+        <p><strong>Automatic Control</strong> es un software diseñado para automatizar y controlar en tiempo real el movimiento de productos en tu almacén o negocio.</p>
+        <p>Reduce pérdidas, mejora la trazabilidad, y toma decisiones con datos precisos gracias a nuestros reportes inteligentes y alertas personalizadas.</p>
+        <p>Accede desde cualquier dispositivo, en cualquier momento, con total seguridad en la nube.</p>
+       
+      </div>
+      <div class="col-lg-6 text-center">
+        <img src="{{ asset('img/fondo3.jpg') }}" alt="Software Inventarios" class="circle-img shadow">
+      </div>
+    </div>
+  </div>
+
+<!---Info2---->
+
+  <div class="container py-5">
+    <div class="row align-items-center">
+      <!-- Imagen a la izquierda -->
+      <div class="col-lg-6 mb-4">
+        <img src="{{asset('img/fondo4.png')}}" alt="Control de stock" class="circle-img shadow">
+      </div>
+      <!-- Texto a la derecha -->
+      <div class="col-lg-6">
+        <h1 class="display-5 fw-bold">Tu bodega, <em class="text-danger">bajo control</em></h1>
+        <p><strong>Automatic Control</strong> te permite visualizar el estado actual de tu inventario, registrar entradas y salidas, y generar reportes automáticos con solo unos clics.</p>
+        <p>Aumenta la eficiencia operativa de tu negocio con un sistema fácil de usar, adaptable y seguro.</p>
+        <p>Ideal para almacenes, distribuidores y negocios que necesitan control preciso en tiempo real.</p>
+        
+      </div>
+    </div>
+  </div>
+ 
 
   <!-- 
   <div class="container">
@@ -237,10 +272,11 @@
     </div>
   </section>
 
+
   <!-- Products Section -->
   <section class="py-5" id="products">
     <div class="container">
-      <h2 class="section-title">Nuestros productos</h2>
+      <h2 class="section-title">Obten tu plan</h2>
       <div class="error-message" id="productsError">
         Ha ocurrido un error al cargar los productos. Por favor, intenta de nuevo más tarde.
       </div>
@@ -361,13 +397,52 @@
     </div>
   </div>
 
+<!-- Sección del equipo -->
+<div class="container-fluid bg-dark text-white py-5">
+  <div class="container">
+    <h2 class="text-center mb-5">Nuestro equipo<em class="text-danger"> Automatic Control</em> </h2>
+    <div class="row text-center justify-content-center">
+      <!-- Persona 1 -->
+      <div class="col-6 col-md-4 col-lg-2 mb-4">
+        <img src="{{ asset('img/gilson.jpg') }}" class="team-img mb-2" alt="Gilson">
+        <h5 class="mb-1">Gilson Zuñiga</h5>
+        <small class="d-block">Líder del proyecto</small>
+        <small class="d-block">Backend y base de datos</small>
+      </div>
+      <!-- Persona 2 -->
+      <div class="col-6 col-md-4 col-lg-2 mb-4">
+        <img src="{{ asset('img/jorge.jpg') }}" class="team-img mb-2" alt="Jorge">
+        <h5 class="mb-1">Jorge Hernandez</h5>
+        <small class="d-block">Desarrollador FullStack</small>
+      </div>
+      <!-- Persona 3 -->
+      <div class="col-6 col-md-4 col-lg-2 mb-4">
+        <img src="{{ asset('img/levi.jpg') }}" class="team-img mb-2" alt="Levi">
+        <h5 class="mb-1">Levi Quintero</h5>
+        <small class="d-block">Desarrollador FullStack</small>
+      </div>
+      <!-- Persona 4 -->
+      <div class="col-6 col-md-4 col-lg-2 mb-4">
+        <img src="{{ asset('img/sirly.jpg') }}" class="team-img mb-2" alt="Sirly">
+        <h5 class="mb-1">Sirly Tapia</h5>
+        <small class="d-block">Documentación y testing</small>
+      </div>
+      <!-- Persona 5 -->
+      <div class="col-6 col-md-4 col-lg-2 mb-4">
+        <img src="{{ asset('img/lis.jpg') }}" class="team-img mb-2" alt="Elizabeth">
+        <h5 class="mb-1">Elizabeth Lopez</h5>
+        <small class="d-block">Documentación y testing</small>
+      </div>
+    </div>
+  </div>
+</div>
   <!-- Footer -->
   <footer id="contact">
     <div class="container">
       <div class="row">
         <div class="col-md-4 footer-links">
           <h5>Automatic Control</h5>
-          <p>Software de gestión de inventarios desarrollado con Laravel para potenciar tu negocio y optimizar tus procesos.</p>
+          <p>Software de gestión de inventarfios desarrollado con Laravel para potenciar tu negocio y optimizar tus procesos.</p>
           <div class="social-icons mt-4">
             <a href="javascript:void(0)"><i class="fab fa-facebook-f"></i></a>
             <a href="javascript:void(0)"><i class="fab fa-twitter"></i></a>
@@ -378,7 +453,8 @@
         <div class="col-md-2 footer-links">
           <h5>Enlaces</h5>
           <a href="#features">Características</a>
-          <a href="#products">Productos</a>
+          <a href="/tienda">Productos</a>
+          <a href="/tienda">Ecommerce</a>
           <a href="javascript:void(0)">Documentación</a>
           <a href="javascript:void(0)">Blog</a>
         </div>

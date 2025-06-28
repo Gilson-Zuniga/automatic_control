@@ -4,7 +4,9 @@
     'options' => [],
     'selected' => '',
     'required' => false,
-])
+])  
+
+
 
 <div>
     <label for="{{ $name }}" class="form-label">{{ $label }}</label>
@@ -14,9 +16,8 @@
         {{ $required ? 'required' : '' }}
         {{ $attributes->merge(['class' => 'form-input']) }}
     >
-        <option value="">Seleccione una opción</option>
         @foreach($options as $optionValue => $optionLabel)
-            <option value="{{ $optionValue }}" {{ old($name, $selected) == $optionValue ? 'selected' : '' }}>
+            <option value="{{ $optionValue }}" {{ $selected == $optionValue ? 'selected' : '' }}>
                 {{ $optionLabel }}
             </option>
         @endforeach

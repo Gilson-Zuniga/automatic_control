@@ -13,7 +13,7 @@
             <x-textarea label="Contenido" name="contenido" required minlength="3" maxlength="200" />
 
             <div class="flex justify-end space-x-2 mt-4">
-                <x-button-link href="{{ route('admin.posts.index') }}" color="red">Cancelar</x-button-link>        
+                <x-button-link href="{{ route('admin.posts.index') }}" >Cancelar</x-button-link>        
                 <x-button type="submit" >Publicar Post</x-button> 
             </div>
         </form>

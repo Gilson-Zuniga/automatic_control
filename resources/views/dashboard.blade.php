@@ -1,6 +1,6 @@
 <x-layouts.app :title="__('Dashboard | Automatic Control')">
     {{-- Alertas de productos bajos --}}
-@if($productosBajos->count())
+    @if($productosBajos->count())
     <div 
         x-data="{ show: true }"
         x-show="show"
@@ -25,7 +25,7 @@
             @endforeach
         </ul>
     </div>
-@endif
+    @endif
 
         {{-- Notificaciones de actividades --}}
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 mt-6">
@@ -159,7 +159,7 @@
             <button @click="open = false" class="mt-6 inline-flex items-center rounded-md bg-green-600 px-4 py-2 text-sm text-white hover:bg-green-700">Cerrar</button>
         </div>
     </div>
-</div>
+    </div>
 
 
     {{-- Últimas facturas generadas Clientes y Proveedores --}}
@@ -271,4 +271,4 @@
             }
         });
     </script>
-    </x-layouts.app>
+</x-layouts.app>

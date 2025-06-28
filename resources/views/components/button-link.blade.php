@@ -1,6 +1,6 @@
 @props([
     'href' => '#',
-    'color' => 'blue',
+    'color' => 'gray',
     'target' => null,
 ])
 
@@ -15,9 +15,10 @@
         'yellow'  => 'bg-yellow-500 hover:bg-yellow-600 text-white',
         'purple'  => 'bg-purple-600 hover:bg-purple-700 text-white',
         'pink'    => 'bg-pink-500 hover:bg-pink-600 text-white',
+        'white'   => 'bg-white hover:bg-gray-100 text-black border border-gray-300',
     ];
 
-    $class = $colorClasses[$color] ?? $colorClasses['blue'];
+    $class = $colorClasses[$color] ?? $colorClasses['gray'];
 @endphp
 
 <a href="{{ $href }}"
