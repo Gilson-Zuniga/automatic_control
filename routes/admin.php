@@ -29,9 +29,14 @@ Route::resource('unidades_medidas',UnidadMedidaController::class)->parameters(['
 Route::resource('facturas_clientes',FacturaClienteController::class);
 Route::resource('posts',PostController::class);
 
-Route::get('reportes/facturas-clientes', [ReporteFacturaClienteController::class, 'index']);
+Route::get('reportes/facturas_clientes', [ReporteFacturaClienteController::class, 'index'])->name('reportes.facturas_clientes.index');
 
-Route::get('reportes/facturas-clientes/exportar', [ReporteFacturaClienteController::class, 'exportarExcel'])
-    ->name('reportes.facturas.exportar');
+Route::get('reportes/facturas_clientes/exportar', [ReporteFacturaClienteController::class, 'exportarExcel'])
+    ->name('reportes.facturas_clientes.exportar');
+
+Route::get('reportes/facturas_proveedores', [ReporteFacturaClienteController::class, 'index'])->name('reportes.facturas_proveedores.index');
+
+Route::get('reportes/facturas_proveedores/exportar', [ReporteFacturaClienteController::class, 'exportarExcel'])
+    ->name('reportes.facturas_proveedores.exportar');
 
 

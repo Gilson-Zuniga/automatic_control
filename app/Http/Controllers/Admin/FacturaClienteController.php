@@ -82,6 +82,7 @@ class FacturaClienteController extends Controller
                 'numero_factura' => $numeroFactura,
                 'total' => 0,
             ]);
+            
 
             $total = 0;
 

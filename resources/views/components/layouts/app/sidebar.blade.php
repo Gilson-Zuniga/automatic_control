@@ -102,17 +102,17 @@
         'Reportes de Facturacíon' => [
 
             [
-                'name' => 'Reporte Ventas',
+                'name' => 'Reportes Ventas',
                 'icon' => 'building-storefront',
-                'url' => route('admin.reportes.facturas-clientes.index'),
-                'current' => request()->routeIs('admin.empresas.*'),
+                'url' => route('admin.reportes.facturas_clientes.index'),
+                'current' => request()->routeIs('admin.reportes.facturas_clientes.*'),
             ],
             
             [
-                'name' => 'Roles Usuarios',
+                'name' => 'Reportes Compras',
                 'icon' => 'users',
-                'url' => route('admin.users.index'),
-                'current' => request()->routeIs('admin.users.*'),
+                'url' => route('admin.reportes.facturas_proveedores.index'),
+                'current' => request()->routeIs('admin.reportes.facturas_proveedores.*'),
             ]
         ]
     ]
