@@ -78,7 +78,7 @@
                 'name' => 'Facturas Clientes',
                 'icon' => 'clipboard-document-list',
                 'url' => route('admin.facturas_clientes.index'),
-                'current' => request()->routeIs('admin.facturas_clientes.index.*'),
+                'current' => request()->routeIs('admin.facturas_clientes.*'),
             ]
         ],
 
