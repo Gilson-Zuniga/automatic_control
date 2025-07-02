@@ -6,6 +6,7 @@ use App\Http\Controllers\TiendaController;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\DashboardController; 
+use App\Http\Controllers\FacturaClienteController;
 
 
 // Rutas públicas (no requieren login)
@@ -40,3 +41,5 @@ require __DIR__.'/auth.php';
 Route::get('/productos', [App\Http\Controllers\TiendaController::class, 'mostrarProductos'])->name('productos.index');
 
 Route::get('/productos', [TiendaController::class, 'mostrarProductos'])->name('productos.index');
+Route::get('/facturas-clientes', [FacturaClienteController::class, 'index'])->name('admin.reportes.facturas-clientes.index');
+
