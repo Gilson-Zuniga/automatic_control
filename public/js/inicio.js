@@ -84,7 +84,7 @@
                   break;
               case "Plan Profesional":
                   imageSrc =
-                      "https://cdn.pixabay.com/photo/2015/01/08/18/24/children-593313_1280.jpg";
+                      "{{asset('img/planpro.jpg')}}";
                   break;
               case "Plan Empresarial":
                   imageSrc =
@@ -103,22 +103,7 @@
       });
       
       
-      // Handle purchase form submission
-      $('#confirmPurchase').click(function() {
-        const form = $('#purchaseForm')[0];
-        if (form.checkValidity()) {
-          // Show success modal after a brief loading period
-          $('#purchaseModal').modal('hide');
-          
-          setTimeout(function() {
-            $('#successModal').modal('show');
-            // Reset form
-            form.reset();
-          }, 1000);
-        } else {
-          form.reportValidity();
-        }
-      });
+      
       
       // Initialize tooltips
       const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
@@ -126,3 +111,96 @@
         return new bootstrap.Tooltip(tooltipTriggerEl);
       });
     });
+
+document.addEventListener('DOMContentLoaded', function () {
+  const modal = document.getElementById('purchaseModal');
+
+  modal.addEventListener('show.bs.modal', function (event) {
+    const button = event.relatedTarget;
+
+    // Obtiene los datos del botón
+    const product = button.getAttribute('data-product');
+    const price = button.getAttribute('data-price');
+
+    // Opcional: obtener la imagen del producto desde el card
+    const card = button.closest('.product-card');
+    const imgSrc = card.querySelector('img').getAttribute('src');
+
+    // Inserta los valores en el modal
+    modal.querySelector('#modalProductName').textContent = product;
+    modal.querySelector('#modalProductPrice').textContent = price === 'Consultar' ? 'Consultar' : `$${price}/mes`;
+    modal.querySelector('#modalProductImage').setAttribute('src', imgSrc);
+  });
+});
+
+// Función para inicializar el modal de compra
+document.addEventListener('DOMContentLoaded', function () {
+  const buttons = document.querySelectorAll('[data-bs-toggle="modal"]');
+  buttons.forEach(button => {
+    button.addEventListener('click', function () {
+      const plan = this.getAttribute('data-product');
+      const price = this.getAttribute('data-price');
+      const image = this.closest('.product-card')?.querySelector('img')?.src;
+
+      document.getElementById('modalProductName').textContent = plan;
+      document.getElementById('modalProductPrice').textContent = price === 'Consultar' ? 'Consultar' : `$${price}/mes`;
+      document.getElementById('modalProductImage').src = image;
+      document.getElementById('planInput').value = plan;
+      document.getElementById('priceInput').value = price;
+    });
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Asigna evento de envío al formulario
+  const form = document.getElementById('purchaseForm');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault(); // Previene recarga
+
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: 'POST',
+      headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+      },
+      body: formData
+    })
+    .then(response => {
+      if (!response.ok) throw new Error('Error en el envío');
+      return response.json(); // Si devuelves JSON
+    })
+    .then(data => {
+      // Cerrar modal
+      const modal = bootstrap.Modal.getInstance(document.getElementById('purchaseModal'));
+      modal.hide();
+
+      // Mostrar mensaje de éxito
+      showSuccessAlert('¡Formulario enviado con éxito!');
+
+      // Limpiar formulario
+      form.reset();
+    })
+    .catch(error => {
+      console.error(error);
+      showErrorAlert('Ocurrió un error al enviar. Intenta nuevamente.');
+    });
+  });
+
+  function showSuccessAlert(message) {
+    const alert = document.createElement('div');
+    alert.className = 'alert alert-success position-fixed top-0 end-0 m-4 shadow';
+    alert.innerHTML = message;
+    document.body.appendChild(alert);
+    setTimeout(() => alert.remove(), 4000);
+  }
+
+  function showErrorAlert(message) {
+    const alert = document.createElement('div');
+    alert.className = 'alert alert-danger position-fixed top-0 end-0 m-4 shadow';
+    alert.innerHTML = message;
+    document.body.appendChild(alert);
+    setTimeout(() => alert.remove(), 4000);
+  }
+});

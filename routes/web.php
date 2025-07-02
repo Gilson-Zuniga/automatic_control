@@ -7,6 +7,7 @@ use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\DashboardController; 
 use App\Http\Controllers\FacturaClienteController;
+use App\Http\Controllers\ContactoController;
 
 
 // Rutas públicas (no requieren login)
@@ -42,4 +43,4 @@ Route::get('/productos', [App\Http\Controllers\TiendaController::class, 'mostrar
 
 Route::get('/productos', [TiendaController::class, 'mostrarProductos'])->name('productos.index');
 Route::get('/facturas-clientes', [FacturaClienteController::class, 'index'])->name('admin.reportes.facturas-clientes.index');
-
+Route::post('/contacto/enviar', [ContactoController::class, 'enviar'])->name('contacto.enviar');

@@ -102,7 +102,7 @@
     }
     
     .hero-section {
-      background: linear-gradient(rgba(33, 37, 41, 0.9), rgba(33, 37, 41, 0.9)), url('../img/fondo.jpg');
+      background: linear-gradient(rgba(33, 37, 41, 0.9), rgba(33, 37, 41, 0.9)), url('../img/gestion.png');
       background-size: cover;
       background-position: center;
       min-height: 90vh;
@@ -357,7 +357,7 @@ body.light-theme .text-white {
 
 /* Hero Section background claro */
 body.light-theme .hero-section {
-  background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), url('../img/fondo.jpg');
+  background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), url('../img/gestion.png');
   background-size: cover;
   background-position: center;
   color: var(--body-color);
