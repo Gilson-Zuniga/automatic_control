@@ -128,9 +128,9 @@
     <div class="row align-items-center">
       <div class="col-lg-6 mb-4">
         <h1 class="display-5 fw-bold">Optimiza tu <em class="text-danger">gestión de inventarios</em></h1>
-        <p><strong>Automatic Control</strong> es un software diseñado para automatizar y controlar en tiempo real el movimiento de productos en tu almacén o negocio.</p>
-        <p>Reduce pérdidas, mejora la trazabilidad, y toma decisiones con datos precisos gracias a nuestros reportes inteligentes y alertas personalizadas.</p>
-        <p>Accede desde cualquier dispositivo, en cualquier momento, con total seguridad en la nube.</p>
+        <p><strong>Automatic Control</strong> es un software diseñado para automatizar y controlar en tiempo real el movimiento de productos en tu almacén o negocio.
+        Reduce pérdidas, mejora la trazabilidad, y toma decisiones con datos precisos gracias a nuestros reportes inteligentes y alertas personalizadas.
+        Accede desde cualquier dispositivo, en cualquier momento, con total seguridad en la nube.</p>
        
       </div>
       <div class="col-lg-6 text-center">
