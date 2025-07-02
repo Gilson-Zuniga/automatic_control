@@ -14,6 +14,7 @@ class FacturaCliente extends Model
         'empresa_id',
         'cliente_id',
         'total',
+        'user_id',
         'pdf_path',
     ];
 

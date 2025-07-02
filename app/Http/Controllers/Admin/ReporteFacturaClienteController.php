@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -7,13 +8,28 @@ use App\Models\FacturaCliente;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use App\Models\Empresa;
 
 class ReporteFacturaClienteController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $empresas = \App\Models\Empresa::pluck('nombre', 'id');
-        return view('admin.reportes.facturas-clientes.index', compact('empresas'));
+        $empresas = Empresa::pluck('nombre', 'id');
+        $facturas = collect();
+
+        // Si hay filtros aplicados
+        if ($request->filled(['fecha_inicio', 'fecha_fin'])) {
+            $query = FacturaCliente::with('cliente', 'empresa')
+                ->whereBetween('created_at', [$request->fecha_inicio, $request->fecha_fin]);
+
+            if ($request->filled('empresa_id')) {
+                $query->where('empresa_id', $request->empresa_id);
+            }
+
+            $facturas = $query->get();
+        }
+
+        return view('admin.reportes.facturas_clientes.index', compact('empresas', 'facturas'));
     }
 
     public function exportarExcel(Request $request): StreamedResponse
@@ -24,9 +40,9 @@ class ReporteFacturaClienteController extends Controller
             'fecha_fin' => 'required|date|after_or_equal:fecha_inicio',
         ]);
 
-        $facturas = FacturaCliente::query()
+        $facturas = FacturaCliente::with('cliente', 'empresa')
             ->when($request->empresa_id, fn($q) => $q->where('empresa_id', $request->empresa_id))
-            ->whereBetween('fecha', [$request->fecha_inicio, $request->fecha_fin])
+            ->whereBetween('created_at', [$request->fecha_inicio, $request->fecha_fin])
             ->get();
 
         $spreadsheet = new Spreadsheet();
@@ -44,9 +60,9 @@ class ReporteFacturaClienteController extends Controller
             $sheet->fromArray([
                 $factura->id,
                 $factura->numero_factura,
-                $factura->cliente->nombre ?? 'N/A',
+                $factura->cliente->name ?? 'N/A',
                 $factura->empresa->nombre ?? 'N/A',
-                $factura->fecha,
+                $factura->created_at->format('Y-m-d'),
                 $factura->total,
             ], null, 'A' . $fila++);
         }
