@@ -26,8 +26,8 @@
 
             <!-- Botones -->
             <div class="flex justify-end space-x-2 mt-4">
-                <x-button-link href="{{ route('admin.unidades_medidas.index') }}" color="red">Cancelar</x-button-link>
-                <x-button type="submit" color="blue">Crear</x-button>             
+                <x-button-link href="{{ route('admin.unidades_medidas.index') }}">Cancelar</x-button-link>
+                <x-button type="submit" >Crear</x-button>             
             </div>
         </form>
     </div>

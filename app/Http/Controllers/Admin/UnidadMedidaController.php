@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\UnidadMedida;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class UnidadMedidaController extends Controller
 {
@@ -43,7 +44,7 @@ class UnidadMedidaController extends Controller
 
         session()->flash('swal', [
             'icon' => 'success',
-            'title' => '¡ Bien crack !',
+            'title' => '¡ Muy bien !',
             'text' => 'Se ha registado una nueva unidad de medida con éxito'
         ]);
 
@@ -83,7 +84,7 @@ class UnidadMedidaController extends Controller
 
         session()->flash('swal', [
             'icon' => 'success',
-            'title' => '¡ Bien crack !',
+            'title' => '¡ Actualizado !',
             'text' => 'Se ha actualizado la unidad de medida con éxito'
         ]);
 
@@ -95,14 +96,40 @@ class UnidadMedidaController extends Controller
      */
     public function destroy(UnidadMedida $unidadMedida)
     {
+    try {
         $unidadMedida->delete();
 
-        session()->flash('swal', [
+            session()->flash('swal', [
             'icon' => 'success',
-            'title' => '¡ Bien crack !',
+            'title' => '¡ Eliminado !',
             'text' => 'Se ha eliminado la unidad de medida con éxito'
         ]);
+        return redirect()
+            ->route('admin.unidades_medidas.index');
+            
+    } catch (QueryException $e) {
+        // Verifica si es un error de integridad referencial
+        if ($e->getCode() == '23000') {
+            session()->flash('swal', [
+            'icon' => 'warning',
+            'title' => '¡ Accion no valida !',
+            'text' => 'Este campo tiene relacion con muchas unidades no puede ser eliminado'
+        ]);
+            return redirect()
+                ->route('admin.unidades_medidas.index');
+        }
 
+        session()->flash('swal', [
+            'icon' => 'warning',
+            'title' => '¡ Error Inexperado !',
+            'text' => 'Ocurrio un error inxperado , vuelva intentar'
+        ]);
+        return redirect()
+
+            ->route('admin.unidad_medidas.index');
+        }
         return redirect()->route('admin.unidades_medidas.index');
     }
+
+    
 }

@@ -32,7 +32,7 @@ class TipoArticuloController extends Controller
 
         session()->flash('swal', [
             'icon' => 'success',
-            'title' => '¡ Bien crack !',
+            'title' => '¡ Muy bien !',
             'text' => 'Se ha creado el tipo de artículo con éxito'
         ]);
 
@@ -59,7 +59,7 @@ public function update(Request $request, TipoArticulo $tipoArticulo)
 
     session()->flash('swal', [
         'icon' => 'success',
-        'title' => '¡Bien crack!',
+        'title' => '¡Actualizado!',
         'text' => 'Se ha actualizado el tipo de artículo con éxito',
     ]);
 
@@ -72,7 +72,7 @@ public function destroy(TipoArticulo $tipoArticulo)
 
     session()->flash('swal', [
         'icon' => 'success',
-        'title' => '¡ Bien crack !',
+        'title' => '¡ Eliminado !',
         'text' => 'Se ha eliminado el tipo de artículo con éxito'
     ]);
 

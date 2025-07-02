@@ -6,13 +6,10 @@
             <flux:breadcrumbs.item href="{{route('dashboard')}}">Dashboard</flux:breadcrumbs.item>
             <flux:breadcrumbs.item >Inventario</flux:breadcrumbs.item>
         </flux:breadcrumbs>
-
-
     </div>
-    <div class="card mt-8">
-        
-        
-        <table id="tabla-inventarios" class="display table datatable">
+
+    <div class="card mt-8 overflow-x-auto w-full">
+        <table id="tabla-inventarios" class="display table datatable min-w-full table-auto">
             <thead>
                 <tr>
                     <th>ID Producto</th>
@@ -33,7 +30,7 @@
                         <td>{{ $inventario->producto->nombre }}</td>
                         <td>{{ $inventario->unidad_medida }}</td>
                         <td>{{ $inventario->cantidad }}</td>
-                        <td>{{ $inventario->producto->precio }}</td>
+                        <td>${{ number_format($inventario->producto->precio, 2) }}</td>
                         <td>{{ $inventario->producto->descuento }}</td>
                         <td>{{ $inventario->empresa->nombre }}</td>
                         <td>{{ $inventario->created_at }}</td>

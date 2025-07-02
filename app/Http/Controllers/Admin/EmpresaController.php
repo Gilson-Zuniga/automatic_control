@@ -44,7 +44,7 @@ class EmpresaController extends Controller
 
         session()->flash('swal', [
             'icon' => 'success',
-            'title' => '¡ Bien crack !',
+            'title' => '¡ Muy bien !',
             'text' => 'Se ha registado su empresa con éxito'
         ]);
         
@@ -93,7 +93,7 @@ class EmpresaController extends Controller
 
         session()->flash('swal', [
             'icon' => 'success',
-            'title' => '¡ Bien crack !',
+            'title' => '¡ Actualizado !',
             'text' => 'Se ha actualizado los datos del empresa con éxito'
         ]);
 
@@ -109,7 +109,7 @@ class EmpresaController extends Controller
 
         session()->flash('swal', [
             'icon' => 'success',
-            'title' => '¡ Bien crack !',
+            'title' => '¡ Eliminado !',
             'text' => 'Se ha eliminado la empresa con éxito'
         ]);
 

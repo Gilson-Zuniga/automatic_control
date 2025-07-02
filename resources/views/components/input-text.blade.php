@@ -6,8 +6,9 @@
     'required' => false,
 ])
 
-<div >
+<div>
     <label for="{{ $name }}" class="form-label mb-2">{{ $label }}</label>
+
     @if ($type === 'file')
         <input
             type="file"
@@ -16,6 +17,13 @@
             {{ $required ? 'required' : '' }}
             {{ $attributes->merge(['class' => 'form-input mb-4']) }}
         >
+
+        {{-- Mostrar imagen actual si existe --}}
+        @if ($value)
+            <div class="mt-2">
+                <img src="{{ asset('storage/' . $value) }}" alt="Vista previa" class="h-20 w-20 rounded-full object-cover border shadow">
+            </div>
+        @endif
     @else
         <input
             type="{{ $type }}"

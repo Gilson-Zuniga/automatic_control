@@ -1,4 +1,4 @@
-<x-layouts.app :title="'Registrar Empresas'">
+<x-layouts.app :title="'Registrar Empresas | Automatic Control'">
     <flux:breadcrumbs class="mb-8">
         <flux:breadcrumbs.item href="{{ route('dashboard') }}">Dashboard</flux:breadcrumbs.item>
         <flux:breadcrumbs.item :href="route('admin.empresas.index')">Empresas</flux:breadcrumbs.item>
@@ -62,8 +62,8 @@
 
             <!-- Botones -->
                 <div class="flex justify-end space-x-2">
-                    <x-button-link href="{{ route('admin.empresas.index') }}" color="red">Cancelar</x-button-link>
-                    <x-button type="submit" color="blue">Actualizar</x-button>             
+                    <x-button-link href="{{ route('admin.empresas.index') }}" >Cancelar</x-button-link>
+                    <x-button type="submit" >Actualizar</x-button>             
                 </div>
         </form>
     </div>

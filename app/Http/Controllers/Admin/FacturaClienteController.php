@@ -82,6 +82,7 @@ class FacturaClienteController extends Controller
                 'numero_factura' => $numeroFactura,
                 'total' => 0,
             ]);
+            
 
             $total = 0;
 
@@ -155,7 +156,7 @@ class FacturaClienteController extends Controller
 
             session()->flash('swal', [
             'icon' => 'success',
-            'title' => '¡ Bien crack !',
+            'title' => '¡ Muy bien !',
             'text' => 'Se ha registrado una nueva factura con éxito'
         ]);
 

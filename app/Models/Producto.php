@@ -9,9 +9,6 @@ use App\Models\TipoArticulo;
 use App\Models\Categoria;
 use App\Models\Inventario;
 
-
-
-
 class Producto extends Model
 {
 
@@ -28,8 +25,10 @@ class Producto extends Model
         'categoria_id',
         'tipo_articulos_id',
         'foto',
+
         'descripcion',
 
+        'descripcion'
         ];
         
         public function proveedor()

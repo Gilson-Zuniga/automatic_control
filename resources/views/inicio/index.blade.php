@@ -52,7 +52,8 @@
           
           </li>
           <li class="nav-item">
-            <a class="btn btn-laravel ms-lg-3" href="/dashboard">Iniciar sesión</a>
+            <a class="btn btn-laravel ms-lg-3" href="{{ route('login') }}">Iniciar sesión</a>
+
           </li>
         </ul>
       </div>
@@ -187,7 +188,7 @@
         </div>
       </div>
     </div>-->
-  
+  </section>
 
   <!-- Features Section -->
   <section class="features-section" id="features">
@@ -452,7 +453,8 @@
         <div class="col-md-2 footer-links">
           <h5>Enlaces</h5>
           <a href="#features">Características</a>
-          <a href="#products">Productos</a>
+          <a href="/tienda">Productos</a>
+          <a href="/tienda">Ecommerce</a>
           <a href="javascript:void(0)">Documentación</a>
           <a href="javascript:void(0)">Blog</a>
         </div>

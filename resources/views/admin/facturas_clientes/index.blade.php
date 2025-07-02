@@ -1,4 +1,4 @@
-<x-layouts.app :title="'Ver Facturas Clientes'"> 
+<x-layouts.app :title="'Ver Facturas Clientes | Automatic Control'"> 
 
     <div class="mb-8 flex justify-between items-center">
         <flux:breadcrumbs>
@@ -6,16 +6,11 @@
             <flux:breadcrumbs.item href="{{route('dashboard')}}">Dashboard</flux:breadcrumbs.item>
             <flux:breadcrumbs.item >Facturas Clientes</flux:breadcrumbs.item>
         </flux:breadcrumbs>
-
-        <a href="{{ route('admin.facturas_clientes.create') }}" class="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition text-xs">
-            Nuevo
-        </a>
-
+        <x-button-crear href="{{ route('admin.facturas_clientes.create') }}" >Nuevo</x-button-crear>
     </div>
-    <div class="card mt-8">
-        
-        
-        <table id="tabla-facturas_clientes" class="display table datatable">
+    
+    <div class="card mt-8 overflow-x-auto w-full">
+        <table id="tabla-facturas_clientes" class="display table datatable min-w-full table-auto">
             <thead>
                 <tr>
                 <th>ID</th>
@@ -39,7 +34,7 @@
                         <td>${{ number_format($factura->total, 2, ',', '.') }}</td>
                         <td>
                             @if($factura->pdf_path)
-                                <a href="{{ asset($factura->pdf_path) }}" target="_blank" class="inline-block px-2 py-1 bg-indigo-600 text-white text-xs rounded hover:bg-indigo-700">
+                                <a href="{{ asset($factura->pdf_path) }}" target="_blank" class="inline-block px-2 py-1 bg-gray-600 text-white text-xs rounded hover:bg-gray-700">
                                     Ver PDF
                                 </a>
                             @else
@@ -49,13 +44,13 @@
 
                         <td width="">
                             <div class="flex justify-end gap-2">
-                            <x-button-link href="#" color="green">
+                            <x-button-link href="#" >
                                     Novedades
                                 </x-button-link>
                                 <form class="confirmar-eliminar" action="{{ route('admin.facturas_clientes.destroy',$factura->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <x-button type="submit" color="red">
+                                    <x-button type="submit" >
                                         Eliminar
                                     </x-button>
                                 </form>

@@ -94,7 +94,7 @@ class FacturaProveedorController extends Controller
 
     session()->flash('swal', [
             'icon' => 'success',
-            'title' => '¡ Bien crack !',
+            'title' => '¡ Muy bien !',
             'text' => 'Se ha registrado una nueva factura con éxito'
         ]);
 

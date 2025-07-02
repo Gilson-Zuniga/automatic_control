@@ -16,6 +16,7 @@
             name="nombre"
             label="Nombre"
             :value="old('nombre', $user->name)"
+            readonly
             required
         />
 
@@ -29,11 +30,11 @@
                 @foreach ($roles as $role)
                     <label class="flex items-center space-x-2 text-sm">
                         <input
-                            type="checkbox"
+                            type="radio"
                             name="roles[]"
                             value="{{ $role->id }}"
                             {{ in_array($role->id, old('roles', $user->roles->pluck('id')->toArray())) ? 'checked' : '' }}
-                            class="form-checkbox h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring focus:ring-blue-200"
+                            class="form-radio h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring focus:ring-blue-200"
                         />
                         <span class="text-zinc-700 dark:text-zinc-200">{{ $role->name }}</span>
                     </label>

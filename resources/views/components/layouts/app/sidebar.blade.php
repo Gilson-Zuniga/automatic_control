@@ -78,7 +78,7 @@
                 'name' => 'Facturas Clientes',
                 'icon' => 'clipboard-document-list',
                 'url' => route('admin.facturas_clientes.index'),
-                'current' => request()->routeIs('admin.facturas_clientes.index.*'),
+                'current' => request()->routeIs('admin.facturas_clientes.*'),
             ]
         ],
 
@@ -97,6 +97,23 @@
                 'url' => route('admin.users.index'),
                 'current' => request()->routeIs('admin.users.*'),
             ]
+        ],
+
+        'Reportes de Facturacíon' => [
+
+            [
+                'name' => 'Reportes Ventas',
+                'icon' => 'building-storefront',
+                'url' => route('admin.reportes.facturas_clientes.index'),
+                'current' => request()->routeIs('admin.reportes.facturas_clientes.*'),
+            ],
+            
+            [
+                'name' => 'Reportes Compras',
+                'icon' => 'users',
+                'url' => route('admin.reportes.facturas_proveedores.index'),
+                'current' => request()->routeIs('admin.reportes.facturas_proveedores.*'),
+            ]
         ]
     ]
 @endphp
@@ -112,7 +129,9 @@
             <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
             <a href="{{ route('dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
-                <x-app-logo />
+                <img src="{{ asset('img/logo-icon.svg') }}" alt="Logo" class="h-10 w-auto" />
+                <h1 class="mb-0.5 truncate leading-tight font-semibold">Automatic Control</h1>
+
             </a>
 
             <flux:navlist variant="outline">

@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 <!-- JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-
+ <link id="app-style" href="{{ asset('css/inicio.css') }}" rel="stylesheet">
     <style id="app-style">
         [x-cloak] { display: none !important; }
         
@@ -52,8 +52,7 @@
     </style>
 </head>
 <body class="bg-gray-100">
-    <div class="bg-yellow-200"><a href="javascript:void(0)" class="text-gray-600 hover:text-gray-800 ml-4">Esta es una página demostrativa de nuestro E-Commerce. ¿Deseas regresar al inicio?</a></div>
-
+   
     <div x-data="app()" class="min-h-screen flex flex-col">
         <!-- Navbar -->
         <nav class="bg-gray-600 text-white shadow-md sticky top-0 z-50">
@@ -237,37 +236,48 @@
             </section>
             
             <!-- Featured Products -->
-<div class="overflow-x-auto mx-auto px-4 py-8">
+<div class="mx-auto px-4 py-8">
     <h2 class="text-2xl font-bold mb-6">Productos Destacados</h2>
-    <div class="flex space-x-4 pb-4">
-        @foreach($productos as $tienda)
-            <div class="flex-shrink-0 w-64 bg-white shadow-md rounded-lg overflow-hidden hover:shadow-xl transition duration-300 flex flex-col h-full">
-                @if($tienda->producto->foto && filter_var($tienda->producto->foto, FILTER_VALIDATE_URL))
-                    <img src="{{ $producto->foto }}" alt="{{ $producto->nombre }}" class="w-full h-56 object-cover rounded-t-lg">
-                @else
-                    <div class="w-full h-56 flex items-center justify-center bg-gray-200 text-gray-500 rounded-t-lg">
-                        <span class="text-lg">Sin imagen</span>
-                    </div>
-                @endif
 
-                <div class="p-4 flex flex-col flex-grow">
-                    <h5 class="text-xl font-semibold mb-2 line-clamp-2">{{ $producto->nombre }}</h5>
-                    <p class="text-lg text-green-600 font-bold mb-4">${{ number_format($producto->precio, 0, ',', '.') }}</p>
-                    <div class="mt-auto">
-                        <a href="{{ route('carrito.agregar', $producto->id) }}"
-                           class="block w-full bg-blue-500 hover:bg-blue-600 text-white text-center font-medium py-2 px-4 rounded transition duration-200">
-                            Añadir al carrito
-                        </a>
+    <div class="relative">
+        <!-- Botones de navegación -->
+        <div class="swiper-button-prev text-gray-700"></div>
+        <div class="swiper-button-next text-gray-700"></div>
+
+        <!-- Swiper -->
+        <div class="swiper productos-swiper">
+            <div class="swiper-wrapper">
+                @foreach($productos as $producto)
+                    <div class="swiper-slide" style="width: auto;">
+                        <div class="w-64 h-80 bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition duration-300 flex flex-col">
+                            <!-- Imagen con tamaño fijo y contenido completo visible -->
+                            <div class="h-40 bg-white flex items-center justify-center">
+                                @if($producto->foto && filter_var($producto->foto, FILTER_VALIDATE_URL))
+                                    <img src="{{ $producto->foto }}" alt="{{ $producto->nombre }}" class="h-full object-contain">
+                                @else
+                                    <div class="text-gray-400 text-sm">Sin imagen</div>
+                                @endif
+                            </div>
+
+                            <!-- Contenido -->
+                            <div class="p-3 flex flex-col justify-between flex-grow">
+                                <div>
+                                    <h5 class="text-base font-semibold mb-1 line-clamp-2">{{ $producto->nombre }}</h5>
+                                    <p class="text-sm text-green-600 font-bold mb-2">${{ number_format($producto->precio, 0, ',', '.') }}</p>
+                                </div>
+                                {{-- Botón opcional --}}
+                                <!-- <button class="bg-blue-500 text-white text-sm px-2 py-1 rounded">Añadir</button> -->
+                            </div>
+                        </div>
                     </div>
-                </div>
+                @endforeach
             </div>
-        @endforeach
+        </div>
     </div>
 </div>
 
-            
             <!-- Daily Deals -->
-            <section class="py-8 bg-gradient-to-r from-pink-500 to-purple-600 text-white">
+            <section class="py-8 bg-gradient-to-r from-gray-500 to-stone-600 text-white">
                 <div class="container mx-auto px-4">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-2xl font-bold">Ofertas del Día</h2>
@@ -306,13 +316,29 @@
                 </div>
             </section>
         </main>
-        
+
+  <!-- Botón flotante -->
+  <div id="boton-flotante" onclick="toggleVentana()">☰ Info</div>
+
+  <!-- Ventana deslizante -->
+  <div id="ventana-deslizante" class="flex flex-row">
+<a href="/">
+    <img 
+        src="{{ asset('img/logoNegro.png') }}" 
+        alt="Logo"
+        style="max-height: 23px;"
+        style="max-width: 30px;"
+        style="padding-right:5px;">
+</a>
+<div style="padding-left:15px"> Ir aquí</div>
+  </div>
+
         <!-- Footer -->
         <footer class="bg-gray-800 text-white py-8">
             <div class="container mx-auto px-4">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div>
-                        <h3 class="text-xl font-bold mb-4">TechShop</h3>
+                        <h3 class="text-xl font-bold mb-4">BazurtoShop</h3>
                         <p class="text-gray-400">La mejor tienda de tecnología para todos tus dispositivos.</p>
                         <div class="flex space-x-4 mt-4">
                             <a href="javascript:void(0)" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
@@ -352,15 +378,17 @@
                             </li>
                             <li class="flex items-center">
                                 <i class="fas fa-envelope mr-2"></i>
-                                <span>info@techshop.com</span>
+                                <span>info@bazurtoshop.com</span>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
-                    <a href="/inicio">&copy; 2025 TechShop. Todos los derechos reservados.</a>
+                <div class="border-top border-dark mt-5 pt-3 text-muted">
+                   <div class="d-flex justify-content-center align-items-center gap-2">
+                    </div>
+                    <div class="container-fluid d-flex justify-content-center text-center mt-5"><span>2025 BazurtoShop. Todos los derechos reservados.</span></div>
+                       
                 </div>
-            </div>
         </footer>
         
         <!-- Product Modal -->
@@ -804,41 +832,31 @@
             <span class="text-white" x-text="toast.message"></span>
         </div>
     </div>
+<!--
+@foreach($productos as $producto)
+    <div class="flex-shrink-0 w-64 bg-white shadow-md rounded-lg overflow-hidden hover:shadow-xl transition duration-300 flex flex-col h-full">
+        @if($producto->foto && filter_var($producto->foto, FILTER_VALIDATE_URL))
+            <img src="{{ $producto->foto }}" alt="{{ $producto->nombre }}" class="w-full h-56 object-cover rounded-t-lg">
+        @else
+            <div class="w-full h-56 flex items-center justify-center bg-gray-200 text-gray-500 rounded-t-lg">
+                <span class="text-lg">Sin imagen</span>
+            </div>
+        @endif
 
-<div class="max-w-7xl mx-auto px-4 py-8">
-    <h2 class="text-3xl font-bold mb-6 text-center">Lista de productos</h2>
-
-    @if($productos->isEmpty())
-        <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded max-w-md mx-auto text-center">
-            No hay productos disponibles.
+        <div class="p-4 flex flex-col flex-grow">
+            <h5 class="text-xl font-semibold mb-2 line-clamp-2">{{ $producto->nombre }}</h5>
+            <p class="text-lg text-green-600 font-bold mb-4">
+                ${{ number_format($producto->precio, 0, ',', '.') }}
+            </p>
+            <div class="mt-auto">
+                <a href="{{ route('carrito.agregar', $producto->id) }}"
+                   class="block w-full bg-blue-500 hover:bg-blue-600 text-white text-center font-medium py-2 px-4 rounded transition duration-200">
+                    Añadir al carrito
+                </a>
+            </div>
         </div>
-    @else
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            @foreach($productos as $producto)
-                <div class="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-xl transition duration-300 flex flex-col h-full">
-                    @if($producto->foto && filter_var($producto->foto, FILTER_VALIDATE_URL))
-                        <img src="{{ $producto->foto }}" alt="{{ $producto->nombre }}" class="w-full h-56 object-cover rounded-t-lg">
-                    @else
-                        <div class="w-full h-56 flex items-center justify-center bg-gray-200 text-gray-500 rounded-t-lg">
-                            <span class="text-lg">Sin imagen</span>
-                        </div>
-                    @endif
-                    
-                    <div class="p-4 flex flex-col flex-grow">
-                        <h5 class="text-xl font-semibold mb-2 line-clamp-2">{{ $producto->nombre }}</h5>
-                        <p class="text-lg text-green-600 font-bold mb-4">${{ number_format($producto->precio, 0, ',', '.') }}</p>
-                        <div class="mt-auto">
-                            <a href="{{ route('carrito.agregar', $producto->id) }}"
-                               class="block w-full bg-blue-500 hover:bg-blue-600 text-white text-center font-medium py-2 px-4 rounded transition duration-200">
-                                Añadir al carrito
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    @endif
-</div>
+    </div>
+@endforeach-->
 
 
 
@@ -910,7 +928,7 @@
                         price: 299.99,
                         oldPrice: 399.99,
                         discount: 25,
-                        image: 'https://cdn.pixabay.com/photo/2015/02/05/08/12/ipad-624707_1280.jpg',
+                        image: 'https://th.bing.com/th/id/OIP.1eUOj5sxuPnWHIQS3kxCJwHaJ0?r=0&rs=1&pid=ImgDetMain&cb=idpwebp2&o=7&rm=3',
                         rating: 4.6,
                         reviews: 87
                     },
@@ -932,7 +950,7 @@
                         price: 129.99,
                         oldPrice: 179.99,
                         discount: 28,
-                        image: 'https://cdn.pixabay.com/photo/2019/09/25/08/41/speaker-4502258_1280.jpg',
+                        image: 'https://th.bing.com/th/id/OIP.36losBJKCktLb-axjgay6wHaFj?r=0&rs=1&pid=ImgDetMain&cb=idpwebp2&o=7&rm=3',
                         rating: 4.4,
                         reviews: 109
                     }
@@ -1296,8 +1314,12 @@
         }
     </script>
 
-
-
+  <script>
+    function toggleVentana() {
+      const panel = document.getElementById('ventana-deslizante');
+      panel.classList.toggle('activa');
+    }
+  </script>
 
     <style>
         /* Toggle Switch Styles */
