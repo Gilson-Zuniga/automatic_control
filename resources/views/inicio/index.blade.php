@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
   <title>Automatic Control - Software de Gestión de Inventarios</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -10,6 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link id="app-style" href="{{ asset('css/inicio.css') }}" rel="stylesheet">
+
   <script type="importmap">
 {
   "imports": {
@@ -65,7 +68,7 @@
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-6 hero-text">
-          <h1>Controla tu inventario como nunca antes</h1>
+          <h1>Controla tu Inventario como nunca antes</h1>
           <p>Automatic Control es un software de gestión de inventarios potente y fácil de usar desarrollado con Laravel. Optimiza tus procesos, reduce errores y aumenta la productividad.</p>
           <a href="#products" class="btn btn-laravel btn-lg">Empezar ahora</a>
         </div>
@@ -84,7 +87,7 @@
                     <div class="card h-100 bg-dark text-white border-0">
                  <img src="{{ asset('img/inventarioCheck.svg') }}" class="card-img-top w-50 mx-auto" alt="card-logo" id="card-logo">
                     <div class="card-body">
-                        <h5 class="card-title">Inventario eficiente</h5>
+                        <h5 class="card-title">Inventario Eficiente</h5>
                         <p class="card-text">Mantener un registro actualizado de todos los productos y sus movimientos</p>
               
                     </div>
@@ -104,7 +107,7 @@
                     <div class="card h-100 bg-dark text-white border-0">
                    <img src="{{ asset('img/camion.svg') }}" class="card-img-top w-50 mx-auto" alt="card-logo" id="card-logo">
                     <div class="card-body">
-                        <h5 class="card-title">Nunca desabastecido</h5>
+                        <h5 class="card-title">Nunca Desabastecido</h5>
                         <p class="card-text">Siempre estarás avisado cuando se esté acabando el stock para que puedas reaccionar a tiempo.</p>
                        
                     </div>
@@ -128,10 +131,10 @@
  <div class="container py-5">
     <div class="row align-items-center">
       <div class="col-lg-6 mb-4">
-        <h1 class="display-5 fw-bold">Optimiza tu <em class="text-danger">gestión de inventarios</em></h1>
-        <p><strong>Automatic Control</strong> es un software diseñado para automatizar y controlar en tiempo real el movimiento de productos en tu almacén o negocio.</p>
-        <p>Reduce pérdidas, mejora la trazabilidad, y toma decisiones con datos precisos gracias a nuestros reportes inteligentes y alertas personalizadas.</p>
-        <p>Accede desde cualquier dispositivo, en cualquier momento, con total seguridad en la nube.</p>
+        <h1 class="display-5 fw-bold">Optimiza tu <em class="text-danger">Gestión de Inventarios</em></h1>
+        <p><strong>Automatic Control</strong> es un software diseñado para automatizar y controlar en tiempo real el movimiento de productos en tu almacén o negocio.
+        Reduce pérdidas, mejora la trazabilidad, y toma decisiones con datos precisos gracias a nuestros reportes inteligentes y alertas personalizadas.
+        Accede desde cualquier dispositivo, en cualquier momento, con total seguridad en la nube.</p>
        
       </div>
       <div class="col-lg-6 text-center">
@@ -150,127 +153,75 @@
       </div>
       <!-- Texto a la derecha -->
       <div class="col-lg-6">
-        <h1 class="display-5 fw-bold">Tu bodega, <em class="text-danger">bajo control</em></h1>
-        <p><strong>Automatic Control</strong> te permite visualizar el estado actual de tu inventario, registrar entradas y salidas, y generar reportes automáticos con solo unos clics.</p>
-        <p>Aumenta la eficiencia operativa de tu negocio con un sistema fácil de usar, adaptable y seguro.</p>
-        <p>Ideal para almacenes, distribuidores y negocios que necesitan control preciso en tiempo real.</p>
+        <h1 class="display-5 fw-bold">Tu Bodega, <em class="text-danger">Bajo Control</em></h1>
+        <p><strong>Automatic Control</strong> te permite visualizar el estado actual de tu inventario, registrar entradas y salidas, y generar reportes automáticos con solo unos clics.
+        Aumenta la eficiencia operativa de tu negocio con un sistema fácil de usar, adaptable y seguro.
+        Ideal para almacenes, distribuidores y negocios que necesitan control preciso en tiempo real.</p>
         
       </div>
     </div>
   </div>
  
 
-  <!-- 
-  <div class="container">
-      <h2 class="section-title">Nuestra Gestión de Inventarios</h2>
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="feature-card">
-            <p>Automatic Control automatiza la gestión de inventarios, proporcionando a las empresas un control completo sobre sus existencias en tiempo real. Con nuestra solución desarrollada en Laravel, podrás:</p>
-            <ul class="mt-3">
-              <li class="mb-2">Mantener un registro actualizado de todos los productos y sus movimientos</li>
-              <li class="mb-2">Generar reportes detallados sobre el estado del inventario</li>
-              <li class="mb-2">Recibir alertas automáticas cuando los niveles de stock caigan por debajo de umbrales predefinidos</li>
-              <li class="mb-2">Integrar con plataformas de ecommerce para facilitar la comercialización de productos</li>
-            </ul>
-          </div>
+<!-- Purchase Modal -->
+<div class="modal fade" id="purchaseModal" tabindex="-1" aria-labelledby="purchaseModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form id="purchaseForm" action="{{ route('contacto.enviar') }}" method="POST">
+        @csrf
+        <div class="modal-header">
+          <h5 class="modal-title" id="purchaseModalLabel">Adquirir producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
-        <div class="col-lg-6">
-          <div class="feature-card">
-            <p>Nuestro sistema, construido sobre Laravel, garantiza la seguridad y robustez que tu empresa necesita para gestionar eficientemente su cadena de suministro. La optimización de la gestión de inventarios te permitirá:</p>
-            <ul class="mt-3">
-              <li class="mb-2">Reducir costos operativos al evitar excesos y escasez de inventario</li>
-              <li class="mb-2">Mejorar la toma de decisiones con información precisa y en tiempo real</li>
-              <li class="mb-2">Aumentar la satisfacción del cliente al asegurar disponibilidad de productos</li>
-              <li class="mb-2">Optimizar el espacio de almacenamiento y mejorar la gestión logística</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>-->
-  </section>
+        <div class="modal-body">
+          <div class="row">
+            <!-- Lado izquierdo con imagen y detalles -->
+            <div class="col-md-5">
+              <img id="modalProductImage" src="https://via.placeholder.com/400x300" alt="Producto" class="img-fluid rounded">
+              <div class="mt-3">
+                <h4 id="modalProductName">Nombre del Plan</h4>
+                <p id="modalProductPrice" class="product-price">$0.00/mes</p>
+                <!-- Campos ocultos para enviar el plan y precio -->
+                <input type="hidden" name="plan" id="planInput" value="">
+                <input type="hidden" name="price" id="priceInput" value="">
+              </div>
+            </div>
 
-  <!-- Features Section -->
-  <section class="features-section" id="features">
-    <div class="container">
-      <h2 class="section-title">Características principales</h2>
-      
-      <div id="featuresCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#featuresCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#featuresCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#featuresCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div class="carousel-caption">
-              <div class="feature-icon mx-auto">
-                <i class="fas fa-chart-line"></i>
+            <!-- Lado derecho con formulario -->
+            <div class="col-md-7">
+              <h5>Información de contacto</h5>
+              <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre completo</label>
+                <input type="text" class="form-control" name="name" id="name" required>
               </div>
-              <h3>Inventarios en tiempo real</h3>
-              <p>Monitorea tus existencias en tiempo real y mantén un control preciso de tu inventario, evitando quiebres de stock y excesos.</p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div class="carousel-caption">
-              <div class="feature-icon mx-auto">
-                <i class="fas fa-file-alt"></i>
+              <div class="mb-3">
+                <label for="email" class="form-label">Correo electrónico</label>
+                <input type="email" class="form-control" name="email" id="email" required>
               </div>
-              <h3>Generación de reportes</h3>
-              <p>Genera informes detallados sobre movimientos de inventario, ventas, rotación de productos y más para tomar decisiones informadas.</p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div class="carousel-caption">
-              <div class="feature-icon mx-auto">
-                <i class="fas fa-bell"></i>
+              <div class="mb-3">
+                <label for="phone" class="form-label">Teléfono</label>
+                <input type="tel" class="form-control" name="phone" id="phone">
               </div>
-              <h3>Alertas automáticas</h3>
-              <p>Recibe notificaciones automáticas sobre niveles bajos de stock, productos próximos a vencer o movimientos inusuales en tu inventario.</p>
+              <div class="mb-3">
+                <label for="company" class="form-label">Empresa (opcional)</label>
+                <input type="text" class="form-control" name="company" id="company">
+              </div>
+              <div class="mb-3">
+                <label for="comments" class="form-label">Comentarios adicionales</label>
+                <textarea class="form-control" name="comments" id="comments" rows="3"></textarea>
+              </div>
             </div>
           </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#featuresCarousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#featuresCarousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-      
-      <div class="row mt-5">
-        <div class="col-md-4 mb-4">
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="fas fa-tachometer-alt"></i>
-            </div>
-            <h3>Panel intuitivo</h3>
-            <p>Interfaz amigable que permite visualizar métricas clave y tomar acciones rápidas desde una sola pantalla.</p>
-          </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-laravel">Confirmar pedido</button>
         </div>
-        <div class="col-md-4 mb-4">
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="fas fa-barcode"></i>
-            </div>
-            <h3>Escaneo QR/Código de barras</h3>
-            <p>Escanea códigos QR y códigos de barras para realizar movimientos de inventario de forma rápida y precisa.</p>
-          </div>
-        </div>
-        <div class="col-md-4 mb-4">
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="fas fa-mobile-alt"></i>
-            </div>
-            <h3>Acceso móvil</h3>
-            <p>Gestiona tu inventario desde cualquier dispositivo, con una interfaz responsiva adaptada a móviles y tablets.</p>
-          </div>
-        </div>
-      </div>
+      </form>
     </div>
-  </section>
+  </div>
+</div>
 
 
   <!-- Products Section -->
@@ -289,20 +240,20 @@
               <p>Ideal para pequeños negocios. Incluye gestión básica de inventario y reportes mensuales.</p>
               <div class="d-flex justify-content-between align-items-center mt-3">
                 <span class="product-price">$29.99/mes</span>
-                <button class="btn btn-laravel btn-sm" data-bs-toggle="modal" data-bs-target="#purchaseModal" data-product="Plan Básico" data-price="29.99">Comprar</button>
+                <button class="btn btn-laravel btn-sm" data-bs-toggle="modal" data-bs-target="#purchaseModal" data-product="Plan Básico" data-price="29.99">Contactar</button>
               </div>
             </div>
           </div>
         </div>
         <div class="col-md-6 col-lg-3 mb-4">
           <div class="product-card">
-            <img src="https://cdn.pixabay.com/photo/2015/01/08/18/24/children-593313_1280.jpg" alt="Plan Profesional" class="product-img">
+            <img src="{{ asset('img/planpro.jpg') }}" alt="Plan Profesional" class="product-img">
             <div class="product-info">
               <h3>Plan Profesional</h3>
               <p>Para negocios en crecimiento. Incluye alertas automáticas y múltiples usuarios.</p>
               <div class="d-flex justify-content-between align-items-center mt-3">
                 <span class="product-price">$59.99/mes</span>
-                <button class="btn btn-laravel btn-sm" data-bs-toggle="modal" data-bs-target="#purchaseModal" data-product="Plan Profesional" data-price="59.99">Comprar</button>
+                <button class="btn btn-laravel btn-sm" data-bs-toggle="modal" data-bs-target="#purchaseModal" data-product="Plan Profesional" data-price="59.99">Contactar</button>
               </div>
             </div>
           </div>
@@ -315,7 +266,7 @@
               <p>Solución completa para grandes empresas. Incluye API para integraciones y soporte 24/7.</p>
               <div class="d-flex justify-content-between align-items-center mt-3">
                 <span class="product-price">$99.99/mes</span>
-                <button class="btn btn-laravel btn-sm" data-bs-toggle="modal" data-bs-target="#purchaseModal" data-product="Plan Empresarial" data-price="99.99">Comprar</button>
+                <button class="btn btn-laravel btn-sm" data-bs-toggle="modal" data-bs-target="#purchaseModal" data-product="Plan Empresarial" data-price="99.99">Contactar</button>
               </div>
             </div>
           </div>
@@ -337,70 +288,12 @@
     </div>
   </section>
 
-  <!-- Purchase Modal -->
-  <div class="modal fade" id="purchaseModal" tabindex="-1" aria-labelledby="purchaseModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="purchaseModalLabel">Adquirir producto</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-md-5">
-              <img id="modalProductImage" src="https://cdn.pixabay.com/photo/2015/07/17/22/42/startup-849804_1280.jpg" alt="Producto" class="img-fluid rounded">
-              <div class="mt-3">
-                <h4 id="modalProductName">Plan Básico</h4>
-                <p id="modalProductPrice" class="product-price">$29.99/mes</p>
-                <div class="d-flex align-items-center mt-3">
-                  <label for="quantity" class="me-3">Cantidad:</label>
-                  <div class="input-group" style="max-width: 150px;">
-                    <button class="btn btn-outline-secondary" type="button" id="decreaseQuantity">-</button>
-                    <input type="number" class="form-control text-center" id="quantity" value="1" min="1" max="10">
-                    <button class="btn btn-outline-secondary" type="button" id="increaseQuantity">+</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-7">
-              <h5>Información de contacto</h5>
-              <form id="purchaseForm">
-                <div class="mb-3">
-                  <label for="name" class="form-label">Nombre completo</label>
-                  <input type="text" class="form-control" id="name" required>
-                </div>
-                <div class="mb-3">
-                  <label for="email" class="form-label">Correo electrónico</label>
-                  <input type="email" class="form-control" id="email" required>
-                </div>
-                <div class="mb-3">
-                  <label for="phone" class="form-label">Teléfono</label>
-                  <input type="tel" class="form-control" id="phone">
-                </div>
-                <div class="mb-3">
-                  <label for="company" class="form-label">Empresa (opcional)</label>
-                  <input type="text" class="form-control" id="company">
-                </div>
-                <div class="mb-3">
-                  <label for="comments" class="form-label">Comentarios adicionales</label>
-                  <textarea class="form-control" id="comments" rows="3"></textarea>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-laravel" id="confirmPurchase">Confirmar pedido</button>
-        </div>
-      </div>
-    </div>
-  </div>
+
 
 <!-- Sección del equipo -->
 <div class="container-fluid bg-dark text-white py-5">
   <div class="container">
-    <h2 class="text-center mb-5">Nuestro equipo<em class="text-danger"> Automatic Control</em> </h2>
+    <h2 class="text-center mb-5">Nuestro Equipo<em class="text-danger"> Automatic Control</em> </h2>
     <div class="row text-center justify-content-center">
       <!-- Persona 1 -->
       <div class="col-6 col-md-4 col-lg-2 mb-4">
