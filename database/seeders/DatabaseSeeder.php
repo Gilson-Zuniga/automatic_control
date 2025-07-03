@@ -1,8 +1,14 @@
 <?php
 
 namespace Database\Seeders;
-
 use Illuminate\Database\Seeder;
+use Database\Seeders\CategoriaSeeder;
+use Database\Seeders\RolesYPermisosSeeder;
+use Database\Seeders\UserSeeder;
+use Database\Seeders\ProveedorSeeder;
+use Database\Seeders\TipoArticuloSeeder;
+use Database\Seeders\UnidadMedidaSeeder;
+use Database\Seeders\ProductoSeeder;
 
 use function Laravel\Prompts\password;
 
@@ -26,11 +32,11 @@ class DatabaseSeeder extends Seeder
         TipoArticuloSeeder::class,
         UnidadMedidaSeeder::class,
         ProductoSeeder::class,
-
+        PostSeeder::class,
+        EmpresaSeeder::class,
         
     ]);
     
-   
 
     }
 }

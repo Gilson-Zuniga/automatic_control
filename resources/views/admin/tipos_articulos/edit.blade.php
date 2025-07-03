@@ -29,7 +29,7 @@
                 />
 
             <!-- Botones -->
-                <div class="flex justify-end space-x-2">
+                <div class="flex justify-end space-x-2 mt-8">
                     <x-button-link href="{{ route('admin.tipos_articulos.index') }}">Cancelar</x-button-link>
                     <x-button type="submit">Actualizar</x-button>             
                 </div>

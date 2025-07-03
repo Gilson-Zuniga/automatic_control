@@ -10,7 +10,7 @@ class UnidadMedidaSeeder extends Seeder
     public function run(): void
     {
         $unidades = [
-            ['nombre' => 'Unidad', 'prefijo' => 'Ud'],
+            ['nombre' => 'Unidad', 'prefijo' => 'Und'],
             ['nombre' => 'Kilogramo', 'prefijo' => 'Kg'],
             ['nombre' => 'Gramos', 'prefijo' => 'g'],
             ['nombre' => 'Centímetro', 'prefijo' => 'cm'],

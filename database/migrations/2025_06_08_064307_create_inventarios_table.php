@@ -15,8 +15,6 @@ return new class extends Migration {
             $table->integer('cantidad')->default(0);
             $table->decimal('precio', 15, 2);
             $table->unsignedTinyInteger('descuento')->default(0);
-
-            // Nueva relación con empresa (bodega/tienda)
             $table->foreignId('empresa_id')->constrained('empresas')->onDelete('cascade');
 
             $table->timestamps();

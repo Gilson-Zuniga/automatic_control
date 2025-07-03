@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Post;
 use App\Models\MetaVenta;
 use App\Models\Evento;
+use App\Models\Producto;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -44,15 +45,13 @@ class DashboardController extends Controller
         ])->sum('total');
         $totalFacturas = FacturaCliente::count();
         $totalInventario = Inventario::sum('cantidad');
-        $totalProductos = Inventario::count();
+        $totalProductos = Producto::count();
         $totalUsuarios = User::count();
         $ultimasFacturas = FacturaCliente::with('cliente')->latest()->take(5)->get();
         $ultimasFacturasProveedores = FacturaProveedor::with('proveedor')->latest()->take(5)->get();   
         $totalUsuarios = User::count();
 
-        $usuariosHoy = DB::table('users')
-            ->whereDate('last_login_at', Carbon::today())
-            ->count();
+
 
         $posts = Post::with('user')->latest()->take(5)->get(); // últimos 5
 

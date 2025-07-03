@@ -10,6 +10,7 @@ return new class extends Migration
         Schema::create('facturas_proveedores', function (Blueprint $table) {
             $table->id();
             $table->string('numero_factura')->unique();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('proveedor_id')->constrained('proveedores')->onDelete('cascade');
             $table->unsignedBigInteger('empresa_id');
             $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade');

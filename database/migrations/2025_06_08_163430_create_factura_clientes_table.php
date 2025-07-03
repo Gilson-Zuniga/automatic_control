@@ -8,11 +8,9 @@ return new class extends Migration {
     {
         Schema::create('facturas_clientes', function (Blueprint $table) {
             $table->id(); 
-            $table->integer('numero_factura')->unique(); 
-
-            // Cambiado a foreignId para que coincida con el tipo de empresas.id
+            $table->integer('numero_factura')->unique();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('empresa_id')->constrained('empresas')->onDelete('cascade');
-
             $table->foreignId('cliente_id')->constrained('users')->onDelete('cascade');
             $table->decimal('total', 15, 2);
             $table->string('pdf_path')->nullable();
