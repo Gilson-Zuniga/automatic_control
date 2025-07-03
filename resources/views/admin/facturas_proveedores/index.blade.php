@@ -20,7 +20,7 @@
                     <th>Fecha Pago</th>
                     <th>Total</th>
                     <th>Factura PDF</th>
-                    <th>Acciones</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -42,20 +42,7 @@
                             @endif
                         </td>
 
-                        <td width="">
-                            <div class="flex justify-end gap-2">
-                            <x-button-link href="#" >
-                                    Pagar
-                                </x-button-link>
-                                <form class="confirmar-eliminar" action="{{ route('admin.facturas_proveedores.destroy',$factura->id)}}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <x-button type="submit" >
-                                        Eliminar
-                                    </x-button>
-                                </form>
-                            </div>
-                        </td>
+
 
                     </tr>
                 @endforeach

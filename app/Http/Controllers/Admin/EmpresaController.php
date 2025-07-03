@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Empresa;
+use App\Models\Evento;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class EmpresaController extends Controller
@@ -40,7 +42,18 @@ class EmpresaController extends Controller
             'ubicacion' => 'required|string',
         ]);
 
-        Empresa::create($request->all());
+        // Primero creamos la empresa
+    $empresa = Empresa::create($request->all());
+
+    // Luego registramos el evento
+    Evento::create([
+        'titulo' => 'Empresa registrada',
+        'descripcion' => 'Se registró la empresa "' . $empresa->nombre . '" en el sistema.',
+        'tipo' => 'success',
+        'modelo' => 'Empresa',
+        'modelo_id' => $empresa->id,
+        'user_id' => Auth::id(),
+    ]);
 
         session()->flash('swal', [
             'icon' => 'success',
@@ -91,6 +104,8 @@ class EmpresaController extends Controller
             'ubicacion' => $data['ubicacion'],        
         ]);
 
+
+
         session()->flash('swal', [
             'icon' => 'success',
             'title' => '¡ Actualizado !',
@@ -106,6 +121,15 @@ class EmpresaController extends Controller
     public function destroy(Empresa $empresa)
     {
         $empresa->delete();
+
+        Evento::create([
+        'titulo' => 'Empresa eliminada',
+        'descripcion' => 'Se elimino la empresa "' . $empresa->nombre . '" del sistema.',
+        'tipo' => 'error',
+        'modelo' => 'Empresa',
+        'modelo_id' => $empresa->id,
+        'user_id' => Auth::id(),
+    ]);
 
         session()->flash('swal', [
             'icon' => 'success',

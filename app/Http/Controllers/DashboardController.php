@@ -7,6 +7,8 @@ use App\Models\FacturaProveedor;
 use App\Models\Inventario;
 use App\Models\User;
 use App\Models\Post;
+use App\Models\MetaVenta;
+use App\Models\Evento;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -53,6 +55,32 @@ class DashboardController extends Controller
             ->count();
 
         $posts = Post::with('user')->latest()->take(5)->get(); // últimos 5
+
+        //Metas ventas
+        $hoy = Carbon::now();
+        $anio = $hoy->year;
+        $mes = $hoy->month;
+
+        // Buscar la meta mensual del mes actual
+        $meta = MetaVenta::where('tipo', 'mensual')
+                    ->where('anio', $anio)
+                    ->where('mes', $mes)
+                    ->first();
+
+        $metaMonto = $meta?->monto_meta ?? 0;
+
+        // Calcular ventas actuales del mes
+        $ventasDelMes = FacturaCliente::whereYear('created_at', $anio)
+                        ->whereMonth('created_at', $mes)
+                        ->sum('total');
+
+        $porcentaje = $metaMonto > 0 ? ($ventasDelMes / $metaMonto) * 100 : 0;
+
+        //Eventos
+        $ultimosEventos = Evento::with('user')
+        ->latest()
+        ->take(3)
+        ->get();
         
 
         return view('dashboard', compact(
@@ -67,8 +95,11 @@ class DashboardController extends Controller
             'ultimasFacturas',
             'totalUsuarios',
             'ultimasFacturasProveedores',
-            'posts'
-
+            'posts',
+            'metaMonto',
+            'ventasDelMes', 
+            'porcentaje',
+            'ultimosEventos',
 ));
 
     }

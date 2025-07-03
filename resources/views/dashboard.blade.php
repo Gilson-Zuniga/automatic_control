@@ -26,7 +26,7 @@
         </ul>
     </div>
     @endif
-
+    
         {{-- Notificaciones de actividades --}}
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 mt-6">
         <div class="rounded-xl bg-white dark:bg-neutral-900 p-4 shadow-md flex items-center justify-between">
@@ -70,10 +70,83 @@
         </svg>
         </div>
 
-
     </div>
 
-        
+    <div class="rounded-xl bg-white dark:bg-neutral-900 p-4 shadow-md mt-8">
+        <div class="flex justify-between items-center mb-2">
+            <div>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Meta de Ventas (Mensual)</p>
+                <p class="text-xl font-bold text-gray-900 dark:text-white">
+                    ${{ number_format($ventasDelMes, 0) }} / ${{ number_format($metaMonto, 0) }}
+                </p>
+            </div>
+            <span class="text-sm font-semibold text-gray-500 dark:text-gray-300">
+                {{ number_format($porcentaje, 0) }}%
+            </span>
+        </div>
+
+        <div class="w-full h-4 bg-gray-200 dark:bg-neutral-700 rounded-full overflow-hidden">
+            <div 
+                class="h-full rounded-full transition-all duration-500"
+                style="
+                    width: {{ min($porcentaje, 100) }}%;
+                    background-color:
+                        {{ $porcentaje < 50 ? '#ef4444' : ($porcentaje < 80 ? '#facc15' : '#10b981') }};
+                "
+            ></div>
+        </div>
+    </div>
+
+
+
+<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900 mt-8">
+    <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-semibold text-gray-800 dark:text-white">
+            Últimos Eventos del Sistema
+        </h2>
+        <a href="{{ route('admin.eventos.index') }}" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">
+            Ver todos
+        </a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
+        @forelse ($ultimosEventos as $evento)
+            @php
+                $estilos = [
+                    'success' => ['text' => 'text-green-600 dark:text-green-400', 'icon' => '✅'],
+                    'warning' => ['text' => 'text-yellow-600 dark:text-yellow-400', 'icon' => '⚠️'],
+                    'danger'  => ['text' => 'text-red-600 dark:text-red-400', 'icon' => '❌'],
+                    'info'    => ['text' => 'text-blue-600 dark:text-blue-400', 'icon' => 'ℹ️'],
+                    'default' => ['text' => 'text-gray-600 dark:text-gray-400', 'icon' => '🔔'],
+                ];
+
+                $tipo = $evento->tipo ?? 'default';
+                $colorTexto = $estilos[$tipo]['text'] ?? $estilos['default']['text'];
+                $icono = $estilos[$tipo]['icon'] ?? $estilos['default']['icon'];
+            @endphp
+
+            <a href="{{ route('admin.eventos.index') }}"
+               class="flex items-start space-x-3 p-4 rounded-xl hover:bg-gray-50 dark:hover:bg-neutral-800 transition border border-gray-100 dark:border-neutral-800">
+                <div class="text-2xl">{{ $icono }}</div>
+                <div class="text-sm text-gray-700 dark:text-gray-300">
+                    <span class="font-semibold {{ $colorTexto }}">
+                        {{ ucfirst($evento->accion) }}
+                    </span>
+                    — {{ $evento->descripcion }}
+                    <br>
+                    <span class="text-xs text-gray-500 dark:text-gray-400">
+                        {{ $evento->usuario?->name ?? 'Sistema' }} | {{ $evento->created_at->format('d/m/Y H:i') }}
+                    </span>
+                </div>
+            </a>
+        @empty
+            <p class="text-sm text-gray-500 dark:text-gray-400">No hay eventos recientes.</p>
+        @endforelse
+    </div>
+</div>
+
+
+
 
 
     @php
@@ -117,7 +190,7 @@
         {{-- Gráfico de productos más vendidos --}}
         <div class="rounded-xl bg-white p-4 shadow-md dark:bg-neutral-900 dark:text-white">
             <h2 class="mb-2 text-lg font-semibold">Productos Más Vendidos</h2>
-            <canvas id="productosChart" height="100"></canvas>
+            <canvas id="productosChart" height="50" style="height: 50px;"></canvas>
             
         </div>
 

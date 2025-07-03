@@ -11,8 +11,12 @@ use App\Http\Controllers\Admin\UnidadMedidaController;
 use App\Http\Controllers\Admin\FacturaClienteController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ReporteFacturaClienteController;
+use App\Http\Controllers\Admin\ReporteFacturaProveedorController;
+use App\Http\Controllers\Admin\MetaVentaController;
+use App\Livewire\Admin\EventosIndex;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+
 
 // Rutas para administrador y auxiliar
 Route::resource('categorias',CategoriaController::class);
@@ -34,9 +38,13 @@ Route::get('reportes/facturas_clientes', [ReporteFacturaClienteController::class
 Route::get('reportes/facturas_clientes/exportar', [ReporteFacturaClienteController::class, 'exportarExcel'])
     ->name('reportes.facturas_clientes.exportar');
 
-Route::get('reportes/facturas_proveedores', [ReporteFacturaClienteController::class, 'index'])->name('reportes.facturas_proveedores.index');
+Route::get('reportes/facturas_proveedores', [ReporteFacturaProveedorController::class, 'index'])->name('reportes.facturas_proveedores.index');
 
-Route::get('reportes/facturas_proveedores/exportar', [ReporteFacturaClienteController::class, 'exportarExcel'])
+Route::get('reportes/facturas_proveedores/exportar', [ReporteFacturaProveedorController::class, 'exportarExcel'])
     ->name('reportes.facturas_proveedores.exportar');
+
+Route::resource('metas_ventas', MetaVentaController::class)->names('metas_ventas');
+
+Route::get('eventos', EventosIndex::class)->name('eventos.index');
 
 

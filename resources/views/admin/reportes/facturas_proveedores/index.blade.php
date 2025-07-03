@@ -3,13 +3,13 @@
         <h2 class="text-xl font-bold mb-4">Generar Reporte</h2>
 
         <form action="{{ route('admin.reportes.facturas_proveedores.index') }}" method="GET" class="grid grid-cols-1 md:grid-cols-2 gap-4 ">
-            {{-- Empresa --}}
+            {{-- Proveedor --}}
             <div>
-                <label for="empresa_id" class="form-label">Empresa</label>
-                <select name="empresa_id" id="empresa_id" class="form-input">
+                <label for="proveedor_id" class="form-label">Proveedor</label>
+                <select name="proveedor_id" id="proveedor_id" class="form-input">
                     <option value="">Todas</option>
-                    @foreach($empresas as $id => $nombre)
-                        <option value="{{ $id }}" {{ request('empresa_id') == $id ? 'selected' : '' }}>{{ $nombre }}</option>
+                    @foreach($proveedores as $id => $nombre)
+                        <option value="{{ $id }}" {{ request('proveedor_id') == $id ? 'selected' : '' }}>{{ $nombre }}</option>
                     @endforeach
                 </select>
             </div>
@@ -43,16 +43,16 @@
                 <thead>
                     <tr>
                         <th class="px-4 py-2">Fecha</th>
-                        <th class="px-4 py-2">Cliente</th>
+                        <th class="px-4 py-2">proveedor</th>
                         <th class="px-4 py-2">Total</th>
-                        <th class="px-4 py-2">Empresa</th>
+                        <th class="px-4 py-2">empresa</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($facturas as $factura)
                         <tr>
                             <td class="px-4 py-2">{{ $factura->created_at->format('Y-m-d') }}</td>
-                            <td class="px-4 py-2">{{ $factura->cliente->name ?? '-' }}</td>
+                            <td class="px-4 py-2">{{ $factura->proveedor->nombre ?? '-' }}</td>
                             <td class="px-4 py-2">${{ number_format($factura->total, 0, ',', '.') }}</td>
                             <td class="px-4 py-2">{{ $factura->empresa->nombre ?? '-' }}</td>
                         </tr>

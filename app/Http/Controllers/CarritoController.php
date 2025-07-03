@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Carrito;
+use App\Models\Evento;
 use App\Models\Producto;
 use Illuminate\Support\Facades\Auth;
 
@@ -79,8 +80,19 @@ class CarritoController extends Controller
         $orden->total = $total;
         $orden->save();
 
+        Evento::create([
+            'titulo' => 'orden registrada',
+            'descripcion' => 'Se registró una nueva Orden por el valor total de $ "' . $orden->total . '" en el sistema.',
+            'tipo' => 'success',
+            'modelo' => 'Orden',
+            'modelo_id' => $orden->id,
+            'user_id' => Auth::id(),
+            ]);
+
         // Vaciar carrito
         Carrito::where('user_id', Auth::id())->delete();
+
+        
 
         return redirect()->route('ordenes.show', $orden->id)->with('success', 'Compra realizada con éxito');
     }

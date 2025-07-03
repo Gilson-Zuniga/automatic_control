@@ -9,11 +9,14 @@ use App\Models\Empresa;
 use App\Models\Inventario;
 use App\Models\Producto;
 use App\Models\User;
+use App\Models\Evento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\EnviarCorreo;
+use Illuminate\Support\Facades\Auth;
+
 
 use Illuminate\Support\Facades\File;
 
@@ -55,6 +58,7 @@ class FacturaClienteController extends Controller
             'empresas' => $empresas,
             'inventario' => $inventario->values(),
             'clientes' => $clientes,
+            
         ]);
     }
 
@@ -64,6 +68,7 @@ class FacturaClienteController extends Controller
             'empresa_id' => 'required|exists:empresas,id', 
             'cliente_id' => 'required|exists:users,id',
             'items_json' => 'required|string',
+            
         ]);
 
         $items = json_decode($request->items_json, true);
@@ -81,6 +86,16 @@ class FacturaClienteController extends Controller
                 'cliente_id' => $request->cliente_id,
                 'numero_factura' => $numeroFactura,
                 'total' => 0,
+                'user_id' => Auth::id(), 
+            ]);
+
+            Evento::create([
+            'titulo' => 'Factura registrada',
+            'descripcion' => 'Se registró la factura # "' . $factura->numero_factura . '" en el sistema.',
+            'tipo' => 'success',
+            'modelo' => 'FacturaCliente',
+            'modelo_id' => $factura->id,
+            'user_id' => Auth::id(),
             ]);
             
 

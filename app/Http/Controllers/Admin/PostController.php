@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Evento;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -43,7 +45,16 @@ class PostController extends Controller
         $data['user_id'] = auth()->id();
 
         // Guarda correctamente el post
-        Post::create($data);
+        $post = Post::create($data);
+
+        Evento::create([
+            'titulo' => 'Nuevo Post publicado',
+            'descripcion' => 'Se registró un post de "' . $post->user->name . '" en el sistema.',
+            'tipo' => 'success',
+            'modelo' => 'Post',
+            'modelo_id' => $post->id,
+            'user_id' => Auth::id(),
+            ]);
 
         session()->flash('swal', [
             'icon' => 'success',
@@ -67,16 +78,30 @@ class PostController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Post $post)
-    {
-        $users = User::all();
-        return view('admin.posts.edit', compact('users')); 
+{
+    $user = auth()->user();
+
+    if ($user->id !== $post->user_id && !$user->hasRole('admin')) {
+        abort(403, 'No tienes permiso para editar este post.');
     }
+
+    $users = User::all();
+
+    return view('admin.posts.edit', compact('post', 'users')); 
+}
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Post $post)
     {
+        $user = auth()->user();
+
+        if ($user->id !== $post->user_id && !$user->hasRole('admin')) {
+            abort(403, 'No tienes permiso para editar este post.');
+        }
+
         $data = $request->validate([
             'titulo' => 'required|string|min:10|max:30',
             'asunto'=>'required|string|min:3|max:100',
@@ -120,6 +145,16 @@ class PostController extends Controller
             'title' => '¡ Bien crack !',
             'text' => 'Se ha eliminado el post con éxito.'
         ]);
+
+        Evento::create([
+            'titulo' => 'Se ha eliminado un Post',
+            'descripcion' => 'Se elimino el post de "' . $post->titulo . '" en el sistema.',
+            'tipo' => 'error',
+            'modelo' => 'Post',
+            'modelo_id' => $post->id,
+            'user_id' => Auth::id(),
+            ]);
+
     } catch (\Throwable $e) {
         session()->flash('swal', [
             'icon' => 'error',

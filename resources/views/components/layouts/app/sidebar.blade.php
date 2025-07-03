@@ -17,20 +17,20 @@
             ],
 
             [
-                'name' => 'Proveedores',
-                'icon' => 'user-group',
-                'url' => route('admin.proveedores.index'),
-                'current' => request()->routeIs('admin.proveedores.*'),
+                'name' => 'Eventos' . (($sinVer ?? 0) > 0 ? ' <span class="ml-1 inline-block rounded-full bg-red-600 px-2 py-0.5 text-xs font-semibold text-white align-middle">' . $sinVer . '</span>' : ''),
+                'icon' => 'bell-alert',
+                'url' => route('admin.eventos.index'),
+                'current' => request()->routeIs('admin.eventos.*'),
             ],
 
-            
 
             [
-                'name' => 'Inventario',
-                'icon' => 'table-cells',
-                'url' => route('admin.inventarios.index'),
-                'current' => request()->routeIs('admin.inventarios.*'),
+                'name' => 'Metas Ventas',
+                'icon' => 'rocket-launch',
+                'url' => route('admin.metas_ventas.index'),
+                'current' => request()->routeIs('admin.metas_ventas.*'),
             ],
+
         ],
 
         'Productos' => [
@@ -82,14 +82,30 @@
             ]
         ],
 
-        'Perfiles' => [
+        'Mi Negocio' => [
 
             [
-                'name' => 'Tienda',
+                'name' => 'Empresas',
                 'icon' => 'building-storefront',
                 'url' => route('admin.empresas.index'),
                 'current' => request()->routeIs('admin.empresas.*'),
             ],
+
+            
+            [
+                'name' => 'Inventario',
+                'icon' => 'table-cells',
+                'url' => route('admin.inventarios.index'),
+                'current' => request()->routeIs('admin.inventarios.*'),
+            ],
+
+            [
+                'name' => 'Proveedores',
+                'icon' => 'user-group',
+                'url' => route('admin.proveedores.index'),
+                'current' => request()->routeIs('admin.proveedores.*'),
+            ],
+
             
             [
                 'name' => 'Roles Usuarios',
@@ -103,14 +119,14 @@
 
             [
                 'name' => 'Reportes Ventas',
-                'icon' => 'building-storefront',
+                'icon' => 'currency-dollar',
                 'url' => route('admin.reportes.facturas_clientes.index'),
                 'current' => request()->routeIs('admin.reportes.facturas_clientes.*'),
             ],
             
             [
                 'name' => 'Reportes Compras',
-                'icon' => 'users',
+                'icon' => 'currency-pound',
                 'url' => route('admin.reportes.facturas_proveedores.index'),
                 'current' => request()->routeIs('admin.reportes.facturas_proveedores.*'),
             ]
@@ -122,7 +138,6 @@
     <head>
         @include('partials.head')
         
-
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-800">
         <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
@@ -133,13 +148,14 @@
                 <h1 class="mb-0.5 truncate leading-tight font-semibold">Automatic Control</h1>
 
             </a>
-
+            
             <flux:navlist variant="outline">
                 @foreach ($groups as $group => $items)
                     <flux:navlist.group :heading="$group" class="grid">
                         @foreach ($items as $item)
                             <flux:navlist.item icon="{{ $item['icon'] }}" :href="$item['url']" :current="$item['current']" wire:navigate>
-                                {{ $item['name'] }}
+                                {!! $item['name'] !!}
+
                             </flux:navlist.item>
                         @endforeach
                     </flux:navlist.group>

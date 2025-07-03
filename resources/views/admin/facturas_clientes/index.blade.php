@@ -20,8 +20,7 @@
                 <th>Fecha</th>
                 <th>Total</th>
                 <th>PDF</th>
-                <th>Acciones</th>
-            </tr>
+                </tr>
             </thead>
             <tbody>
                 @foreach ($facturas as $factura)
@@ -40,21 +39,6 @@
                             @else
                                 <span class="text-gray-500 text-xs">Sin archivo</span>
                             @endif
-                        </td>
-
-                        <td width="">
-                            <div class="flex justify-end gap-2">
-                            <x-button-link href="#" >
-                                    Novedades
-                                </x-button-link>
-                                <form class="confirmar-eliminar" action="{{ route('admin.facturas_clientes.destroy',$factura->id)}}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <x-button type="submit" >
-                                        Eliminar
-                                    </x-button>
-                                </form>
-                            </div>
                         </td>
 
                     </tr>

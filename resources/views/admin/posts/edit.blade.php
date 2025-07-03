@@ -6,7 +6,7 @@
     </flux:breadcrumbs>
 
     <div class="max-w-5xl mx-auto p-6 bg-white rounded shadow dark:bg-zinc-800">
-        <form action="{{ route('admin.posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.posts.update', $post) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
