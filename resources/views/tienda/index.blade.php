@@ -3,17 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>E-Commerce Demo</title>
+    <title>BazurtoShop</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <!-- CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-<!-- JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <link rel="shortcut icon" sizes="192x192" href="{{ asset('/img/logo.ico') }}">
 
+ <link id="app-style" href="{{ asset('css/inicio.css') }}" rel="stylesheet">
     <style id="app-style">
         [x-cloak] { display: none !important; }
         
@@ -51,9 +49,8 @@
         }
     </style>
 </head>
-<body class="bg-gray-100">
-    <div class="bg-yellow-200"><a href="javascript:void(0)" class="text-gray-600 hover:text-gray-800 ml-4">Esta es una página demostrativa de nuestro E-Commerce. ¿Deseas regresar al inicio?</a></div>
-
+<body class="bg-gray-200">
+   
     <div x-data="app()" class="min-h-screen flex flex-col">
         <!-- Navbar -->
         <nav class="bg-gray-600 text-white shadow-md sticky top-0 z-50">
@@ -61,7 +58,7 @@
                 <div class="flex items-center justify-between">
                     <!-- Logo -->
                     <div class="flex items-center space-x-2">
-                        <a href="javascript:void(0)" class="text-2xl font-bold">BazurtoShop</a>
+                         <a href="{{ asset('/tienda') }}" class="text-2xl font-bold"> <img src="{{ asset('img/bazurtoShop.png') }}" alt="BazurtoShop" class="h-10"></a>
                     </div>
                     
 
@@ -100,36 +97,72 @@
                     
                     <!-- Navigation Icons -->
                     <div class="flex items-center space-x-6">
-                        <button @click="toggleCart()" class="relative">
-                            <i class="fas fa-shopping-cart text-xl"></i>
-                            <span x-show="cart.items.length > 0" 
-                                  x-text="cart.items.length" 
-                                  class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                            </span>
-                        </button>
+                     @php
+                        $carrito = session('carrito', []);
+                    @endphp
+
+                        <!-- Botón carrito con dropdown - Versión mejorada -->
+                        <div class="relative" x-data="{ isOpen: false }" @click.outside="isOpen = false">
+                            <button @click="isOpen = !isOpen" class="relative text-white-700 hover:text-gray-900 focus:outline-none">
+                                <i class="fas fa-shopping-cart text-xl"></i>
+                                @if(count($carrito))
+                                    <span class="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                                        {{ count($carrito) }}
+                                    </span>
+                                @endif
+                            </button>
+
+                            <!-- Dropdown del carrito -->
+                            <div x-show="isOpen" x-transition:enter="transition ease-out duration-200"
+                                x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                                x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 scale-100"
+                                x-transition:leave-end="opacity-0 scale-95"
+                                class="absolute right-0 mt-2 w-80 bg-white rounded-md shadow-lg z-50 border border-gray-200 text-black"
+                                id="cart-dropdown">
+                                
+                                <!-- Contenido se actualizará dinámicamente -->
+                                @include('partials.cart-dropdown-content')
+                            </div>
+                        </div>
+
                         <button @click="toggleProfileModal()">
                             <i class="fas fa-user-circle text-xxl"></i>
                         </button>
                         <button @click="toggleOrdersModal()">
                             <i class="fas fa-clipboard-list text-xl"></i>
                         </button>
-                        <button @click="toggleSettingsModal()">
-                            <i class="fas fa-cog text-xl"></i>
-                        </button>
+  
+                        @auth
+                    <div class="flex items-center space-x-2">
+                        <span>{{ Auth::user()->name }}</span>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="bg-red-600 text-white-500 hover:bg-red-700 ml-2 p-2 rounded">Cerrar sesión</button>
+                        </form>
+                    </div>
+                @else
+                        <a href="{{ route('login', ['redirect_to' => url()->current()]) }}" class="bg-gray-800 text-white hover:bg-gray-700 p-2 rounded"> Iniciar sesión</a>
+                @endauth
                     </div>
                 </div>
                 
                 <!-- Categories menu -->
-                <div class="pt-2 pb-1 overflow-x-auto whitespace-nowrap hide-scrollbar">
-                    <template x-for="category in categories" :key="category.id">
-                        <a href="javascript:void(0)" 
-                           @click="selectCategory(category)"
-                           class="px-4 py-1 mr-2 text-sm rounded-full hover:bg-white hover:text-indigo-600 transition-colors"
-                           :class="selectedCategory && selectedCategory.id === category.id ? 'bg-white text-indigo-600' : ''">
-                            <span x-text="category.name"></span>
-                        </a>
-                    </template>
+           
+                <div style="display: none;">
+                    {{ print_r($categorias) }}
                 </div>
+                <!-- Categories menu --->
+                    <div class="pt-2 pb-1 overflow-x-auto whitespace-nowrap hide-scrollbar"
+                        x-data="{ selectedCategory: null }">
+                        <template x-for="category in categories" :key="category.id">
+                            <a href="#" 
+                            @click.prevent="selectedCategory = category"
+                            class="px-4 py-1 mr-2 text-sm rounded-full hover:bg-white hover:text-indigo-600 transition-colors"
+                            :class="selectedCategory && selectedCategory.id === category.id ? 'bg-white text-indigo-600' : ''">
+                                <span x-text="category.nombre"></span>
+                            </a>
+                        </template>
+                    </div>
             </div>
         </nav>
         
@@ -194,117 +227,176 @@
     <div class="swiper-button-prev text-white"></div>
 </div>
 
-            
-            <!-- Featured Categories -->
-            <section class="py-8 bg-white">
-                <div class="container mx-auto px-4">
-                    <h2 class="text-2xl font-bold mb-6">Categorías Destacadas</h2>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <a href="javascript:void(0)" class="group">
-                            <div class="bg-gray-100 rounded-lg p-4 text-center transition-all group-hover:bg-indigo-50 group-hover:shadow-md">
-                                <div class="w-16 h-16 mx-auto mb-3 bg-indigo-100 rounded-full flex items-center justify-center group-hover:bg-indigo-200">
-                                    <i class="fas fa-mobile-alt text-indigo-600 text-2xl"></i>
-                                </div>
-                                <h3 class="font-semibold text-gray-800">Smartphones</h3>
-                            </div>
-                        </a>
-                        <a href="javascript:void(0)" class="group">
-                            <div class="bg-gray-100 rounded-lg p-4 text-center transition-all group-hover:bg-indigo-50 group-hover:shadow-md">
-                                <div class="w-16 h-16 mx-auto mb-3 bg-indigo-100 rounded-full flex items-center justify-center group-hover:bg-indigo-200">
-                                    <i class="fas fa-laptop text-indigo-600 text-2xl"></i>
-                                </div>
-                                <h3 class="font-semibold text-gray-800">Laptops</h3>
-                            </div>
-                        </a>
-                        <a href="javascript:void(0)" class="group">
-                            <div class="bg-gray-100 rounded-lg p-4 text-center transition-all group-hover:bg-indigo-50 group-hover:shadow-md">
-                                <div class="w-16 h-16 mx-auto mb-3 bg-indigo-100 rounded-full flex items-center justify-center group-hover:bg-indigo-200">
-                                    <i class="fas fa-headphones text-indigo-600 text-2xl"></i>
-                                </div>
-                                <h3 class="font-semibold text-gray-800">Audio</h3>
-                            </div>
-                        </a>
-                        <a href="javascript:void(0)" class="group">
-                            <div class="bg-gray-100 rounded-lg p-4 text-center transition-all group-hover:bg-indigo-50 group-hover:shadow-md">
-                                <div class="w-16 h-16 mx-auto mb-3 bg-indigo-100 rounded-full flex items-center justify-center group-hover:bg-indigo-200">
-                                    <i class="fas fa-gamepad text-indigo-600 text-2xl"></i>
-                                </div>
-                                <h3 class="font-semibold text-gray-800">Gaming</h3>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Featured Products -->
-<div class="overflow-x-auto mx-auto px-4 py-8">
-    <h2 class="text-2xl font-bold mb-6">Productos Destacados</h2>
-    <div class="flex space-x-4 pb-4">
-        @foreach($productos as $tienda)
-            <div class="flex-shrink-0 w-64 bg-white shadow-md rounded-lg overflow-hidden hover:shadow-xl transition duration-300 flex flex-col h-full">
-                @if($tienda->producto->foto && filter_var($tienda->producto->foto, FILTER_VALIDATE_URL))
-                    <img src="{{ $producto->foto }}" alt="{{ $producto->nombre }}" class="w-full h-56 object-cover rounded-t-lg">
-                @else
-                    <div class="w-full h-56 flex items-center justify-center bg-gray-200 text-gray-500 rounded-t-lg">
-                        <span class="text-lg">Sin imagen</span>
-                    </div>
-                @endif
+<section class="py-8">
+    <div class="container bg-white mx-auto px-4 shadow-lg rounded-lg">
+        <h2 class="text-2xl font-bold text-black text-bolder pt-6">Productos para el Hogar</h2>
 
-                <div class="p-4 flex flex-col flex-grow">
-                    <h5 class="text-xl font-semibold mb-2 line-clamp-2">{{ $producto->nombre }}</h5>
-                    <p class="text-lg text-green-600 font-bold mb-4">${{ number_format($producto->precio, 0, ',', '.') }}</p>
-                    <div class="mt-auto">
-                        <a href="{{ route('carrito.agregar', $producto->id) }}"
-                           class="block w-full bg-blue-500 hover:bg-blue-600 text-white text-center font-medium py-2 px-4 rounded transition duration-200">
-                            Añadir al carrito
-                        </a>
-                    </div>
-                </div>
-            </div>
-        @endforeach
-    </div>
-</div>
+        @if(isset($productosHogar) && $productosHogar->count() > 0)
+        <div class="relative">
+            <!-- Swiper Container - Mismo estilo que productos destacados -->
+            <div class="swiper productos-hogar-swiper">
+                <div class="swiper-wrapper">
+                    @foreach($productosHogar as $producto)
+                    <div class="swiper-slide" style="width: auto;">
+                        <div class="w-64 h-80 bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition duration-300 flex flex-col">
+                            <!-- Imagen del producto -->
+                            <div class="h-40 bg-white flex items-center justify-center">
+                                @if($producto->foto && filter_var($producto->foto, FILTER_VALIDATE_URL))
+                                    <img src="{{ $producto->foto }}" alt="{{ $producto->nombre }}" class="h-full object-contain">
+                                @elseif($producto->foto)
+                                    <img src="{{ asset('storage/'.$producto->foto) }}" alt="{{ $producto->nombre }}" class="h-full object-contain">
+                                @else
+                                    <div class="text-gray-400 text-sm">Sin imagen</div>
+                                @endif
+                            </div>
 
-            
-            <!-- Daily Deals -->
-            <section class="py-8 bg-gradient-to-r from-pink-500 to-purple-600 text-white">
-                <div class="container mx-auto px-4">
-                    <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-2xl font-bold">Ofertas del Día</h2>
-                        <div class="text-white">
-                            <span class="countdown-text">Termina en: </span>
-                            <span class="font-mono" x-text="countdown.hours">00</span>:
-                            <span class="font-mono" x-text="countdown.minutes">00</span>:
-                            <span class="font-mono" x-text="countdown.seconds">00</span>
+                            <!-- Contenido -->
+                            <div class="p-3 flex flex-col justify-between flex-grow">
+                                <div>
+                                    <h5 class="text-black font-semibold mb-1 line-clamp-2">{{ $producto->nombre }}</h5>
+                                    <p class="text-sm text-green-600 font-bold mb-2">
+                                        ${{ number_format($producto->precio, 0, ',', '.') }}
+                                    </p>
+                                </div>
+
+                                <!-- Botón para añadir al carrito -->
+                                <form method="POST" action="{{ route('carrito.agregar', $producto->id) }}" class="add-to-cart-form">
+                                    @csrf
+                                    <button type="submit" 
+                                            class="bg-gray-600 text-white px-4 py-2 mt-2 rounded hover:bg-gray-700 w-full"
+                                            @if($producto->inventario && $producto->inventario->cantidad <= 0) disabled @endif>
+                                        @if($producto->inventario && $producto->inventario->cantidad <= 0)
+                                            Agotado
+                                        @else
+                                            Añadir al carrito
+                                        @endif
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <template x-for="product in dealProducts" :key="product.id">
-                            <div class="bg-white rounded-lg shadow-lg overflow-hidden text-gray-800 product-card">
-                                <div class="relative">
-                                    <img :src="product.image" :alt="product.name" class="w-full h-48 object-cover">
-                                    <div class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
-                                        <span x-text="'-' + product.discount + '%'"></span>
-                                    </div>
-                                </div>
-                                <div class="p-4">
-                                    <h3 class="font-semibold text-lg mb-2" x-text="product.name"></h3>
-                                    <div class="flex justify-between items-center">
-                                        <div>
-                                            <span class="text-lg font-bold text-indigo-600" x-text="'$' + product.price.toFixed(2)"></span>
-                                            <span class="text-sm text-gray-500 line-through ml-2" x-text="'$' + product.oldPrice.toFixed(2)"></span>
-                                        </div>
-                                        <button @click="openProductModal(product)" 
-                                                class="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700">
-                                            Ver oferta
-                                        </button>
-                                    </div>
-                                </div>
+                    @endforeach
+                </div>
+                
+                <!-- Controles de navegación - Igual que destacados -->
+                <div class="swiper-button-prev productos-hogar-prev !text-gray-700"></div>
+                <div class="swiper-button-next productos-hogar-next !text-gray-700"></div>
+                
+                <!-- Paginación -->
+                <div class="swiper-pagination productos-hogar-pagination"></div>
+            </div>
+        </div>
+        @else
+        <div class="text-center py-8">
+            <i class="fas fa-box-open text-gray-300 text-4xl mb-3"></i>
+            <p class="text-gray-500">No hay productos disponibles en esta categoría</p>
+        </div>
+        @endif
+    </div>
+</section>
+
+<section class="container  mx-auto px-4 rounded-lg mb-6">
+    <!-- Contenedor con el mismo ancho que productos destacados -->
+    <div class="flex flex-col md:flex-row gap-4 w-full">
+        <!-- Card Promocional 1 - Mismo ancho que los productos -->
+        <div class="w-full md:w-[calc(50%-8px)] bg-gradient-to-r from-gray-600 to-gray-800 rounded-lg shadow-md overflow-hidden text-white">
+            <div class="p-4 h-full flex flex-col">
+                <div class="flex justify-between items-start mb-2">
+                    <h2 class="text-xl font-bold">APROVECHA AHORA</h2>
+                    <span class="bg-gray-800 text-white px-2 py-1 rounded-full text-xs">%</span>
+                </div>
+                
+                <h3 class="text-lg font-semibold mb-2">DESCUBRE LAS MEJORES OFERTAS</h3>
+                
+                <div class="flex flex-wrap gap-1 mb-3">
+                    <span class="bg-gray-700/50 px-2 py-1 rounded-full text-xs">Ver todo</span>
+                    <span class="bg-gray-700/50 px-2 py-1 rounded-full text-xs">$</span>
+                    <span class="bg-red-600 px-2 py-1 rounded-full text-xs font-bold">REMATES</span>
+                    <span class="bg-gray-700/50 px-2 py-1 rounded-full text-xs">3 CUOTAS 0%</span>
+                </div>
+                
+                <div class="mt-auto flex justify-between items-center">
+                    <span class="text-xs bg-gray-800/70 px-2 py-1 rounded">BazurtoShop</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card Promocional 2 - Mismo ancho que los productos -->
+        <div class="w-full md:w-[calc(50%-8px)] bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg shadow-md overflow-hidden text-white border-l-4 border-indigo-500">
+            <div class="p-4 h-full flex flex-col relative">
+                <div class="absolute top-3 right-3 bg-indigo-600 text-white px-2 py-1 rounded text-xs font-bold">NPV</div>
+                
+                <h2 class="text-xl font-bold mb-1">OFERTAS FLASH</h2>
+                <h3 class="text-md text-gray-300 mb-2">Solo por 24 horas</h3>
+                
+                <div class="flex flex-wrap gap-1 mb-3">
+                    <span class="bg-gray-600 px-2 py-1 rounded-full text-xs flex items-center">
+                        <i class="fas fa-bolt text-yellow-400 mr-1"></i> Flash
+                    </span>
+                    <span class="bg-gray-600 px-2 py-1 rounded-full text-xs">-50%</span>
+                    <span class="bg-red-600 px-2 py-1 rounded-full text-xs font-bold">ÚLTIMAS UNIDADES</span>
+                </div>
+                
+                <div class="mt-auto">
+                    <span class="text-xs bg-gray-800 px-2 py-1 rounded flex items-center">
+                        <i class="fas fa-clock mr-1"></i> Encuentra variedad en nuestros productos.
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+            
+<!-- Featured Products - Versión corregida -->
+<div class="container bg-white mx-auto px-4 shadow-lg rounded-lg pb-0 pt-8 mb-8">
+    <h2 class="text-2xl text-black font-bold">Productos Destacados</h2>
+
+    <div class="relative">
+        <!-- Swiper Container -->
+        <div class="swiper productos-swiper">
+            <div class="swiper-wrapper">
+                @foreach($productos as $producto)
+                <div class="swiper-slide" style="width: auto;">
+                    <div class="w-64 h-80 bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition duration-300 flex flex-col">
+                        <!-- Imagen del producto -->
+                        <div class="h-40 bg-white flex items-center justify-center">
+                            @if($producto->foto && filter_var($producto->foto, FILTER_VALIDATE_URL))
+                                <img src="{{ $producto->foto }}" alt="{{ $producto->nombre }}" class="h-full object-contain">
+                            @else
+                                <div class="text-gray-400 text-sm">Sin imagen</div>
+                            @endif
+                        </div>
+
+                        <!-- Contenido -->
+                        <div class="p-3 flex flex-col justify-between flex-grow">
+                            <div>
+                                <h5 class="text-black font-semibold mb-1 line-clamp-2">{{ $producto->nombre }}</h5>
+                                <p class="text-sm text-green-600 font-bold mb-2">${{ number_format($producto->precio, 0, ',', '.') }}</p>
                             </div>
-                        </template>
+
+                            <!-- Botón para añadir al carrito -->
+                            <form method="POST" action="{{ route('carrito.agregar', $producto->id) }}" class="add-to-cart-form">
+                                @csrf
+                                <button type="submit" class="bg-gray-600 text-white px-4 py-2 mt-2 rounded hover:bg-gray-700 w-full">
+                                    Añadir al carrito
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </section>
+                @endforeach
+            </div>
+            
+                <!-- Botones de navegación -->
+                <div class="swiper-button-prev productos-destacados-prev text-gray-700"></div>
+                <div class="swiper-button-next productos-destacados-next text-gray-700"></div>
+
+                <!-- Paginación -->
+                <div class="swiper-pagination productos-destacados-pagination"></div>
+            </div>
+        </div>
+    </div>
+
         </main>
         
         <!-- Footer -->
@@ -357,10 +449,12 @@
                         </ul>
                     </div>
                 </div>
-                <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
-                    <a href="/inicio">&copy; 2025 TechShop. Todos los derechos reservados.</a>
+                <div class="border-top border-dark mt-5 pt-3 text-muted">
+                   <div class="d-flex justify-content-center align-items-center gap-2">
+                    </div>
+                    <div class="container-fluid d-flex justify-content-center text-center mt-5"><span>2025 BazurtoShop. Todos Los Derechos Reservados.</span></div>
+                       
                 </div>
-            </div>
         </footer>
         
         <!-- Product Modal -->
@@ -805,496 +899,500 @@
         </div>
     </div>
 
-<div class="max-w-7xl mx-auto px-4 py-8">
-    <h2 class="text-3xl font-bold mb-6 text-center">Lista de productos</h2>
 
-    @if($productos->isEmpty())
-        <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded max-w-md mx-auto text-center">
-            No hay productos disponibles.
-        </div>
-    @else
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            @foreach($productos as $producto)
-                <div class="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-xl transition duration-300 flex flex-col h-full">
-                    @if($producto->foto && filter_var($producto->foto, FILTER_VALIDATE_URL))
-                        <img src="{{ $producto->foto }}" alt="{{ $producto->nombre }}" class="w-full h-56 object-cover rounded-t-lg">
-                    @else
-                        <div class="w-full h-56 flex items-center justify-center bg-gray-200 text-gray-500 rounded-t-lg">
-                            <span class="text-lg">Sin imagen</span>
-                        </div>
-                    @endif
-                    
-                    <div class="p-4 flex flex-col flex-grow">
-                        <h5 class="text-xl font-semibold mb-2 line-clamp-2">{{ $producto->nombre }}</h5>
-                        <p class="text-lg text-green-600 font-bold mb-4">${{ number_format($producto->precio, 0, ',', '.') }}</p>
-                        <div class="mt-auto">
-                            <a href="{{ route('carrito.agregar', $producto->id) }}"
-                               class="block w-full bg-blue-500 hover:bg-blue-600 text-white text-center font-medium py-2 px-4 rounded transition duration-200">
-                                Añadir al carrito
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    @endif
-</div>
+<script>
+    function toggleDropdown() {
+        const dropdown = document.getElementById('dropdownCarrito');
+        dropdown.classList.toggle('hidden');
+    }
 
-
+    // Cierra el dropdown si haces clic fuera de él
+    window.addEventListener('click', function(e) {
+        const dropdown = document.getElementById('dropdownCarrito');
+        if (!e.target.closest('#dropdownCarrito') && !e.target.closest('button[onclick="toggleDropdown()"]')) {
+            dropdown.classList.add('hidden');
+        }
+    });
+</script>
 
 
     <script>
     const productosDesdeLaravel = @json($productos);
 </script>
 
-    <script id="app-script">
-        function app() {
-            return {
-                categories: [
-                    { id: 1, name: 'Smartphones' },
-                    { id: 2, name: 'Laptops' },
-                    { id: 3, name: 'Tablets' },
-                    { id: 4, name: 'Audio' },
-                    { id: 5, name: 'Accesorios' },
-                    { id: 6, name: 'Smartwatches' },
-                    { id: 7, name: 'Cámaras' },
-                    { id: 8, name: 'Gaming' },
-                    { id: 9, name: 'Smart Home' }
-                ],
-                selectedCategory: null,
-                featuredProducts: [
-                    {
-                        id: 1,
-                        name: 'Smartphone XYZ Pro',
-                        description: 'Smartphone de última generación con cámara de 108MP, 12GB RAM y pantalla AMOLED de 6.7".',
-                        price: 899.99,
-                        oldPrice: 999.99,
-                        image: 'https://cdn.pixabay.com/photo/2016/11/29/12/30/phone-1869510_1280.jpg',
-                        rating: 4.5,
-                        reviews: 128
-                    },
-                    {
-                        id: 2,
-                        name: 'Laptop UltraBook',
-                        description: 'Laptop ultradelgada con procesador de última generación, 16GB RAM y 512GB SSD.',
-                        price: 1299.99,
-                        image: 'https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg',
-                        rating: 4.8,
-                        reviews: 95
-                    },
-                    {
-                        id: 3,
-                        name: 'Auriculares NoiseCancel',
-                        description: 'Auriculares con cancelación de ruido, 30 horas de batería y conexión Bluetooth 5.0.',
-                        price: 249.99,
-                        oldPrice: 299.99,
-                        image: 'https://cdn.pixabay.com/photo/2016/09/13/08/44/headphones-1666720_1280.jpg',
-                        rating: 4.7,
-                        reviews: 204
-                    },
-                    {
-                        id: 4,
-                        name: 'Smartwatch FitTrack',
-                        description: 'Reloj inteligente con seguimiento de actividad física, monitoreo cardíaco y GPS integrado.',
-                        price: 179.99,
-                        image: 'https://cdn.pixabay.com/photo/2015/06/25/17/21/smart-watch-821557_1280.jpg',
-                        rating: 4.3,
-                        reviews: 156
-                    }
-                ],
-                dealProducts: [
-                    {
-                        id: 5,
-                        name: 'Tablet UltraView 10"',
-                        description: 'Tablet con pantalla 2K de 10", procesador octa-core y 128GB de almacenamiento.',
-                        price: 299.99,
-                        oldPrice: 399.99,
-                        discount: 25,
-                        image: 'https://cdn.pixabay.com/photo/2015/02/05/08/12/ipad-624707_1280.jpg',
-                        rating: 4.6,
-                        reviews: 87
-                    },
-                    {
-                        id: 6,
-                        name: 'Cámara MirrorPro',
-                        description: 'Cámara sin espejo con sensor full-frame de 24MP, grabación 4K y estabilización de 5 ejes.',
-                        price: 1499.99,
-                        oldPrice: 1899.99,
-                        discount: 21,
-                        image: 'https://cdn.pixabay.com/photo/2014/08/29/14/53/camera-431119_1280.jpg',
-                        rating: 4.9,
-                        reviews: 64
-                    },
-                    {
-                        id: 7,
-                        name: 'Altavoz Bluetooth SoundMax',
-                        description: 'Altavoz portátil con sonido 360°, resistencia al agua IPX7 y 20 horas de batería.',
-                        price: 129.99,
-                        oldPrice: 179.99,
-                        discount: 28,
-                        image: 'https://cdn.pixabay.com/photo/2019/09/25/08/41/speaker-4502258_1280.jpg',
-                        rating: 4.4,
-                        reviews: 109
-                    }
-                ],
-                isLoading: false,
-                cart: {
-                    items: [],
-                    isOpen: false
+   <script id="app-script">
+    function app() {
+        return {
+            // CATEGORÍAS DINÁMICAS desde la base de datos
+            categories: @json($categorias),
+            
+            selectedCategory: null,
+            featuredProducts: [
+                {
+                    id: 1,
+                    name: 'Smartphone XYZ Pro',
+                    description: 'Smartphone de última generación con cámara de 108MP, 12GB RAM y pantalla AMOLED de 6.7".',
+                    price: 899.99,
+                    oldPrice: 999.99,
+                    image: 'https://cdn.pixabay.com/photo/2016/11/29/12/30/phone-1869510_1280.jpg',
+                    rating: 4.5,
+                    reviews: 128
                 },
-                productModal: {
-                    isOpen: false,
-                    product: {},
-                    quantity: 1
+                {
+                    id: 2,
+                    name: 'Laptop UltraBook',
+                    description: 'Laptop ultradelgada con procesador de última generación, 16GB RAM y 512GB SSD.',
+                    price: 1299.99,
+                    image: 'https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg',
+                    rating: 4.8,
+                    reviews: 95
                 },
-                cartModal: {
-                    isOpen: false
+                {
+                    id: 3,
+                    name: 'Auriculares NoiseCancel',
+                    description: 'Auriculares con cancelación de ruido, 30 horas de batería y conexión Bluetooth 5.0.',
+                    price: 249.99,
+                    oldPrice: 299.99,
+                    image: 'https://cdn.pixabay.com/photo/2016/09/13/08/44/headphones-1666720_1280.jpg',
+                    rating: 4.7,
+                    reviews: 204
                 },
-                profileModal: {
-                    isOpen: false,
-                    user: {
-                        firstName: 'Juan',
-                        lastName: 'Pérez',
-                        email: 'juan.perez@example.com',
-                        phone: '+123456789',
-                        address: 'Calle Principal 123',
-                        city: 'Ciudad',
-                        state: 'Estado',
-                        zipCode: '12345'
-                    }
-                },
-                ordersModal: {
-                    isOpen: false,
-                    orders: [
-                        {
-                            id: '10023',
-                            date: '15/01/2025',
-                            total: 1149.98,
-                            status: 'Entregado',
-                            items: [
-                                {
-                                    id: 1,
-                                    name: 'Smartphone XYZ Pro',
-                                    price: 899.99,
-                                    quantity: 1,
-                                    image: 'https://cdn.pixabay.com/photo/2016/11/29/12/30/phone-1869510_1280.jpg'
-                                },
-                                {
-                                    id: 3,
-                                    name: 'Auriculares NoiseCancel',
-                                    price: 249.99,
-                                    quantity: 1,
-                                    image: 'https://cdn.pixabay.com/photo/2016/09/13/08/44/headphones-1666720_1280.jpg'
-                                }
-                            ]
-                        },
-                        {
-                            id: '10022',
-                            date: '02/01/2025',
-                            total: 179.99,
-                            status: 'En camino',
-                            items: [
-                                {
-                                    id: 4,
-                                    name: 'Smartwatch FitTrack',
-                                    price: 179.99,
-                                    quantity: 1,
-                                    image: 'https://cdn.pixabay.com/photo/2015/06/25/17/21/smart-watch-821557_1280.jpg'
-                                }
-                            ]
-                        }
-                    ]
-                },
-                settingsModal: {
-                    isOpen: false,
-                    notifications: {
-                        promotions: true,
-                        orderUpdates: true,
-                        newProducts: false
-                    },
-                    privacy: {
-                        shareData: false,
-                        thirdPartyCookies: true
-                    },
-                    password: {
-                        current: '',
-                        new: '',
-                        confirm: ''
-                    }
-                },
-                toast: {
-                    show: false,
-                    message: '',
-                    type: 'success', // success, error, info
-                    timeout: null
-                },
-                countdown: {
-                    hours: '08',
-                    minutes: '45',
-                    seconds: '30'
-                },
-                
-                init() {
-                    // Initialize Swiper
-                    this.$nextTick(() => {
-                        new Swiper('.banner-swiper', {
-                            slidesPerView: 1,
-                            spaceBetween: 30,
-                            loop: true,
-                            autoplay: {
-                                delay: 5000,
-                                disableOnInteraction: false
-                            },
-                            pagination: {
-                                el: '.swiper-pagination',
-                                clickable: true
-                            },
-                            navigation: {
-                                nextEl: '.swiper-button-next',
-                                prevEl: '.swiper-button-prev'
-                            }
-                        });
-                    });
-                    
-                    // Load cart from localStorage
-                    const savedCart = localStorage.getItem('cart');
-                    if (savedCart) {
-                        this.cart.items = JSON.parse(savedCart);
-                    }
-                    
-                    // Setup countdown timer
-                    this.startCountdown();
-                },
-                
-                startCountdown() {
-                    let totalSeconds = parseInt(this.countdown.hours) * 3600 + 
-                                       parseInt(this.countdown.minutes) * 60 + 
-                                       parseInt(this.countdown.seconds);
-                    
-                    const countdownInterval = setInterval(() => {
-                        totalSeconds--;
-                        
-                        if (totalSeconds <= 0) {
-                            clearInterval(countdownInterval);
-                            this.showToast('¡Las ofertas han terminado!', 'info');
-                        }
-                        
-                        const hours = Math.floor(totalSeconds / 3600);
-                        const minutes = Math.floor((totalSeconds % 3600) / 60);
-                        const seconds = totalSeconds % 60;
-                        
-                        this.countdown.hours = hours.toString().padStart(2, '0');
-                        this.countdown.minutes = minutes.toString().padStart(2, '0');
-                        this.countdown.seconds = seconds.toString().padStart(2, '0');
-                    }, 1000);
-                },
-                
-                fetchSuggestions() {
-                    // Simulación de búsqueda
-                    setTimeout(() => {
-                        const query = this.searchQuery.toLowerCase();
-                        const allProducts = [...this.featuredProducts, ...this.dealProducts];
-                        this.suggestions = allProducts.filter(p => 
-                            p.name.toLowerCase().includes(query)
-                        ).slice(0, 5);
-                    }, 300);
-                },
-                
-                selectSuggestion(suggestion) {
-                    this.searchQuery = '';
-                    this.suggestions = [];
-                    this.openProductModal(suggestion);
-                },
-                
-                selectCategory(category) {
-                    this.selectedCategory = category;
-                    this.showToast(`Categoría seleccionada: ${category.name}`, 'info');
-                },
-                
-                openProductModal(product) {
-                    this.productModal.product = product;
-                    this.productModal.quantity = 1;
-                    this.productModal.isOpen = true;
-                },
-                
-                incrementQuantity() {
-                    if (this.productModal.quantity < 99) {
-                        this.productModal.quantity++;
-                    }
-                },
-                
-                decrementQuantity() {
-                    if (this.productModal.quantity > 1) {
-                        this.productModal.quantity--;
-                    }
-                },
-                
-                addToCart(product, quantity) {
-                    this.isLoading = true;
-                    
-                    // Simulación de API call
-                    setTimeout(() => {
-                        const existingItemIndex = this.cart.items.findIndex(item => item.id === product.id);
-                        
-                        if (existingItemIndex !== -1) {
-                            // Update quantity if product already in cart
-                            this.cart.items[existingItemIndex].quantity += quantity;
-                        } else {
-                            // Add new item to cart
-                            this.cart.items.push({
-                                id: product.id,
-                                name: product.name,
-                                price: product.price,
-                                image: product.image,
-                                quantity: quantity
-                            });
-                        }
-                        
-                        // Save to localStorage
-                        localStorage.setItem('cart', JSON.stringify(this.cart.items));
-                        
-                        this.isLoading = false;
-                        this.productModal.isOpen = false;
-                        this.showToast('Producto añadido al carrito', 'success');
-                    }, 800);
-                },
-                
-                buyNow(product, quantity) {
-                    this.isLoading = true;
-                    
-                    // Simulación de API call
-                    setTimeout(() => {
-                        this.addToCart(product, quantity);
-                        this.toggleCart();
-                    }, 800);
-                },
-                
-                toggleCart() {
-                    this.cartModal.isOpen = !this.cartModal.isOpen;
-                },
-                
-                toggleProfileModal() {
-                    this.profileModal.isOpen = !this.profileModal.isOpen;
-                },
-                
-                toggleOrdersModal() {
-                    this.ordersModal.isOpen = !this.ordersModal.isOpen;
-                },
-                
-                toggleSettingsModal() {
-                    this.settingsModal.isOpen = !this.settingsModal.isOpen;
-                },
-                
-                updateCartItem(index, quantity) {
-                    if (quantity <= 0) {
-                        this.removeFromCart(index);
-                    } else {
-                        this.cart.items[index].quantity = quantity;
-                        localStorage.setItem('cart', JSON.stringify(this.cart.items));
-                    }
-                },
-                
-                removeFromCart(index) {
-                    this.cart.items.splice(index, 1);
-                    localStorage.setItem('cart', JSON.stringify(this.cart.items));
-                    this.showToast('Producto eliminado del carrito', 'info');
-                },
-                
-                calculateSubtotal() {
-                    return this.cart.items.reduce((total, item) => total + (item.price * item.quantity), 0);
-                },
-                
-                checkout() {
-                    if (this.cart.items.length === 0) return;
-                    
-                    this.isLoading = true;
-                    
-                    // Simulación de API call
-                    setTimeout(() => {
-                        this.isLoading = false;
-                        this.cartModal.isOpen = false;
-                        this.cart.items = [];
-                        localStorage.removeItem('cart');
-                        this.showToast('¡Pedido realizado con éxito!', 'success');
-                    }, 1500);
-                },
-                
-                saveProfile() {
-                    this.isLoading = true;
-                    
-                    // Validación simple
-                    if (!this.profileModal.user.firstName || !this.profileModal.user.lastName || !this.profileModal.user.email) {
-                        this.showToast('Por favor completa los campos obligatorios', 'error');
-                        this.isLoading = false;
-                        return;
-                    }
-                    
-                    // Simulación de API call
-                    setTimeout(() => {
-                        this.isLoading = false;
-                        this.profileModal.isOpen = false;
-                        this.showToast('Perfil actualizado correctamente', 'success');
-                    }, 1000);
-                },
-                
-                viewOrderDetails(order) {
-                    // Podría abrir un nuevo modal con detalles del pedido
-                    this.showToast('Ver detalles del pedido: ' + order.id, 'info');
-                },
-                
-                changePassword() {
-                    this.isLoading = true;
-                    
-                    // Validación simple
-                    if (!this.settingsModal.password.current || !this.settingsModal.password.new || !this.settingsModal.password.confirm) {
-                        this.showToast('Por favor completa todos los campos', 'error');
-                        this.isLoading = false;
-                        return;
-                    }
-                    
-                    if (this.settingsModal.password.new !== this.settingsModal.password.confirm) {
-                        this.showToast('Las contraseñas no coinciden', 'error');
-                        this.isLoading = false;
-                        return;
-                    }
-                    
-                    // Simulación de API call
-                    setTimeout(() => {
-                        this.isLoading = false;
-                        this.settingsModal.password = { current: '', new: '', confirm: '' };
-                        this.showToast('Contraseña actualizada correctamente', 'success');
-                    }, 1000);
-                },
-                
-                logout() {
-                    this.isLoading = true;
-                    
-                    // Simulación de API call
-                    setTimeout(() => {
-                        this.isLoading = false;
-                        this.settingsModal.isOpen = false;
-                        this.showToast('Sesión cerrada correctamente', 'success');
-                    }, 800);
-                },
-                
-                showToast(message, type = 'success') {
-                    // Clear any existing timeout
-                    if (this.toast.timeout) {
-                        clearTimeout(this.toast.timeout);
-                    }
-                    
-                    this.toast.message = message;
-                    this.toast.type = type;
-                    this.toast.show = true;
-                    
-                    // Auto hide after 3 seconds
-                    this.toast.timeout = setTimeout(() => {
-                        this.toast.show = false;
-                    }, 3000);
+                {
+                    id: 4,
+                    name: 'Smartwatch FitTrack',
+                    description: 'Reloj inteligente con seguimiento de actividad física, monitoreo cardíaco y GPS integrado.',
+                    price: 179.99,
+                    image: 'https://cdn.pixabay.com/photo/2015/06/25/17/21/smart-watch-821557_1280.jpg',
+                    rating: 4.3,
+                    reviews: 156
                 }
-            };
-        }
-    </script>
+            ],
+            dealProducts: [
+                {
+                    id: 5,
+                    name: 'Tablet UltraView 10"',
+                    description: 'Tablet con pantalla 2K de 10", procesador octa-core y 128GB de almacenamiento.',
+                    price: 299.99,
+                    oldPrice: 399.99,
+                    discount: 25,
+                    image: 'https://th.bing.com/th/id/OIP.1eUOj5sxuPnWHIQS3kxCJwHaJ0?r=0&rs=1&pid=ImgDetMain&cb=idpwebp2&o=7&rm=3',
+                    rating: 4.6,
+                    reviews: 87
+                },
+                {
+                    id: 6,
+                    name: 'Cámara MirrorPro',
+                    description: 'Cámara sin espejo con sensor full-frame de 24MP, grabación 4K y estabilización de 5 ejes.',
+                    price: 1499.99,
+                    oldPrice: 1899.99,
+                    discount: 21,
+                    image: 'https://cdn.pixabay.com/photo/2014/08/29/14/53/camera-431119_1280.jpg',
+                    rating: 4.9,
+                    reviews: 64
+                },
+                {
+                    id: 7,
+                    name: 'Altavoz Bluetooth SoundMax',
+                    description: 'Altavoz portátil con sonido 360°, resistencia al agua IPX7 y 20 horas de batería.',
+                    price: 129.99,
+                    oldPrice: 179.99,
+                    discount: 28,
+                    image: 'https://th.bing.com/th/id/OIP.36losBJKCktLb-axjgay6wHaFj?r=0&rs=1&pid=ImgDetMain&cb=idpwebp2&o=7&rm=3',
+                    rating: 4.4,
+                    reviews: 109
+                }
+            ],
+            isLoading: false,
+            cart: {
+                items: [],
+                isOpen: false
+            },
+            productModal: {
+                isOpen: false,
+                product: {},
+                quantity: 1
+            },
+            cartModal: {
+                isOpen: false
+            },
+            profileModal: {
+                isOpen: false,
+                user: {
+                    firstName: 'Juan',
+                    lastName: 'Pérez',
+                    email: 'juan.perez@example.com',
+                    phone: '+123456789',
+                    address: 'Calle Principal 123',
+                    city: 'Ciudad',
+                    state: 'Estado',
+                    zipCode: '12345'
+                }
+            },
+            ordersModal: {
+                isOpen: false,
+                orders: [
+                    {
+                        id: '10023',
+                        date: '15/01/2025',
+                        total: 1149.98,
+                        status: 'Entregado',
+                        items: [
+                            {
+                                id: 1,
+                                name: 'Smartphone XYZ Pro',
+                                price: 899.99,
+                                quantity: 1,
+                                image: 'https://cdn.pixabay.com/photo/2016/11/29/12/30/phone-1869510_1280.jpg'
+                            },
+                            {
+                                id: 3,
+                                name: 'Auriculares NoiseCancel',
+                                price: 249.99,
+                                quantity: 1,
+                                image: 'https://cdn.pixabay.com/photo/2016/09/13/08/44/headphones-1666720_1280.jpg'
+                            }
+                        ]
+                    },
+                    {
+                        id: '10022',
+                        date: '02/01/2025',
+                        total: 179.99,
+                        status: 'En camino',
+                        items: [
+                            {
+                                id: 4,
+                                name: 'Smartwatch FitTrack',
+                                price: 179.99,
+                                quantity: 1,
+                                image: 'https://cdn.pixabay.com/photo/2015/06/25/17/21/smart-watch-821557_1280.jpg'
+                            }
+                        ]
+                    }
+                ]
+            },
+            settingsModal: {
+                isOpen: false,
+                notifications: {
+                    promotions: true,
+                    orderUpdates: true,
+                    newProducts: false
+                },
+                privacy: {
+                    shareData: false,
+                    thirdPartyCookies: true
+                },
+                password: {
+                    current: '',
+                    new: '',
+                    confirm: ''
+                }
+            },
+            toast: {
+                show: false,
+                message: '',
+                type: 'success',
+                timeout: null
+            },
+            countdown: {
+                hours: '08',
+                minutes: '45',
+                seconds: '30'
+            },
+            
+init() {
+    // Inicializar Swiper para productos destacados
+    this.$nextTick(() => {
+        new Swiper('.productos-swiper', {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                },
+                768: {
+                    slidesPerView: 3,
+                },
+                1024: {
+                    slidesPerView: 4,
+                },
+            }
+        });
+    });
+
+    // Swiper para Productos Hogar - Configuración idéntica a productos destacados
+    this.$nextTick(() => {
+        new Swiper('.productos-hogar-swiper', {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true
+            },
+            navigation: {
+                nextEl: '.productos-hogar-next',
+                prevEl: '.productos-hogar-prev',
+            },
+            pagination: {
+                el: '.productos-hogar-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                },
+                768: {
+                    slidesPerView: 3,
+                },
+                1024: {
+                    slidesPerView: 4,
+                }
+            }
+        });
+    });
+    
+
+
+              
+                // Load cart from localStorage
+                const savedCart = localStorage.getItem('cart');
+                if (savedCart) {
+                    this.cart.items = JSON.parse(savedCart);
+                }
+                
+                // Setup countdown timer
+                this.startCountdown();
+            },
+            
+            startCountdown() {
+                let totalSeconds = parseInt(this.countdown.hours) * 3600 + 
+                                   parseInt(this.countdown.minutes) * 60 + 
+                                   parseInt(this.countdown.seconds);
+                
+                const countdownInterval = setInterval(() => {
+                    totalSeconds--;
+                    
+                    if (totalSeconds <= 0) {
+                        clearInterval(countdownInterval);
+                        this.showToast('¡Las ofertas han terminado!', 'info');
+                    }
+                    
+                    const hours = Math.floor(totalSeconds / 3600);
+                    const minutes = Math.floor((totalSeconds % 3600) / 60);
+                    const seconds = totalSeconds % 60;
+                    
+                    this.countdown.hours = hours.toString().padStart(2, '0');
+                    this.countdown.minutes = minutes.toString().padStart(2, '0');
+                    this.countdown.seconds = seconds.toString().padStart(2, '0');
+                }, 1000);
+            },
+            
+            fetchSuggestions() {
+                setTimeout(() => {
+                    const query = this.searchQuery.toLowerCase();
+                    const allProducts = [...this.featuredProducts, ...this.dealProducts];
+                    this.suggestions = allProducts.filter(p => 
+                        p.name.toLowerCase().includes(query)
+                    ).slice(0, 5);
+                }, 300);
+            },
+            
+            selectSuggestion(suggestion) {
+                this.searchQuery = '';
+                this.suggestions = [];
+                this.openProductModal(suggestion);
+            },
+            
+            selectCategory(category) {
+                this.selectedCategory = category;
+                this.showToast(`Categoría seleccionada: ${category.nombre}`, 'info');
+            },
+            
+            openProductModal(product) {
+                this.productModal.product = product;
+                this.productModal.quantity = 1;
+                this.productModal.isOpen = true;
+            },
+            
+            incrementQuantity() {
+                if (this.productModal.quantity < 99) {
+                    this.productModal.quantity++;
+                }
+            },
+            
+            decrementQuantity() {
+                if (this.productModal.quantity > 1) {
+                    this.productModal.quantity--;
+                }
+            },
+            
+            addToCart(product, quantity) {
+                this.isLoading = true;
+                
+                setTimeout(() => {
+                    const existingItemIndex = this.cart.items.findIndex(item => item.id === product.id);
+                    
+                    if (existingItemIndex !== -1) {
+                        this.cart.items[existingItemIndex].quantity += quantity;
+                    } else {
+                        this.cart.items.push({
+                            id: product.id,
+                            name: product.name,
+                            price: product.price,
+                            image: product.image,
+                            quantity: quantity
+                        });
+                    }
+                    
+                    localStorage.setItem('cart', JSON.stringify(this.cart.items));
+                    
+                    this.isLoading = false;
+                    this.productModal.isOpen = false;
+                    this.showToast('Producto añadido al carrito', 'success');
+                }, 800);
+            },
+            
+            buyNow(product, quantity) {
+                this.isLoading = true;
+                
+                setTimeout(() => {
+                    this.addToCart(product, quantity);
+                    this.toggleCart();
+                }, 800);
+            },
+            
+            toggleCart() {
+                this.cartModal.isOpen = !this.cartModal.isOpen;
+            },
+            
+            toggleProfileModal() {
+                this.profileModal.isOpen = !this.profileModal.isOpen;
+            },
+            
+            toggleOrdersModal() {
+                this.ordersModal.isOpen = !this.ordersModal.isOpen;
+            },
+            
+            toggleSettingsModal() {
+                this.settingsModal.isOpen = !this.settingsModal.isOpen;
+            },
+            
+            updateCartItem(index, quantity) {
+                if (quantity <= 0) {
+                    this.removeFromCart(index);
+                } else {
+                    this.cart.items[index].quantity = quantity;
+                    localStorage.setItem('cart', JSON.stringify(this.cart.items));
+                }
+            },
+            
+            removeFromCart(index) {
+                this.cart.items.splice(index, 1);
+                localStorage.setItem('cart', JSON.stringify(this.cart.items));
+                this.showToast('Producto eliminado del carrito', 'info');
+            },
+            
+            calculateSubtotal() {
+                return this.cart.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+            },
+            
+            checkout() {
+                if (this.cart.items.length === 0) return;
+                
+                this.isLoading = true;
+                
+                setTimeout(() => {
+                    this.isLoading = false;
+                    this.cartModal.isOpen = false;
+                    this.cart.items = [];
+                    localStorage.removeItem('cart');
+                    this.showToast('¡Pedido realizado con éxito!', 'success');
+                }, 1500);
+            },
+            
+            saveProfile() {
+                this.isLoading = true;
+                
+                if (!this.profileModal.user.firstName || !this.profileModal.user.lastName || !this.profileModal.user.email) {
+                    this.showToast('Por favor completa los campos obligatorios', 'error');
+                    this.isLoading = false;
+                    return;
+                }
+                
+                setTimeout(() => {
+                    this.isLoading = false;
+                    this.profileModal.isOpen = false;
+                    this.showToast('Perfil actualizado correctamente', 'success');
+                }, 1000);
+            },
+            
+            viewOrderDetails(order) {
+                this.showToast('Ver detalles del pedido: ' + order.id, 'info');
+            },
+            
+            changePassword() {
+                this.isLoading = true;
+                
+                if (!this.settingsModal.password.current || !this.settingsModal.password.new || !this.settingsModal.password.confirm) {
+                    this.showToast('Por favor completa todos los campos', 'error');
+                    this.isLoading = false;
+                    return;
+                }
+                
+                if (this.settingsModal.password.new !== this.settingsModal.password.confirm) {
+                    this.showToast('Las contraseñas no coinciden', 'error');
+                    this.isLoading = false;
+                    return;
+                }
+                
+                setTimeout(() => {
+                    this.isLoading = false;
+                    this.settingsModal.password = { current: '', new: '', confirm: '' };
+                    this.showToast('Contraseña actualizada correctamente', 'success');
+                }, 1000);
+            },
+            
+            logout() {
+                this.isLoading = true;
+                
+                setTimeout(() => {
+                    this.isLoading = false;
+                    this.settingsModal.isOpen = false;
+                    this.showToast('Sesión cerrada correctamente', 'success');
+                }, 800);
+            },
+            
+            showToast(message, type = 'success') {
+                if (this.toast.timeout) {
+                    clearTimeout(this.toast.timeout);
+                }
+                
+                this.toast.message = message;
+                this.toast.type = type;
+                this.toast.show = true;
+                
+                this.toast.timeout = setTimeout(() => {
+                    this.toast.show = false;
+                }, 3000);
+            }
+        };
+    }
+</script>
 
 
 
@@ -1317,3 +1415,167 @@
             transition: all 0.3s;
         }
 </style>
+
+<script>
+    function toggleDropdown() {
+        const dropdown = document.getElementById('dropdownCarrito');
+        dropdown.classList.toggle('hidden');
+    }
+
+    window.addEventListener('click', function(e) {
+        const dropdown = document.getElementById('dropdownCarrito');
+        if (!e.target.closest('#dropdownCarrito') && !e.target.closest('button[onclick="toggleDropdown()"]')) {
+            dropdown.classList.add('hidden');
+        }
+    });
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const csrfToken = document.querySelector('input[name="_token"]').value;
+    
+    // Función para actualizar el dropdown del carrito
+    function updateCartDropdown(data) {
+        // Actualizar contador
+        const cartCount = data.cart_count || 0;
+        const cartCountElement = document.querySelector('.fa-shopping-cart').nextElementSibling;
+        
+        if (cartCount > 0) {
+            if (cartCountElement) {
+                cartCountElement.textContent = cartCount;
+            } else {
+                const cartIcon = document.querySelector('.fa-shopping-cart');
+                const countBadge = document.createElement('span');
+                countBadge.className = 'absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center';
+                countBadge.textContent = cartCount;
+                cartIcon.parentNode.appendChild(countBadge);
+            }
+        } else if (cartCountElement) {
+            cartCountElement.remove();
+        }
+        
+        // Actualizar contenido del dropdown
+        fetch('/carrito/dropdown-content')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('cart-dropdown').innerHTML = html;
+                setupCartEvents();
+            });
+        
+        // Mostrar notificación
+        const alpineApp = document.querySelector('[x-data="app()"]').__x.$data;
+        alpineApp.showToast(data.message, 'success');
+    }
+    
+    // Configurar eventos del carrito
+    function setupCartEvents() {
+        // Eventos para eliminar items
+        document.querySelectorAll('.delete-item').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const productId = this.getAttribute('data-id');
+                removeFromCart(productId);
+            });
+        });
+    }
+    
+    // Función para eliminar items
+    function removeFromCart(productId) {
+        fetch(`/carrito/eliminar/${productId}`, {
+            method: 'POST',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': csrfToken,
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                updateCartDropdown(data);
+            }
+        });
+    }
+    
+    // Manejar agregar al carrito
+    document.querySelectorAll('.add-to-cart-form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const button = this.querySelector('button[type="submit"]');
+            const originalText = button.innerHTML;
+            
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Añadiendo...';
+            button.disabled = true;
+            
+            fetch(this.action, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json'
+                },
+                body: new FormData(this)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    updateCartDropdown(data);
+                }
+            })
+            .finally(() => {
+                button.innerHTML = originalText;
+                button.disabled = false;
+            });
+        });
+    });
+    
+    // Configurar eventos iniciales
+    setupCartEvents();
+});
+</script>
+<!--Script productos hogar-->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    new Swiper('.productos-hogar-swiper', {
+        slidesPerView: 'auto',
+        spaceBetween: 20,
+        navigation: {
+            nextEl: '.productos-hogar-next',
+            prevEl: '.productos-hogar-prev',
+        },
+    });
+    
+});
+</script>
+<style>
+/* Estilos para los botones de navegación */
+.productos-hogar-next, .productos-destacados-prev, .productos-hogar-prev, .productos-destacados-next {
+    color: #4b5563 !important; /* text-gray-700 */
+    background: white !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    box-shadow: 0 0px 5px black!important;
+    
+}
+
+.productos-hogar-next::after, .productos-destacados-next::after, .productos-hogar-prev::after, .productos-destacados-prev::after {
+    font-size: 16px !important;
+    font-weight: bold !important;
+   
+}
+
+/* Estilos para la paginación */
+.productos-hogar-pagination .swiper-pagination-bullet {
+    background: #6b7280; /* text-gray-500 */
+    opacity: 0.5;
+}
+
+.productos-hogar-pagination .swiper-pagination-bullet-active {
+    background: #4b5563; /* text-gray-600 */
+    opacity: 1;
+}
+</style>
+
+</body>
+</html>
