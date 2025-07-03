@@ -16,7 +16,7 @@ return new class extends Migration {
 
             $table->string('modelo')->nullable(); // Ej: 'FacturaProveedor'
             $table->unsignedBigInteger('modelo_id')->nullable(); // ID del modelo relacionado
-
+            $table->boolean('visto')->default(false);
             $table->timestamps();
         });
     }

@@ -1,4 +1,11 @@
 <x-layouts.app :title="__('Dashboard | Automatic Control')">
+    <div >
+        <flux:breadcrumbs>
+
+            <flux:breadcrumbs.item >Dashboard</flux:breadcrumbs.item>
+
+        </flux:breadcrumbs>
+    </div>
     {{-- Alertas de productos bajos --}}
     @if($productosBajos->count())
     <div 
@@ -135,7 +142,7 @@
                     — {{ $evento->descripcion }}
                     <br>
                     <span class="text-xs text-gray-500 dark:text-gray-400">
-                        {{ $evento->usuario?->name ?? 'Sistema' }} | {{ $evento->created_at->format('d/m/Y H:i') }}
+                        {{ $evento->user?->name ?? 'Sistema' }} | {{ $evento->created_at->format('d/m/Y H:i') }}
                     </span>
                 </div>
             </a>

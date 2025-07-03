@@ -7,6 +7,9 @@ use App\Models\FacturaProveedor;
 use App\Models\FacturaProveedorItem;
 use App\Models\Proveedor;
 use App\Models\Empresa;
+use App\Models\Evento;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -52,6 +55,7 @@ class FacturaProveedorController extends Controller
             'empresa_id' => $request->empresa_id,
             'fecha_pago' => $request->fecha_pago,
             'total' => 0,
+            'user_id' => Auth::id(),
         ]);
 
         $total = 0;
@@ -90,12 +94,23 @@ class FacturaProveedorController extends Controller
         $path = 'facturas/pdf/factura_' . $factura->id . '.pdf';
         $pdf->save(public_path($path));
         $factura->update(['pdf_path' => $path]);
-    });
 
-    session()->flash('swal', [
-            'icon' => 'success',
-            'title' => '¡ Muy bien !',
-            'text' => 'Se ha registrado una nueva factura con éxito'
+        Evento::create([
+            'titulo' => 'Factura Proveedor registrada',
+            'descripcion' => 'Se registró la factura # "' . $factura->numero_factura . '" , del Proveedor "'. $factura->proveedor->nombre .'" en el sistema.',
+            'tipo' => 'success',
+            'modelo' => 'FacturaProveedor',
+            'modelo_id' => $factura->id,
+            'user_id' => Auth::id(),
+            ]);
+        });
+
+        
+
+        session()->flash('swal', [
+                'icon' => 'success',
+                'title' => '¡ Muy bien !',
+                'text' => 'Se ha registrado una nueva factura con éxito'
         ]);
 
     return redirect()->route('admin.facturas_proveedores.index');

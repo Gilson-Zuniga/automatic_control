@@ -28,7 +28,7 @@
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->roles->first()?->name ?? 'Sin rol' }}</td>
                         <td class="flex justify-end">
-                            <x-button-link  href="{{ route('admin.users.edit', $user) }}" >
+                            <x-button-link  href="{{ route('admin.users.edit', $user) }}" color="red">
                                     Editar
                                 </x-button-link>
                         </td>

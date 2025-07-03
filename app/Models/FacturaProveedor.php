@@ -11,6 +11,7 @@ class FacturaProveedor extends Model
 
     protected $fillable = [
         'numero_factura',
+        'user_id',
         'proveedor_id',
         'empresa_id',
         'fecha_pago',
@@ -18,7 +19,10 @@ class FacturaProveedor extends Model
         'pdf_path',
     ];
     
-
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
     public function proveedor()
     {
         return $this->belongsTo(Proveedor::class);

@@ -89,14 +89,7 @@ class FacturaClienteController extends Controller
                 'user_id' => Auth::id(), 
             ]);
 
-            Evento::create([
-            'titulo' => 'Factura registrada',
-            'descripcion' => 'Se registró la factura # "' . $factura->numero_factura . '" en el sistema.',
-            'tipo' => 'success',
-            'modelo' => 'FacturaCliente',
-            'modelo_id' => $factura->id,
-            'user_id' => Auth::id(),
-            ]);
+            
             
 
             $total = 0;
@@ -166,6 +159,15 @@ class FacturaClienteController extends Controller
 
             if ($cliente && $cliente->email) {
                 Mail::to($cliente->email)->send(new EnviarCorreo($factura, $rutaPDF));
+
+            Evento::create([
+            'titulo' => 'Factura registrada',
+            'descripcion' => 'Se registró la factura de Venta # "' . $factura->numero_factura . '" , de la Empresa "'. $factura->empresa->nombre .'" en el sistema.',
+            'tipo' => 'success',
+            'modelo' => 'FacturaCliente',
+            'modelo_id' => $factura->id,
+            'user_id' => Auth::id(),
+            ]);
             }
 
 

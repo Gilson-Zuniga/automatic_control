@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Proveedor;
-use App\Models\Empresa;
+use Carbon\Carbon;
 use App\Models\FacturaProveedor;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -40,18 +40,21 @@ class ReporteFacturaProveedorController extends Controller
             'fecha_fin' => 'required|date|after_or_equal:fecha_inicio',
         ]);
 
-        $facturas = FacturaProveedor::with('proveedor', 'empresa')
-            ->when($request->proveedor_id, fn($q) => $q->where('proveedor_id', $request->proveedor_id))
-            ->whereBetween('created_at', [$request->fecha_inicio, $request->fecha_fin])
-            ->get();
+        $fechaInicioCarbon = Carbon::parse($request->input('fecha_inicio'));
+    $fechaFinCarbon = Carbon::parse($request->input('fecha_fin'));
+
+    $facturas = FacturaProveedor::with('proveedor', 'empresa')
+        ->when($request->proveedor_id, fn($q) => $q->where('proveedor_id', $request->proveedor_id))
+        ->whereBetween('created_at', [$fechaInicioCarbon, $fechaFinCarbon])
+        ->get();
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setTitle('Facturas proveedores');
+        $sheet->setTitle('Facturas Proveedores');
 
         // Cabeceras
         $sheet->fromArray([
-            ['ID', 'Número Factura', 'proveedores', 'Empresa', 'Fecha', 'Total']
+            ['ID', 'Número Factura', 'Proveedor', 'Empresa', 'Fecha', 'Total']
         ], null, 'A1');
 
         // Contenido
@@ -67,10 +70,15 @@ class ReporteFacturaProveedorController extends Controller
             ], null, 'A' . $fila++);
         }
 
-        $writer = new Xlsx($spreadsheet);
+    $writer = new Xlsx($spreadsheet);
 
-        return response()->streamDownload(function () use ($writer) {
-            $writer->save('php://output');
-        }, 'reporte_facturas_proveedores.xlsx');
+    $fechaInicio = $fechaInicioCarbon->format('Ymd');
+    $fechaFin = $fechaFinCarbon->format('Ymd');
+    $horaActual = now()->format('His');
+    $fileName = "reporte_facturas_proveedores_{$fechaInicio}_{$fechaFin}_{$horaActual}.xlsx";
+
+    return response()->streamDownload(function () use ($writer) {
+        $writer->save('php://output');
+    }, $fileName);
     }
 }
