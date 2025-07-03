@@ -7,6 +7,10 @@ use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\DashboardController; 
 use App\Http\Controllers\FacturaClienteController;
+use App\Http\Controllers\CompraController;
+use App\Http\Controllers\PayPalController;
+use App\Http\Controllers\OrdenController;
+
 
 
 // Rutas públicas (no requieren login)
@@ -40,6 +44,23 @@ require __DIR__.'/auth.php';
 
 Route::get('/productos', [App\Http\Controllers\TiendaController::class, 'mostrarProductos'])->name('productos.index');
 
-Route::get('/productos', [TiendaController::class, 'mostrarProductos'])->name('productos.index');
-Route::get('/facturas-clientes', [FacturaClienteController::class, 'index'])->name('admin.reportes.facturas-clientes.index');
+
+Route::get('/productos', [TiendaController::class, 'mostrarEcommerce'])->name('productos.index');
+Route::get('/productos/{id}', [TiendaController::class, 'mostrarProducto'])->name('productos.show');
+Route::post('/carrito/agregar/{id}', [CarritoController::class, 'agregar'])->name('carrito.agregar');
+Route::get('/carrito', [CarritoController::class, 'mostrar'])->name('carrito.mostrar');
+Route::post('/carrito/eliminar/{id}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
+
+
+Route::get('/paypal/cancel', [CompraController::class, 'cancel'])->name('paypal.cancel');
+Route::get('/paypal/pay', [PayPalController::class, 'payWithPayPal'])->name('paypal.pay');
+Route::get('/paypal/success', [PayPalController::class, 'success'])->name('paypal.success');
+
+// Ruta final limpia para success de PayPal
+Route::get('/paypal/success', [PayPalController::class, 'success'])->name('paypal.success');
+
+Route::get('/carrito/dropdown-content', [CarritoController::class, 'dropdownContent']);
+Route::post('/orden/contraentrega', [OrdenController::class, 'storeContraentrega'])->name('orden.contraentrega');
+Route::get('/tienda', [TiendaController::class, 'mostrarEcommerce'])->name('tienda.index');
+
 

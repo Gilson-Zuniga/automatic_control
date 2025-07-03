@@ -1,99 +1,63 @@
 <?php
-
 namespace App\Http\Controllers;
-
-use App\Models\Carrito;
-use App\Models\Evento;
 use App\Models\Producto;
-use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Support\Facades\Session;
 
 class CarritoController extends Controller
 {
-    public function index() {
-        $carritos = Carrito::with('producto')->where('user_id', Auth::id())->get();
-        return view('carrito.index', compact('carritos'));
+public function agregar($id)
+{
+    $producto = Producto::findOrFail($id);
+    $carrito = session()->get('carrito', []);
+    
+    if (isset($carrito[$id])) {
+        $carrito[$id]['cantidad']++;
+    } else {
+        $carrito[$id] = [
+            "nombre" => $producto->nombre,
+            "precio" => $producto->precio,
+            "foto" => $producto->foto,
+            "cantidad" => 1
+        ];
     }
 
-    public function agregar($id) {
-        $producto = Producto::findOrFail($id);
+    session()->put('carrito', $carrito);
+    
+    return response()->json([
+        'success' => true,
+        'message' => 'Producto añadido al carrito',
+        'cart_count' => count($carrito),
+        'cart_items' => $carrito // Enviamos los items del carrito
+    ]);
+}
 
-        // Buscar si ya está en el carrito
-        $carrito = Carrito::where('user_id', Auth::id())
-                          ->where('producto_id', $id)
-                          ->first();
-
-        if ($carrito) {
-            $carrito->cantidad += 1;
-        } else {
-            $carrito = new Carrito();
-            $carrito->user_id = Auth::id();
-            $carrito->producto_id = $id;
-            $carrito->cantidad = 1;
-        }
-
-        $carrito->save();
-
-        return redirect()->back()->with('success', 'Producto agregado al carrito');
+    public function mostrar()
+    {
+        $carrito = session('carrito', []);
+        return view('carrito.index', compact('carrito'));
     }
 
-    public function eliminar($id) {
-        $carrito = Carrito::findOrFail($id);
-        $carrito->delete();
-        return redirect()->back()->with('success', 'Producto eliminado del carrito');
-    }
-
-    public function comprar() {
-        $carritos = Carrito::with('producto')->where('user_id', Auth::id())->get();
-
-        if ($carritos->isEmpty()) {
-            return redirect()->back()->with('error', 'El carrito está vacío');
-        }
-
-        // Crear orden
-        $orden = new \App\Models\Orden();
-        $orden->user_id = Auth::id();
-        $orden->total = 0;
-        $orden->save();
-
-        $total = 0;
-
-        foreach ($carritos as $item) {
-            // Descontar stock
-            if ($item->producto->stock < $item->cantidad) {
-                return redirect()->back()->with('error', "No hay suficiente stock de {$item->producto->nombre}");
-            }
-
-            $item->producto->stock -= $item->cantidad;
-            $item->producto->save();
-
-            // Crear detalle de orden
-            $orden->detalles()->create([
-                'producto_id' => $item->producto_id,
-                'cantidad' => $item->cantidad,
-                'precio_unitario' => $item->producto->precio,
-                'subtotal' => $item->cantidad * $item->producto->precio
-            ]);
-
-            $total += $item->cantidad * $item->producto->precio;
-        }
-
-        $orden->total = $total;
-        $orden->save();
-
-        Evento::create([
-            'titulo' => 'orden registrada',
-            'descripcion' => 'Se registró una nueva Orden por el valor total de $ "' . $orden->total . '" en el sistema.',
-            'tipo' => 'success',
-            'modelo' => 'Orden',
-            'modelo_id' => $orden->id,
-            'user_id' => Auth::id(),
-            ]);
-
-        // Vaciar carrito
-        Carrito::where('user_id', Auth::id())->delete();
-
+    public function eliminar($id)
+    {
+        $carrito = session()->get('carrito', []);
         
-
-        return redirect()->route('ordenes.show', $orden->id)->with('success', 'Compra realizada con éxito');
+        if (isset($carrito[$id])) {
+            unset($carrito[$id]);
+            session()->put('carrito', $carrito);
+        }
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Producto eliminado del carrito',
+            'cart_count' => count($carrito),
+            'cart_items' => $carrito
+        ]);
     }
+    public function dropdownContent()
+{
+    $carrito = session()->get('carrito', []);
+    return view('partials.cart-dropdown-content', ['carrito' => $carrito]);
+}
+
 }

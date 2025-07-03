@@ -2,25 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Inventario;
-use Illuminate\Http\Request;
 use App\Models\Producto;
+use App\Models\Categoria;
+use Illuminate\Http\Request;
 
 class TiendaController extends Controller
 {
-    public function mostrarProductos()
+    public function mostrarEcommerce(Request $request)
     {
-        // Puedes seleccionar solo las columnas que necesitas mostrar
-        $productos = Producto::select('id', 'nombre', 'precio', 'foto')->get();
+        // Configuración para el modal de login
+        $showLoginModal = false;
+        $redirectTo = null;
+        
+        if ($request->has('show_login')) {
+            $showLoginModal = true;
+            $redirectTo = $request->input('redirect_to', route('tienda'));
+        }
 
-        return view('tienda.index', compact('productos'));
-    }
-    
-        public function mostrarEcommerce()
-    {
-        $productos = Producto::all(); // o lo que tú necesites cargar
-        return view('tienda.index', compact('productos'));
-    }
+        // Obtener productos de la categoría Hogar con relaciones
+        $productosHogar = Producto::with(['categoria', 'inventario'])
+            ->whereHas('categoria', function($query) {
+                $query->where('nombre', 'Hogar');
+            })
+            ->get();
 
-};
+        // Otros datos necesarios
+        $productos = Producto::all();
+        $categorias = Categoria::all();
+
+        return view('tienda.index', [
+            'productosHogar' => $productosHogar,
+            'productos' => $productos,
+            'categorias' => $categorias,
+            'showLoginModal' => $showLoginModal,
+            'redirectTo' => $redirectTo
+        ]);
+    }
+}
