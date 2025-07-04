@@ -6,7 +6,7 @@ use App\Http\Controllers\TiendaController;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\DashboardController; 
-use App\Http\Controllers\FacturaClienteController;
+use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\CompraController;
 use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\OrdenController;
@@ -63,4 +63,4 @@ Route::get('/carrito/dropdown-content', [CarritoController::class, 'dropdownCont
 Route::post('/orden/contraentrega', [OrdenController::class, 'storeContraentrega'])->name('orden.contraentrega');
 Route::get('/tienda', [TiendaController::class, 'mostrarEcommerce'])->name('tienda.index');
 
-
+Route::post('/contacto', [ContactoController::class, 'enviar'])->name('contacto.enviar');
