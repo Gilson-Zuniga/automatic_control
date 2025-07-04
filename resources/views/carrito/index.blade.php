@@ -121,10 +121,11 @@
                 Pagar
             </button>
         @else
-                <form action="{{ route('tienda.login') }}" method="GET">
-                <input type="hidden" name="intended" value="{{ route('carrito') }}">
-                <button type="submit" class="mt-4 inline-block bg-gray-600 text-white px-6 py-2 rounded hover:bg-gray-700">Iniciar sesión para pagar</button>
-            </form>
+        <a href="{{ route('login') }}" class="bg-gray-800 text-white hover:bg-gray-700 p-2 rounded">
+        Iniciar sesión para pagar
+        </a>
+
+
         @endauth
     @endif
 
