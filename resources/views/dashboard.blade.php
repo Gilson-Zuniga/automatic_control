@@ -133,12 +133,13 @@
             @endphp
 
             <a href="{{ route('admin.eventos.index') }}"
-               class="flex items-start space-x-3 p-4 rounded-xl hover:bg-gray-50 dark:hover:bg-neutral-800 transition border border-gray-100 dark:border-neutral-800">
+                class="flex items-start space-x-3 p-4 rounded-xl hover:bg-gray-50 dark:hover:bg-neutral-800 transition border border-gray-100 dark:border-neutral-800">
                 <div class="text-2xl">{{ $icono }}</div>
                 <div class="text-sm text-gray-700 dark:text-gray-300">
-                    <span class="font-semibold {{ $colorTexto }}">
-                        {{ ucfirst($evento->accion) }}
-                    </span>
+                <span class="font-semibold {{ $colorTexto }}">
+                    {{ ucfirst($evento->accion ?? 'Acción desconocida') }}
+                </span>
+
                     — {{ $evento->descripcion }}
                     <br>
                     <span class="text-xs text-gray-500 dark:text-gray-400">
@@ -223,23 +224,6 @@
     </div>
 
     <!-- Modal -->
-    <div 
-        x-show="open"
-        x-transition
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
-    >
-        <div @click.away="open = false" class="w-full max-w-md rounded-xl bg-white dark:bg-neutral-800 p-6 shadow-lg">
-            <h3 class="text-xl font-bold text-green-700 dark:text-green-500" x-text="post.titulo"></h3>
-            <p class="mt-4 text-gray-700 dark:text-green-200" x-text="post.asunto"></p>
-            <p class="mt-4 text-gray-200 dark:text-white" x-text="post.contenido"></p>
-            <div class="mt-4 text-sm text-gray-500 dark:text-gray-400">
-                Publicado por <strong x-text="post.user?.name"></strong>
-            </div>
-            <div class="mt-2 text-xs text-gray-400 dark:text-gray-500" x-text="new Date(post.created_at).toLocaleString()"></div>
-            <button @click="open = false" class="mt-6 inline-flex items-center rounded-md bg-green-600 px-4 py-2 text-sm text-white hover:bg-green-700">Cerrar</button>
-        </div>
-    </div>
-    </div>
 
 
     {{-- Últimas facturas generadas Clientes y Proveedores --}}
