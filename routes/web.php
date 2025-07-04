@@ -2,65 +2,56 @@
 
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
-use App\Http\Controllers\TiendaController;
-use App\Http\Controllers\CarritoController;
-use App\Http\Controllers\InicioController;
-use App\Http\Controllers\DashboardController; 
-use App\Http\Controllers\ContactoController;
-use App\Http\Controllers\CompraController;
-use App\Http\Controllers\PayPalController;
-use App\Http\Controllers\OrdenController;
+use App\Http\Controllers\{
+    TiendaController,
+    CarritoController,
+    InicioController,
+    DashboardController,
+    ContactoController,
+    CompraController,
+    PayPalController,
+    OrdenController
+};
 
-
-
-// Rutas públicas (no requieren login)
+// Página principal
 Route::get('/', [InicioController::class, 'index'])->name('home');
 Route::get('/home', [InicioController::class, 'index'])->name('inicio.index');
+
+// Tienda
 Route::get('/tienda', [TiendaController::class, 'mostrarEcommerce'])->name('tienda.index');
-
-// Rutas protegidas
-Route::middleware(['auth', 'verified'])->group(function () {
-
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-    Route::redirect('settings', 'settings/profile');
-
-    Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
-    Volt::route('settings/password', 'settings.password')->name('settings.password');
-    Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
-
-    // Carrito solo accesible con login
-    Route::get('/carrito', [CarritoController::class, 'index'])->name('carrito.index');
-    Route::get('/carrito/agregar/{id}', [CarritoController::class, 'agregar'])->name('carrito.agregar');
-    Route::delete('/carrito/eliminar/{id}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
-    Route::post('/carrito/comprar', [CarritoController::class, 'comprar'])->name('carrito.comprar');
-});
-
-// Ruta pública para agregar al carrito desde el ecommerce (si quieres permitirlo)
-Route::post('/carrito/agregar', [CarritoController::class, 'agregar'])->name('carrito.agregar.public');
-
-//  Incluye rutas de autenticación (login, registro, etc.)
-require __DIR__.'/auth.php';
-
-Route::get('/productos', [App\Http\Controllers\TiendaController::class, 'mostrarProductos'])->name('productos.index');
-
-
 Route::get('/productos', [TiendaController::class, 'mostrarEcommerce'])->name('productos.index');
 Route::get('/productos/{id}', [TiendaController::class, 'mostrarProducto'])->name('productos.show');
+
+// Carrito (algunos públicos y otros protegidos)
+Route::get('/carrito', [CarritoController::class, 'index'])->name('carrito');
 Route::post('/carrito/agregar/{id}', [CarritoController::class, 'agregar'])->name('carrito.agregar');
-Route::get('/carrito', [CarritoController::class, 'mostrar'])->name('carrito.mostrar');
 Route::post('/carrito/eliminar/{id}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
+Route::get('/carrito/dropdown-content', [CarritoController::class, 'dropdownContent'])->name('carrito.dropdown');
 
+// Compra
+Route::post('/carrito/comprar', [CarritoController::class, 'comprar'])->name('carrito.comprar');
 
+// PayPal
 Route::get('/paypal/cancel', [CompraController::class, 'cancel'])->name('paypal.cancel');
 Route::get('/paypal/pay', [PayPalController::class, 'payWithPayPal'])->name('paypal.pay');
 Route::get('/paypal/success', [PayPalController::class, 'success'])->name('paypal.success');
 
-// Ruta final limpia para success de PayPal
-Route::get('/paypal/success', [PayPalController::class, 'success'])->name('paypal.success');
-
-Route::get('/carrito/dropdown-content', [CarritoController::class, 'dropdownContent']);
+// Orden
 Route::post('/orden/contraentrega', [OrdenController::class, 'storeContraentrega'])->name('orden.contraentrega');
-Route::get('/tienda', [TiendaController::class, 'mostrarEcommerce'])->name('tienda.index');
 
+// Otros
 Route::post('/contacto', [ContactoController::class, 'enviar'])->name('contacto.enviar');
+Route::get('/login-tienda', [TiendaController::class, 'login'])->name('tienda.login');
+
+// Rutas protegidas (requieren login)
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::redirect('settings', 'settings/profile');
+    Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
+    Volt::route('settings/password', 'settings.password')->name('settings.password');
+    Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
+});
+
+// Auth routes
+require __DIR__.'/auth.php';
