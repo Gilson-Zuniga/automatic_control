@@ -27,6 +27,8 @@ Route::get('/carrito', [CarritoController::class, 'index'])->name('carrito');
 Route::post('/carrito/agregar/{id}', [CarritoController::class, 'agregar'])->name('carrito.agregar');
 Route::post('/carrito/eliminar/{id}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
 Route::get('/carrito/dropdown-content', [CarritoController::class, 'dropdownContent'])->name('carrito.dropdown');
+Route::get('/carrito', [CarritoController::class, 'index'])->name('carrito');
+
 
 // Compra
 Route::post('/carrito/comprar', [CarritoController::class, 'comprar'])->name('carrito.comprar');
