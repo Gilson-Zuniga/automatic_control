@@ -36,8 +36,8 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'titulo' => 'required|string|min:10|max:30',
-            'asunto' => 'required|string|min:3|max:100',
+            'titulo' => 'required|string|min:10|max:80',
+            'asunto' => 'required|string|min:3|max:80',
             'contenido' => 'required|string|min:3|max:200',
         ]);
 
@@ -103,18 +103,12 @@ class PostController extends Controller
         }
 
         $data = $request->validate([
-            'titulo' => 'required|string|min:10|max:30',
-            'asunto'=>'required|string|min:3|max:100',
+            'titulo' => 'required|string|min:10|max:80',
+            'asunto' => 'required|string|min:3|max:80',
             'contenido' => 'required|string|min:3|max:200',
-            'user_id' => 'required|exists:users,id'
         ]);
 
-        $post->update([
-            'titulo' => $data['titulo'],
-            'asunto'=> $data['asunto'],
-            'contenido' => $data['contenido'],
-            'user_id' => $data['user_id']
-        ]);
+        $post->update($data);
 
         session()->flash('swal', [
             'icon' => 'success',
@@ -124,6 +118,7 @@ class PostController extends Controller
 
         return redirect()->route('admin.posts.index');
     }
+
 
     /**
      * Remove the specified resource from storage.
