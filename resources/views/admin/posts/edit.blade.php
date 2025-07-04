@@ -1,7 +1,7 @@
 <x-layouts.app :title="'Editar Post | Automatic Control'">
     <flux:breadcrumbs class="mb-8">
         <flux:breadcrumbs.item href="{{ route('dashboard') }}">Dashboard</flux:breadcrumbs.item>
-        <flux:breadcrumbs.item :href="route('admin.posts.index')">posts</flux:breadcrumbs.item>
+        <flux:breadcrumbs.item :href="route('admin.posts.index')">Posts</flux:breadcrumbs.item>
         <flux:breadcrumbs.item>Editar</flux:breadcrumbs.item>
     </flux:breadcrumbs>
 
@@ -15,41 +15,38 @@
                 <x-input-text
                     name="titulo"
                     label="Titulo"
-                    :value="$post->titulo"
+                    :value="old('titulo', $post->titulo)"
                     required
                 />
 
-                {{-- asunto --}}
+                {{-- Asunto --}}
                 <x-input-text
                     name="asunto"
                     label="Asunto"
-                    :value="$post->asunto"
+                    :value="old('asunto', $post->asunto)"
                     required
                 />
 
-
-
-
-
-                {{-- Descripción --}}
+                {{-- Contenido --}}
                 <div class="md:col-span-2">
-                    <label for="descripcion" class="form-label">Descripción</label>
+                    <label for="contenido" class="form-label">Contenido</label>
                     <textarea
-                        name="descripcion"
-                        id="descripcion"
+                        name="contenido"
+                        id="contenido"
                         rows="4"
                         class="form-input w-full"
-                    >{{ old('descripcion', $post->descripcion) }}</textarea>
-                    @error('descripcion') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
+                    >{{ old('contenido', $post->contenido) }}</textarea>
+                    @error('contenido')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
             </div>
 
             <!-- Botones -->
             <div class="flex justify-end space-x-2 mt-4">
                 <x-button-link href="{{ route('admin.posts.index') }}">Cancelar</x-button-link>
-                <x-button type="submit" >Actualizar</x-button>
+                <x-button type="submit">Actualizar</x-button>
             </div>
         </form>
     </div>
-
 </x-layouts.app>
