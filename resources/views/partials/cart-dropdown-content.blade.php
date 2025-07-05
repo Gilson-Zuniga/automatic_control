@@ -13,7 +13,7 @@
         @endforeach
     </div>
     <div class="border-t border-gray-200 px-4 py-3 bg-gray-50">
-        <a href="{{ route('carrito') }}" class="block text-center bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md text-sm font-medium transition duration-150">
+        <a href="{{ route('carrito') }}" class="block text-center bg-gray-600 hover:bg-gray-700 text-white py-2 px-4 rounded-md text-sm font-medium transition duration-150">
             Ver carrito completo
         </a>
     </div>

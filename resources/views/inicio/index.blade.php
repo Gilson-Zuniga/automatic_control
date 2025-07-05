@@ -360,9 +360,9 @@
         </div>
         <div class="col-md-3 footer-links">
           <h5>Contacto</h5>
-          <p><i class="fas fa-envelope me-2"></i> info@automaticcontrol.com</p>
-          <p><i class="fas fa-phone me-2"></i> +1 (555) 123-4567</p>
-          <p><i class="fas fa-map-marker-alt me-2"></i> Av. Tecnológica 123, Ciudad Innovación</p>
+          <p><i class="fas fa-envelope me-2"></i> automatic.control25@gmail.com</p>
+          <p><i class="fas fa-phone me-2"></i> +57 3243034346</p>
+          <p><i class="fas fa-map-marker-alt me-2"></i> Cra 87 MZ 178 Lt 10b</p>
         </div>
       </div>
       <div class="text-center copyright">

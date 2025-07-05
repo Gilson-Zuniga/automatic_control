@@ -137,7 +137,7 @@
                 <div class="text-2xl">{{ $icono }}</div>
                 <div class="text-sm text-gray-700 dark:text-gray-300">
                 <span class="font-semibold {{ $colorTexto }}">
-                    {{ ucfirst($evento->accion ?? 'Acción desconocida') }}
+                    {{ ucfirst($evento->titulo ?? 'Acción desconocida') }}
                 </span>
 
                     — {{ $evento->descripcion }}

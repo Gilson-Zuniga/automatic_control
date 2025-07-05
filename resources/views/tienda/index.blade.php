@@ -416,10 +416,10 @@
                     <div>
                         <h4 class="text-lg font-semibold mb-4">Enlaces rápidos</h4>
                         <ul class="space-y-2">
-                            <li><a href="javascript:void(0)" class="text-gray-400 hover:text-white">Inicio</a></li>
-                            <li><a href="javascript:void(0)" class="text-gray-400 hover:text-white">Productos</a></li>
-                            <li><a href="javascript:void(0)" class="text-gray-400 hover:text-white">Ofertas</a></li>
-                            <li><a href="javascript:void(0)" class="text-gray-400 hover:text-white">Contacto</a></li>
+                            <li><a href="/" class="text-gray-400 hover:text-white">Inicio</a></li>
+                            <li><a href="/productos" class="text-gray-400 hover:text-white">Productos</a></li>
+                            <li><a href="/ofertas" class="text-gray-400 hover:text-white">Ofertas</a></li>
+                            <li><a href="/contacto" class="text-gray-400 hover:text-white">Contacto</a></li>
                         </ul>
                     </div>
                     <div>

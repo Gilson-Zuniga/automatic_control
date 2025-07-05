@@ -143,7 +143,7 @@
         <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
-            <a href="{{ route('dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
+            <a href="{{ route('inicio.index') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
                 <img src="{{ asset('img/logo-icon.svg') }}" alt="Logo" class="h-10 w-auto" />
                 <h1 class="mb-0.5 truncate leading-tight font-semibold">Automatic Control</h1>
 
