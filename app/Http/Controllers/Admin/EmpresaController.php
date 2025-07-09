@@ -34,7 +34,8 @@ class EmpresaController extends Controller
     {
         $request->validate([
 
-            'nombre' => 'required|string',
+            'nombre' => 'required|string|max:255',
+            'subdominio'=> 'required|string|alpha_dash|unique:empresas,subdominio',
             'nit' => 'required|string|min:10|max:12|unique:empresas,nit',
             'telefono' => 'required|string|min:10|max:10',
             'direccion' => 'required|string',
@@ -48,6 +49,7 @@ class EmpresaController extends Controller
     // Luego registramos el evento
     Evento::create([
         'titulo' => 'Empresa registrada',
+        'subdominio' => $empresa->subdominio,
         'descripcion' => 'Se registró la empresa "' . $empresa->nombre . '" en el sistema.',
         'tipo' => 'success',
         'modelo' => 'Empresa',

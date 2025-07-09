@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\DetectarEmpresaPorSubdominio;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\{
@@ -10,7 +11,8 @@ use App\Http\Controllers\{
     ContactoController,
     CompraController,
     PayPalController,
-    OrdenController
+    OrdenController,
+    EmpresaController
 };
 
 // Página principal
@@ -42,7 +44,7 @@ Route::get('/paypal/success', [PayPalController::class, 'success'])->name('paypa
 Route::post('/orden/contraentrega', [OrdenController::class, 'storeContraentrega'])->name('orden.contraentrega');
 
 // Otros
-Route::post('/contacto', [ContactoController::class, 'enviar'])->name('contacto.enviar');
+Route::post('/contacto', action: [ContactoController::class, 'enviar'])->name('contacto.enviar');
 Route::get('/login-tienda', [TiendaController::class, 'login'])->name('tienda.login');
 
 // Rutas protegidas (requieren login)
@@ -54,6 +56,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Volt::route('settings/password', 'settings.password')->name('settings.password');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 });
+
+Route::domain('{subdominio}.tuapp.test') // o .com si estás en producción
+    ->middleware([DetectarEmpresaPorSubdominio::class])
+    ->group(function () {
+        Volt::route('/', 'empresa.dashboard')->name('empresa.dashboard');
+    });
 
 // Auth routes
 require __DIR__.'/auth.php';
