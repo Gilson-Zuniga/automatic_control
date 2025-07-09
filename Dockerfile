@@ -48,9 +48,6 @@ RUN cp .env.example .env
 # 8. Genera clave de aplicación
 RUN php artisan key:generate
 
-# ✅ 9. Instala dependencias de Node.js y compila Vite
-RUN npm install
-RUN npm run build
 
 # 10. Expone el puerto 8000 (por si usas Artisan serve)
 EXPOSE 8000
