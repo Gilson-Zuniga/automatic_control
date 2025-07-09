@@ -33,6 +33,15 @@ RUN chmod -R 775 storage bootstrap/cache
 # 6. Instala dependencias PHP
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
+# Instalar Node.js (v18.x) y npm
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs
+
+# Instalar dependencias front-end y compilar Vite
+RUN npm install
+RUN npm run build
+
+
 # 7. Copia el archivo .env base
 RUN cp .env.example .env
 
