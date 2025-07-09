@@ -27,6 +27,9 @@ RUN chmod -R 775 storage bootstrap/cache
 
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
+# ✅ Crear archivo .env antes de generar la clave
+RUN cp .env.example .env
+
 RUN php artisan key:generate
 
 
