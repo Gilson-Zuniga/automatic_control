@@ -27,6 +27,9 @@ RUN chmod -R 775 storage bootstrap/cache
 
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
+RUN php artisan key:generate
+
+
 EXPOSE 8000
 
 CMD ["sh", "./start.sh"]
