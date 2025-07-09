@@ -9,8 +9,8 @@ COPY resources/ resources/
 COPY public/ public/
 
 # Instala dependencias de Node y construye assets
-RUN npm install && npm run build
-
+RUN npm install  
+RUN npm run build
 
 # Etapa 2: PHP con Composer y extensiones
 FROM php:8.2-cli
