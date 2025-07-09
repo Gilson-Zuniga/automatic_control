@@ -13,3 +13,4 @@ php artisan migrate --force
 
 # Inicia el servidor Laravel
 php artisan serve --host=0.0.0.0 --port=8000
+chmod +x start.sh
