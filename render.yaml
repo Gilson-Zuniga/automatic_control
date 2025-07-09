@@ -1,0 +1,46 @@
+services:
+  - type: web
+    name: automatic-control
+    env: php
+    buildCommand: |
+      composer install
+      php artisan key:generate
+      php artisan migrate --force
+    startCommand: php artisan serve --host 0.0.0.0 --port $PORT
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_URL
+        value: https://automatic-control.onrender.com
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromService:
+          type: postgres
+          name: automatic-db
+          property: host
+      - key: DB_PORT
+        value: 5432
+      - key: DB_DATABASE
+        fromService:
+          type: postgres
+          name: automatic-db
+          property: database
+      - key: DB_USERNAME
+        fromService:
+          type: postgres
+          name: automatic-db
+          property: user
+      - key: DB_PASSWORD
+        fromService:
+          type: postgres
+          name: automatic-db
+          property: password
+
+databases:
+  - name: automatic-db
+    plan: free
