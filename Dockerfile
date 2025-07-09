@@ -1,6 +1,21 @@
+# Etapa 1: Build de frontend con Node.js
+FROM node:20 as nodebuilder
+
+WORKDIR /app
+
+# Copia los archivos necesarios
+COPY package*.json vite.config.js ./
+COPY resources/ resources/
+COPY public/ public/
+
+# Instala dependencias de Node y construye assets
+RUN npm install && npm run build
+
+
+# Etapa 2: PHP con Composer y extensiones
 FROM php:8.2-cli
 
-# 1. Instala dependencias del sistema y extensiones necesarias
+# Instala dependencias necesarias
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
@@ -13,44 +28,36 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     libxml2-dev \
     zip \
-    nodejs \
-    npm \
+    libssl-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo pdo_pgsql gd bcmath mbstring zip
 
-# 2. Instala Composer
+# Instala Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# 3. Define directorio de trabajo
+# Establece directorio de trabajo
 WORKDIR /app
 
-# 4. Copia archivos del proyecto
+# Copia todo el proyecto Laravel
 COPY . .
 
-# 5. Permisos necesarios
+# Copia los assets construidos desde la primera etapa
+COPY --from=nodebuilder /app/public/build public/build
+
+# Da permisos a carpetas necesarias
 RUN chmod -R 775 storage bootstrap/cache
 
-# 6. Instala dependencias PHP
+# Instala dependencias PHP
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
-# Instalar Node.js (v18.x) y npm
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
-    apt-get install -y nodejs
-
-# Instalar dependencias front-end y compilar Vite
-RUN npm install
-RUN npm run build
-
-
-# 7. Copia el archivo .env base
+# Crea archivo .env si no existe
 RUN cp .env.example .env
 
-# 8. Genera clave de aplicación
+# Genera clave de aplicación
 RUN php artisan key:generate
 
-
-# 10. Expone el puerto 8000 (por si usas Artisan serve)
+# Expone el puerto
 EXPOSE 8000
 
-# 11. Comando de inicio (cambia si usas Apache/Nginx)
+# Comando para iniciar Laravel
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
