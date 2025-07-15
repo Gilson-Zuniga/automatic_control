@@ -17,7 +17,7 @@
         </div>
     @endif
 
-    <table class="min-w-full bg-white dark:bg-neutral-900 rounded shadow">
+    <table id="tabla-metasVentas" class="display table datatable min-w-full table-auto">
         <thead>
             <tr class="bg-gray-100 dark:bg-neutral-800 text-left">
                 <th class="px-4 py-2">Tipo</th>
@@ -51,5 +51,6 @@
     <div class="mt-4">
         {{ $metas->links() }}
     </div>
+    @include('components.scripts.datatable-delete')
 
 </x-layouts.app>

@@ -131,7 +131,7 @@
                 'current' => request()->routeIs('admin.reportes.facturas_proveedores.*'),
             ]
         ]
-    ]
+]
 @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
@@ -267,8 +267,6 @@
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
         
         @stack('scripts')
-        @fluxScripts
-
         @if (session('swal'))
 
             <script>
@@ -276,5 +274,7 @@
             </script>
             
         @endif
+        
+        @fluxScripts
     </body>
 </html>

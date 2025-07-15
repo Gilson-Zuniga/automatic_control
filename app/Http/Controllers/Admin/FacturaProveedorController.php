@@ -141,7 +141,7 @@ class FacturaProveedorController extends Controller
 
         session()->flash('swal', [
             'icon' => 'success',
-            'title' => '¡ Bien crack !',
+            'title' => '¡ Eliminado !',
             'text' => 'Se ha eliminado la factura con éxito'
         ]);
 
