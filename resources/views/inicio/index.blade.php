@@ -303,29 +303,15 @@
         <small class="d-block">Backend y base de datos</small>
       </div>
       <!-- Persona 2 -->
-      <div class="col-6 col-md-4 col-lg-2 mb-4">
-        <img src="{{ asset('img/jorge.jpg') }}" class="team-img mb-2" alt="Jorge">
-        <h5 class="mb-1">Jorge Hernandez</h5>
-        <small class="d-block">Desarrollador FullStack</small>
-      </div>
-      <!-- Persona 3 -->
-      <div class="col-6 col-md-4 col-lg-2 mb-4">
+       <div class="col-6 col-md-4 col-lg-2 mb-4">
         <img src="{{ asset('img/levi.jpg') }}" class="team-img mb-2" alt="Levi">
         <h5 class="mb-1">Levi Quintero</h5>
-        <small class="d-block">Desarrollador FullStack</small>
+        <small class="d-block">Desarrollo del Back-end y Front-end</small>
       </div>
+      <!-- Persona 3 -->
+     
       <!-- Persona 4 -->
-      <div class="col-6 col-md-4 col-lg-2 mb-4">
-        <img src="{{ asset('img/sirly.jpg') }}" class="team-img mb-2" alt="Sirly">
-        <h5 class="mb-1">Sirly Tapia</h5>
-        <small class="d-block">Documentación y testing</small>
-      </div>
-      <!-- Persona 5 -->
-      <div class="col-6 col-md-4 col-lg-2 mb-4">
-        <img src="{{ asset('img/lis.jpg') }}" class="team-img mb-2" alt="Elizabeth">
-        <h5 class="mb-1">Elizabeth Lopez</h5>
-        <small class="d-block">Documentación y testing</small>
-      </div>
+      
     </div>
   </div>
 </div>
