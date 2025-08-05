@@ -224,69 +224,7 @@
 </div>
 
 
-  <!-- Products Section -->
-  <section class="py-5" id="products">
-    <div class="container">
-      <h2 class="section-title">Obten tu plan</h2>
-      <div class="error-message" id="productsError">
-        Ha ocurrido un error al cargar los productos. Por favor, intenta de nuevo más tarde.
-      </div>
-      <div class="row" id="productsContainer">
-        <div class="col-md-6 col-lg-3 mb-4">
-          <div class="product-card">
-            <img src="https://cdn.pixabay.com/photo/2015/07/17/22/42/startup-849804_1280.jpg" alt="Plan Básico" class="product-img">
-            <div class="product-info">
-              <h3>Plan Básico</h3>
-              <p>Ideal para pequeños negocios. Incluye gestión básica de inventario y reportes mensuales.</p>
-              <div class="d-flex justify-content-between align-items-center mt-3">
-                <span class="product-price">$29.99/mes</span>
-                <button class="btn btn-laravel btn-sm" data-bs-toggle="modal" data-bs-target="#purchaseModal" data-product="Plan Básico" data-price="29.99">Contactar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3 mb-4">
-          <div class="product-card">
-            <img src="{{ asset('img/planpro.jpg') }}" alt="Plan Profesional" class="product-img">
-            <div class="product-info">
-              <h3>Plan Profesional</h3>
-              <p>Para negocios en crecimiento. Incluye alertas automáticas y múltiples usuarios.</p>
-              <div class="d-flex justify-content-between align-items-center mt-3">
-                <span class="product-price">$59.99/mes</span>
-                <button class="btn btn-laravel btn-sm" data-bs-toggle="modal" data-bs-target="#purchaseModal" data-product="Plan Profesional" data-price="59.99">Contactar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3 mb-4">
-          <div class="product-card">
-            <img src="https://cdn.pixabay.com/photo/2017/07/31/11/44/laptop-2557576_1280.jpg" alt="Plan Empresarial" class="product-img">
-            <div class="product-info">
-              <h3>Plan Empresarial</h3>
-              <p>Solución completa para grandes empresas. Incluye API para integraciones y soporte 24/7.</p>
-              <div class="d-flex justify-content-between align-items-center mt-3">
-                <span class="product-price">$99.99/mes</span>
-                <button class="btn btn-laravel btn-sm" data-bs-toggle="modal" data-bs-target="#purchaseModal" data-product="Plan Empresarial" data-price="99.99">Contactar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3 mb-4">
-          <div class="product-card">
-            <img src="https://cdn.pixabay.com/photo/2018/03/10/09/45/businessman-3213659_1280.jpg" alt="Plan Personalizado" class="product-img">
-            <div class="product-info">
-              <h3>Plan Personalizado</h3>
-              <p>Adaptado a tus necesidades específicas. Consulta con nuestro equipo para obtener una cotización.</p>
-              <div class="d-flex justify-content-between align-items-center mt-3">
-                <span class="product-price">Consultar</span>
-                <button class="btn btn-laravel btn-sm" data-bs-toggle="modal" data-bs-target="#purchaseModal" data-product="Plan Personalizado" data-price="Consultar">Contactar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  
 
 
 
@@ -295,23 +233,40 @@
   <div class="container">
     <h2 class="text-center mb-5">Nuestro Equipo<em class="text-danger"> Automatic Control</em> </h2>
     <div class="row text-center justify-content-center">
-      <!-- Persona 1 -->
-      <div class="col-6 col-md-4 col-lg-2 mb-4">
-        <img src="{{ asset('img/gilson.jpg') }}" class="team-img mb-2" alt="Gilson">
-        <h5 class="mb-1">Gilson Zuñiga</h5>
-        <small class="d-block">Líder del proyecto</small>
-        <small class="d-block">Backend y base de datos</small>
+
+<!---Persona 1------->  
+<div class="card mb-3 bg-dark text-white" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{ asset('img/gilson.jpg') }}" class="img-fluid " alt="Gilson Zuñiga Martinez">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">Gilson Zuñiga Martinez</h5>
+        <p class="card-text">Tecnologo en Analisis y Desarrollo de Software con enfasis en en Back-end y bases de datos</p>
+        <p class="card-text"><small class="text-body-secondary">Scrum master</small></p>
       </div>
-      <!-- Persona 2 -->
-       <div class="col-6 col-md-4 col-lg-2 mb-4">
-        <img src="{{ asset('img/levi.jpg') }}" class="team-img mb-2" alt="Levi">
-        <h5 class="mb-1">Levi Quintero</h5>
-        <small class="d-block">Desarrollo del Back-end y Front-end</small>
+    </div>
+  </div>
+</div>
+
+
+<!---Persona 2------->  
+<div class="card mb-3 bg-dark text-white" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{ asset('img/levi.jpg') }}" class="img-fluid rounded-start" alt="Levi Jose Quintero">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">Levi Jose Quintero</h5>
+        <p class="card-text">Tecnologo en Analisis y Desarrollo de Software con enfasis en el desarrollo web</p>
+        <p class="card-text"><small class="text-body-secondary">Developer</small></p>
       </div>
-      <!-- Persona 3 -->
-     
-      <!-- Persona 4 -->
-      
+    </div>
+  </div>
+</div>
+
     </div>
   </div>
 </div>
