@@ -22,8 +22,7 @@ class RegistroUsuarioController extends Controller
      */
     public function create()
     {
-        return view('admin.registro_usuario.create')
-            ->with('usuario', new User());
+        return view('admin.registro_usuario.create');
     }
 
     /**
