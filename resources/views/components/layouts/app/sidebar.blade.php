@@ -106,13 +106,23 @@
                 'current' => request()->routeIs('admin.proveedores.*'),
             ],
 
-            
             [
+                'name' => 'Registro de Usuarios',
+                'icon' => 'user-group',
+                'url' => route('admin.registro_usuario.index'),
+                'current' => request()->routeIs('admin.registro_usuario.*'),
+            ],
+
+            
+            [   
                 'name' => 'Roles Usuarios',
                 'icon' => 'users',
                 'url' => route('admin.users.index'),
                 'current' => request()->routeIs('admin.users.*'),
             ]
+
+            
+
         ],
 
         'Reportes de Facturacíon' => [
