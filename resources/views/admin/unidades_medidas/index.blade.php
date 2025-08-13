@@ -1,4 +1,4 @@
-<x-layouts.app :title="'Ver unidades de medida | Automatic Control'"> 
+<x-layouts.app :title="'Ver unidades de medida | StockPro'"> 
 
     <div class="mb-8 flex justify-between items-center">
         <flux:breadcrumbs>

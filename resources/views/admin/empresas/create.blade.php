@@ -1,4 +1,4 @@
-<x-layouts.app :title="'Registrar Empresa | Automatic Control'">
+<x-layouts.app :title="'Registrar Empresa | StockPro'">
     <flux:breadcrumbs class="mb-8">
         <flux:breadcrumbs.item href="{{ route('dashboard') }}">Dashboard</flux:breadcrumbs.item>
         <flux:breadcrumbs.item :href="route('admin.empresas.index')">empresas</flux:breadcrumbs.item>

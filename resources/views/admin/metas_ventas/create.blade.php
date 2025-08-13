@@ -1,4 +1,4 @@
-<x-layouts.app :title="'Nueva Meta de Venta || Automatic Control'">
+<x-layouts.app :title="'Nueva Meta de Venta || StockPro'">
 
     <flux:breadcrumbs class="mb-8">
         <flux:breadcrumbs.item href="{{ route('dashboard') }}">Dashboard</flux:breadcrumbs.item>

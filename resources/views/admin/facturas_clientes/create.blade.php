@@ -1,4 +1,4 @@
-<x-layouts.app :title="'Crear Factura Clientes | Automatic Control'">
+<x-layouts.app :title="'Crear Factura Clientes | StockPro'">
     <flux:breadcrumbs class="mb-6">
         <flux:breadcrumbs.item :href="route('dashboard')">Dashboard</flux:breadcrumbs.item>
         <flux:breadcrumbs.item :href="route('admin.facturas_clientes.index')">Facturas Clientes</flux:breadcrumbs.item>

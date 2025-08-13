@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>Automatic Control - Software de Gestión de Inventarios</title>
+  <title>StockPro - Software de Gestión de Inventarios</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -69,7 +69,7 @@
       <div class="row align-items-center">
         <div class="col-lg-6 hero-text">
           <h1>Controla tu Inventario como nunca antes</h1>
-          <p>Automatic Control es un software de gestión de inventarios potente y fácil de usar desarrollado con Laravel. Optimiza tus procesos, reduce errores y aumenta la productividad.</p>
+          <p>StockPro es un software de gestión de inventarios potente y fácil de usar desarrollado con Laravel. Optimiza tus procesos, reduce errores y aumenta la productividad.</p>
           <a href="#products" class="btn btn-laravel btn-lg">Empezar ahora</a>
         </div>
         <div class="col-lg-6 d-none d-lg-block">
@@ -132,7 +132,7 @@
     <div class="row align-items-center">
       <div class="col-lg-6 mb-4">
         <h1 class="display-5 fw-bold">Optimiza tu <em class="text-danger">Gestión de Inventarios</em></h1>
-        <p><strong>Automatic Control</strong> es un software diseñado para automatizar y controlar en tiempo real el movimiento de productos en tu almacén o negocio.
+        <p><strong>StockPro</strong> es un software diseñado para automatizar y controlar en tiempo real el movimiento de productos en tu almacén o negocio.
         Reduce pérdidas, mejora la trazabilidad, y toma decisiones con datos precisos gracias a nuestros reportes inteligentes y alertas personalizadas.
         Accede desde cualquier dispositivo, en cualquier momento, con total seguridad en la nube.</p>
        
@@ -154,7 +154,7 @@
       <!-- Texto a la derecha -->
       <div class="col-lg-6">
         <h1 class="display-5 fw-bold">Tu Bodega, <em class="text-danger">Bajo Control</em></h1>
-        <p><strong>Automatic Control</strong> te permite visualizar el estado actual de tu inventario, registrar entradas y salidas, y generar reportes automáticos con solo unos clics.
+        <p><strong>StockPro</strong> te permite visualizar el estado actual de tu inventario, registrar entradas y salidas, y generar reportes automáticos con solo unos clics.
         Aumenta la eficiencia operativa de tu negocio con un sistema fácil de usar, adaptable y seguro.
         Ideal para almacenes, distribuidores y negocios que necesitan control preciso en tiempo real.</p>
         
@@ -231,7 +231,7 @@
 <!-- Sección del equipo -->
 <div class="container-fluid bg-dark text-white py-5">
   <div class="container">
-    <h2 class="text-center mb-5">Nuestro Equipo<em class="text-danger"> Automatic Control</em> </h2>
+    <h2 class="text-center mb-5">Nuestro Equipo<em class="text-danger">StockPro</em> </h2>
     <div class="row text-center justify-content-center">
 
 <!---Persona 1------->  
@@ -275,7 +275,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-4 footer-links">
-          <h5>Automatic Control</h5>
+          <h5>StockPro</h5>
           <p>Software de gestión de inventarfios desarrollado con Laravel para potenciar tu negocio y optimizar tus procesos.</p>
           <div class="social-icons mt-4">
             <a href="javascript:void(0)"><i class="fab fa-facebook-f"></i></a>
@@ -307,7 +307,7 @@
         </div>
       </div>
       <div class="text-center copyright">
-        <p>&copy; 2025 Automatic Control. Todos los derechos reservados.</p>
+        <p>&copy; 2025 StockPro. Todos los derechos reservados.</p>
       </div>
     </div>
   </footer>

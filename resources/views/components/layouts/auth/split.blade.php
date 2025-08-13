@@ -25,7 +25,7 @@
                     <img src="{{ asset('img/logo.png') }}" alt="Logo" class="h-10 w-auto" />
 
                 </span>
-                Automatic Control
+                StockPro
             </a>
 
             {{-- Frase motivacional --}}

@@ -1,4 +1,4 @@
-<x-layouts.app :title="'Nuevo Post | Automatic Control'">
+<x-layouts.app :title="'Nuevo Post | StockPro'">
     <flux:breadcrumbs class="mb-8">
         <flux:breadcrumbs.item href="{{ route('dashboard') }}">Dashboard</flux:breadcrumbs.item>
         <flux:breadcrumbs.item href="{{ route('admin.posts.index') }}">Posts</flux:breadcrumbs.item>

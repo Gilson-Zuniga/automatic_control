@@ -1,4 +1,4 @@
-<x-layouts.app :title="'Registrar Proveedores | Automatic Control'">
+<x-layouts.app :title="'Registrar Proveedores | StockPro'">
     <flux:breadcrumbs class="mb-8">
         <flux:breadcrumbs.item href="{{ route('dashboard') }}">Dashboard</flux:breadcrumbs.item>
         <flux:breadcrumbs.item :href="route('admin.proveedores.index')">Proveedores</flux:breadcrumbs.item>

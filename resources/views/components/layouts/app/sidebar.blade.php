@@ -155,7 +155,7 @@
 
             <a href="{{ route('inicio.index') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
                 <img src="{{ asset('img/logo-icon.svg') }}" alt="Logo" class="h-10 w-auto" />
-                <h1 class="mb-0.5 truncate leading-tight font-semibold">Automatic Control</h1>
+                <h1 class="mb-0.5 truncate leading-tight font-semibold">StockPro</h1>
 
             </a>
             
