@@ -63,7 +63,7 @@
     </div>
   </nav>
 
-  <!-- Hero Section -->
+  <!-- Hero Section Principal-->
   <section class="hero-section" id="hero">
     <div class="container">
       <div class="row align-items-center">
@@ -79,15 +79,15 @@
     </div>
   </section>
 
-   <!-- New Inventory Management Section -->
-  <section class="py-5 bg-dark" id="inventory-management">
+    <!-- Caracteristicas -->
+  <section class="hero-section2 bg-dark" id="hero">
     <div class="container">
         <div class="row"> 
             <div class="col-md-3 mb-3"> 
                     <div class="card h-100 bg-dark text-white border-0">
                  <img src="{{ asset('img/inventarioCheck.svg') }}" class="card-img-top w-50 mx-auto" alt="card-logo" id="card-logo">
                     <div class="card-body">
-                        <h5 class="card-title">Inventario Eficiente</h5>
+                        <h5 class="card-title"><em class="text-danger"><strong>Inventario Eficiente</strong></em></h5>
                         <p class="card-text">Mantener un registro actualizado de todos los productos y sus movimientos</p>
               
                     </div>
@@ -97,7 +97,7 @@
                    <div class="card h-100 bg-dark text-white border-0">
                     <img src="{{ asset('img/tablet.svg') }}" class="card-img-top w-50 mx-auto" alt="card-logo" id="card-logo">
                     <div class="card-body">
-                        <h5 class="card-title">Portabilidad</h5>
+                        <h5 class="card-title"><em class="text-danger"><strong>Portabilidad</strong></em></h5>
                         <p class="card-text">Ten acceso a tu inventario desde cualquier parte del mundo con acceso a internet.</p>
                      
                     </div>
@@ -107,7 +107,7 @@
                     <div class="card h-100 bg-dark text-white border-0">
                    <img src="{{ asset('img/camion.svg') }}" class="card-img-top w-50 mx-auto" alt="card-logo" id="card-logo">
                     <div class="card-body">
-                        <h5 class="card-title">Nunca Desabastecido</h5>
+                        <h5 class="card-title"><em class="text-danger"><strong>Nunca Desabastecido</strong></em></h5>
                         <p class="card-text">Siempre estarás avisado cuando se esté acabando el stock para que puedas reaccionar a tiempo.</p>
                        
                     </div>
@@ -117,7 +117,7 @@
                <div class="card h-100 bg-dark text-white border-0">
                  <img src="{{ asset('img/admin.svg') }}" class="card-img-top w-50 mx-auto" alt="card-logo" id="card-logo">
                     <div class="card-body">
-                        <h5 class="card-title">Seguridad</h5>
+                        <h5 class="card-title"><em class="text-danger"><strong>Seguridad</strong></em></h5>
                         <p class="card-text">Puedes estar tranquilo con nosotros, nuestra plataforma tiene altos estándares de seguridad.</p>
                       
                     </div>
@@ -125,9 +125,17 @@
             </div>
         </div>
     </div>
+  </section>
+
+   <!-- New Inventory Management Section 
+    <div>
+  <section class="py-5 bg-dark" id="inventory-management">
+    
 </section>
+</div>--->
 
   <!-------Info-------->
+<section class="hero-section2 bg-light" id="info">
  <div class="container py-5">
     <div class="row align-items-center">
       <div class="col-lg-6 mb-4">
@@ -142,6 +150,55 @@
       </div>
     </div>
   </div>
+</section>
+
+
+  <!-- Ventajas de StockPro -->
+
+<!-------------------------------------------Section -------------------------------------------------------->
+  <div class="row text-white py-5 section-bg">
+  <div class="container">
+    <h1 class="text-center mb-5">Ventajas de usar <em class="text-danger">StockPro</em> </h1>
+    <div class="row text-center justify-content-center">
+
+       
+<!---Card 1------->  
+<h3 class="mt-5">Vista en Tiempo Real de las Estadisticas de tu <em class="text-danger">Inventario</em>📈</h3>
+<div class="card section-bg text-light border-0 p-2" style="width: 90%;">
+  <img src="{{asset('img/estadisticas.png')}}" class="card-img-top" alt="...">
+  <div class="card-body">
+  </div>
+</div>
+
+<!---Card 2------->  
+<h3 class="mt-5">Vista en tiempo real de las estadisticas de tu inventario</h3>
+<div class="card section-bg text-light border-0 p-2" style="width: 90%;">
+  <img src="{{asset('img/dashboard.png')}}" class="card-img-top" alt="...">
+  <div class="card-body">
+  </div>
+</div>
+
+<!---Card 3------->  
+<h3 class="mt-5">Vista en tiempo real de las estadisticas de tu inventario</h3>
+<div class="card section-bg text-light border-0 p-2" style="width: 90%;">
+  <img src="{{asset('img/dashboard.png')}}" class="card-img-top" alt="...">
+  <div class="card-body">
+  </div>
+</div>
+
+
+<!---Card 4------->  
+<h3 class="mt-5">Vista en tiempo real de las estadisticas de tu inventario</h3>
+<div class="card section-bg text-light border-0 p-2" style="width: 90%;">
+  <img src="{{asset('img/dashboard.png')}}" class="card-img-top" alt="...">
+  <div class="card-body">
+  </div>
+</div>
+
+    </div>
+  </div>
+</div>
+
 
 <!---Info2---->
 
@@ -270,6 +327,8 @@
     </div>
   </div>
 </div>
+
+
   <!-- Footer -->
   <footer id="contact">
     <div class="container">
@@ -288,7 +347,6 @@
           <h5>Enlaces</h5>
           <a href="#features">Características</a>
           <a href="/tienda">Productos</a>
-          <a href="/tienda">Ecommerce</a>
           <a href="javascript:void(0)">Documentación</a>
           <a href="javascript:void(0)">Blog</a>
         </div>
