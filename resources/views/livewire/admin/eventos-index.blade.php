@@ -72,7 +72,7 @@
 
         @if($eventos->count() >= $limite)
             <button wire:click="loadMore"
-                class="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm">
+                class="mt-4 w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm">
                 Cargar más
             </button>
         @endif
