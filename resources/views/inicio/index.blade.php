@@ -10,8 +10,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
+    
+    <script type="importmap">
+    {
+    "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+    }
+    </script>
+    <script type="module" src="{{asset('js/logo3d.js')}}"></script>
 </head>
 <body>
+   
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-laravel sticky-top">
         <div class="container">
@@ -27,22 +38,22 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)">Características</a>
+                        <a class="nav-link" href="#Caracteristicas">Características</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#gallery">Galería</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)">Precios</a>
+                        <a class="nav-link" href="#Testimonios">Testimonios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)">Testimonios</a>
+                        <a class="nav-link" href="#Precios">Precios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#benefits">Beneficios</a>
+                        <a class="nav-link"></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)">Contacto</a>
+                        <a class="nav-link" href="#Contacto">Contacto</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Perfil</a>
@@ -59,26 +70,22 @@
             </div>
         </div>
     </nav>
-
-    <section class="hero d-flex align-items-center justify-content-center min-vh-100">
+<!---------------------------------HERO SECTION--------------------------------->
+ <!-- Hero Section Principal-->
+  <section class="hero-section" id="hero">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-6 mb-5 mb-md-0">
-                <h1 class="fw-bold mb-3">Gestión de Inventario Potenciada con Laravel</h1>
-                <p class="fs-5 mb-4">La solución completa para controlar tu inventario con precisión, velocidad y seguridad. Desarrollado con Laravel para un rendimiento óptimo.</p>
-                <div class="d-flex flex-wrap gap-3">
-                    <a href="/login" class="btn btn-laravel">Iniciar Sesión</a>
-                </div>
-            </div>
-            <div class="col-md-6 text-center">
-                <div class="screenshot-container text-center">
-                    <img src="{{asset('img/dashboard.png')}}" alt="Dashboard StockPro" class="img-fluid screenshot-desktop">
-                    <img src="{{asset('img/dashboard_movil.png')}}" alt="StockPro móvil" class="screenshot-mobile">
-                </div>
-            </div>
+      <div class="row align-items-center">
+        <div class="col-lg-6 hero-text">
+          <h2><strong>Controla tu <em class="text-danger">Inventario</em> En Tiempo Real, Fácil y Rápido</strong></h2>
+          <p>Nuestro software en la nube te ayuda a gestionar productos, proveedores y ventas desde cualquier dispositivo.</p>
+          <a href="#products" class="btn btn-laravel btn-lg">Solicitar Demo</a>
         </div>
+        <div class="col-lg-6 d-none d-lg-block">
+          <div id="logo3d" style="width: 100%; height: 400px;"></div>
+        </div>
+      </div>
     </div>
-</section>
+  </section>
 
 
     <!-- Stats Section -->
@@ -114,7 +121,7 @@
     </section>
 
     <!-- Features Section -->
-    <section class="py-5 bg-light">
+    <section class="py-5 bg-light" id="Caracteristicas">
         <div class="container">
             <div class="row mb-5">
                 <div class="col-lg-6 mx-auto text-center">
@@ -398,7 +405,7 @@
     </section>
 
     <!-- Testimonials -->
-    <section class="py-5 bg-light">
+    <section class="py-5 bg-light" id="Testimonios">
         <div class="container">
             <div class="row mb-5">
                 <div class="col-lg-6 mx-auto text-center">
@@ -433,8 +440,8 @@
                                 </div>
                             </div>
                             <div class="ms-3">
-                                <h5 class="h6 mb-0">José González</h5>
-                                <p class="mb-0 small company">TechSolutions Inc.</p>
+                                <h5 class="h6 mb-0">Jose Quintero</h5>
+                                <p class="mb-0 small company">PhoneMasters</p>
                             </div>
                         </div>
                     </div>
@@ -444,7 +451,7 @@
     </section>
 
     <!-- Pricing -->
-    <section class="py-5">
+    <section class="py-5" id="Precios">
         <div class="container">
             <div class="row mb-5">
                 <div class="col-lg-6 mx-auto text-center">
@@ -519,7 +526,7 @@
                         <div class="pricing-header text-center">
                             <h3>Plan Personalizado</h3>
                         </div>
-                        <div class="p-4 text-center">
+                        <div class="p-4 text-center ">
                             <div class="price">A medida</div>
                             <p class="text-muted mb-4">Diseñado para necesidades específicas de tu empresa</p>
                             <ul class="list-unstyled text-start mb-4">
@@ -630,17 +637,17 @@
             <div class="row g-4">
                 <div class="col-md-6">
                     <div class="text-center mb-4">
-                        <img src="https://via.placeholder.com/150" alt="Developer 1" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
-                        <h3 class="h4 fw-bold">Nombre del Desarrollador</h3>
-                        <p class="text-muted mb-3">Lead Developer</p>
+                        <img src="{{asset('img/gilson.jpg')}}" alt="Developer 1" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                        <h3 class="h4 fw-bold">Gilson Zuñiga M.</h3>
+                        <p class="text-ligth mb-3">Tecnólogo en Análisis y Desarrollo de Software</p>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="text-center mb-4">
-                        <img src="https://via.placeholder.com/150" alt="Developer 2" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
-                        <h3 class="h4 fw-bold">Nombre del Desarrollador</h3>
-                        <p class="text-muted mb-3">Frontend Developer</p>
+                        <img src="{{asset('img/levi.jpg')}}" alt="Developer 2" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                        <h3 class="h4 fw-bold">Levi J. Quintero S.</h3>
+                        <p class="text-ligth mb-3">Tecnólogo en Análisis y Desarrollo de Software</p>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
                     </div>
                 </div>
@@ -649,7 +656,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="footer py-5">
+    <footer class="footer py-5" id="Contacto">
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
@@ -692,6 +699,9 @@
             </div>
         </div>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script id="app-script" src="{{ asset('js/inicio.js') }}"></script>
+
 </body>
 </html>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

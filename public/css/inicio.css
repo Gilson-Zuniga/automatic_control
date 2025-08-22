@@ -68,7 +68,19 @@
             overflow: hidden;
             height: 100vh;
         }
-        
+
+        .hero-section {
+        background: linear-gradient(rgba(33, 37, 41, 0.9), rgba(33, 37, 41, 0.9)), url('../img/gestion.png');
+        background-size: cover;
+        background-position: center;
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        color: white;
+        }
+            
         .hero::before {
             content: '';
             position: absolute;
@@ -299,7 +311,16 @@
             justify-content: center;
             font-weight: 700;
         }
-        
+
+            #logo3d{
+            width: 100%;
+            height: 400px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+                
         @media (max-width: 767px) {
             .hero {
                 padding: 4rem 0;
