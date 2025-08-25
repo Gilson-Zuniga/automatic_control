@@ -1,4 +1,4 @@
-<x-layouts.app :title="'Registrar Unidad medida | Automatic Control'">
+<x-layouts.app :title="'Registrar Unidad medida | StockPro'">
     <flux:breadcrumbs class="mb-8">
         <flux:breadcrumbs.item href="{{ route('dashboard') }}">Dashboard</flux:breadcrumbs.item>
         <flux:breadcrumbs.item :href="route('admin.unidades_medidas.index')">Unidad de Medida</flux:breadcrumbs.item>

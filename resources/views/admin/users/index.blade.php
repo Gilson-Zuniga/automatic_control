@@ -1,4 +1,4 @@
-<x-layouts.app :title="'Ver Roles | Automatic Control'"> 
+<x-layouts.app :title="'Ver Roles | StockPro'"> 
 
     <div class="mb-8 flex justify-between items-center">
         <flux:breadcrumbs>

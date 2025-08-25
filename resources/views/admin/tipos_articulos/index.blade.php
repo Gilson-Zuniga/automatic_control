@@ -1,4 +1,4 @@
-<x-layouts.app :title="'Ver Tipos de Artículo | Automatic Control'">
+<x-layouts.app :title="'Ver Tipos de Artículo | StockPro'">
 
     <div class="mb-8 flex justify-between items-center">
         <flux:breadcrumbs>

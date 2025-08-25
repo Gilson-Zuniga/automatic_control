@@ -1,4 +1,4 @@
-<x-layouts.app :title="__('Dashboard | Automatic Control')">
+<x-layouts.app :title="__('Dashboard | StockPro')">
     <div >
         <flux:breadcrumbs>
 

@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <title>Carrito de Compras</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=AcQ8Nx9iA9F7_HbSUrDwEhe4mWOIG1vItqmrBqbFldtnapgalhudVHeb-FU9614DhQ16VrK3bzzxM2Vz&currency=USD"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="shortcut icon" sizes="192x192" href="{{ asset('/img/logo.ico') }}">
 </head>
 <body class="bg-gray-100">

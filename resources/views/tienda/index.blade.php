@@ -6,7 +6,6 @@
     <title>BazurtoShop</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <link rel="shortcut icon" sizes="192x192" href="{{ asset('/img/logo.ico') }}">
@@ -1452,9 +1451,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 setupCartEvents();
             });
         
-        // Mostrar notificación
-        const alpineApp = document.querySelector('[x-data="app()"]').__x.$data;
-        alpineApp.showToast(data.message, 'success');
+       
     }
     
     // Configurar eventos del carrito
