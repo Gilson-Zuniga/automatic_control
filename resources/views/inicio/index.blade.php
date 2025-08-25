@@ -24,6 +24,8 @@
 }
 </script>
 
+ <script type="module" src="{{asset('js/logo3d.js')}}"></script>
+
 
 </head>
 <body>
