@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InventarioPro - Gestión de Inventarios con Laravel</title>
+    <title>StockPro - Inicio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +27,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark navbar-laravel sticky-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="javascript:void(0)">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 50 52" style="margin-right: 8px;">
+                <img src="{{asset('img/logo.png')}}" width="30" height="30" viewBox="0 0 50 52" style="margin-right: 8px;">
                     <path d="M49.626 11.564a.809.809 0 0 1 .028.209v10.972a.8.8 0 0 1-.402.694l-9.209 5.302V39.25c0 .286-.152.55-.4.694L20.42 51.01c-.044.025-.092.041-.14.058-.018.006-.035.017-.054.022a.805.805 0 0 1-.41 0c-.022-.006-.042-.018-.063-.026-.044-.016-.09-.03-.132-.054L.402 39.944A.801.801 0 0 1 0 39.25V6.334c0-.072.01-.142.028-.21.006-.023.02-.044.028-.067.015-.042.029-.085.051-.124.015-.026.037-.047.055-.071.023-.032.044-.065.071-.093.023-.023.053-.04.079-.06.029-.024.055-.05.088-.069h.001l9.61-5.533a.802.802 0 0 1 .8 0l9.61 5.533h.002c.032.02.059.045.088.068.026.02.055.038.078.06.028.029.048.062.072.094.017.024.04.045.054.071.023.04.036.082.052.124.008.023.022.044.028.068a.809.809 0 0 1 .028.209v20.559l8.008-4.611v-10.51c0-.07.01-.141.028-.208.007-.024.02-.045.028-.068.016-.042.03-.085.052-.124.015-.026.037-.047.054-.071.024-.032.044-.065.072-.093.023-.023.052-.04.078-.06.03-.024.056-.05.088-.069h.001l9.611-5.533a.801.801 0 0 1 .8 0l9.61 5.533c.034.02.06.045.09.068.025.02.054.038.077.06.028.029.048.062.072.094.018.024.04.045.054.071.023.039.036.082.052.124.009.023.022.044.028.068z" fill="#FF2D20" fill-rule="evenodd"/>
                 </svg>
                 <span>StockPro</span>
@@ -55,14 +55,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#Contacto">Contacto</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Perfil</a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="/settings">Configuración</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/logout">Cerrar Sesión</a></li>
-                        </ul>
-                    </li>
+                   
                 </ul>
                 <div class="ms-3">
                     <a href="/login" class="btn btn-outline-laravel">Iniciar Sesión</a>
@@ -78,7 +71,7 @@
         <div class="col-lg-6 hero-text">
           <h2><strong>Controla tu <em class="text-danger">Inventario</em> En Tiempo Real, Fácil y Rápido</strong></h2>
           <p>Nuestro software en la nube te ayuda a gestionar productos, proveedores y ventas desde cualquier dispositivo.</p>
-          <a href="#products" class="btn btn-laravel btn-lg">Solicitar Demo</a>
+          <a href="#Precios" class="btn btn-laravel btn-lg">Solicitar Plan</a>
         </div>
         <div class="col-lg-6 d-none d-lg-block">
           <div id="logo3d" style="width: 100%; height: 400px;"></div>
@@ -94,8 +87,8 @@
             <div class="row">
                 <div class="col-md-3 col-6 mb-4 mb-md-0">
                     <div class="stats-container">
-                        <div class="stats-number">5000+</div>
-                        <p class="mb-0">Empresas Confían en Nosotros</p>
+                        <div class="stats-number">100%</div>
+                        <p class="mb-0">Escalabilidad</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-6 mb-4 mb-md-0">
@@ -292,7 +285,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="javascript:void(0)" class="btn btn-laravel">Explorar Dashboard</a>
+                    <a href="{{asset('img/dashboard.png')}}" class="btn btn-laravel">Explorar Dashboard</a>
                 </div>
                 <div class="col-lg-6 mt-5 mt-lg-0">
                     <div class="screenshot-container">
@@ -564,13 +557,13 @@
             <div class="row mb-5">
                 <div class="col-lg-6 mx-auto text-center">
                     <h2 class="section-title text-center">¿Por qué elegir StockPro?</h2>
-                    <p class="text-muted">Descubre por qué somos la opción preferida para la gestión de inventario.</p>
+                    <p class="text-light">Descubre por qué somos la opción preferida para la gestión de inventario.</p>
                 </div>
             </div>
             <div class="row align-items-center">
                 <div class="col-lg-6 mb-4 mb-lg-0">
                     <div class="text-center">
-                        <img src="" alt="Placeholder" class="img-fluid rounded" style="max-height: 400px;">
+                        <img src="{{asset('img/fondo4.png')}}" alt="Placeholder" class="img-fluid rounded" style="max-height: 400px;">
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -582,7 +575,7 @@
                                 </div>
                                 <div>
                                     <h4>Seguridad Avanzada</h4>
-                                    <p class="text-muted">Protección de datos con cifrado de extremo a extremo y autenticación de múltiples factores para garantizar la integridad de tu información.</p>
+                                    <p class="text-light">Protección de datos con cifrado de extremo a extremo y autenticación de múltiples factores para garantizar la integridad de tu información.</p>
                                 </div>
                             </div>
                         </li>
@@ -593,7 +586,7 @@
                                 </div>
                                 <div>
                                     <h4>Escalabilidad Total</h4>
-                                    <p class="text-muted">Nuestra plataforma crece con tu negocio, desde pequeñas tiendas hasta grandes cadenas multinacionales sin perder rendimiento.</p>
+                                    <p class="text-light">Nuestra plataforma crece con tu negocio, desde pequeñas tiendas hasta grandes cadenas multinacionales sin perder rendimiento.</p>
                                 </div>
                             </div>
                         </li>
@@ -604,7 +597,7 @@
                                 </div>
                                 <div>
                                     <h4>Soporte Dedicado</h4>
-                                    <p class="text-muted">Equipo de especialistas disponible 24/7 para resolver cualquier duda o incidencia con tiempos de respuesta garantizados.</p>
+                                    <p class="text-light">Equipo de especialistas disponible 24/7 para resolver cualquier duda o incidencia con tiempos de respuesta garantizados.</p>
                                 </div>
                             </div>
                         </li>
@@ -615,7 +608,7 @@
                                 </div>
                                 <div>
                                     <h4>API Robusta</h4>
-                                    <p class="text-muted">Integración sencilla con tus sistemas existentes a través de nuestra API bien documentada y flexible.</p>
+                                    <p class="text-light">Integración sencilla con tus sistemas existentes a través de nuestra API bien documentada y flexible.</p>
                                 </div>
                             </div>
                         </li>
@@ -631,7 +624,7 @@
             <div class="row mb-5">
                 <div class="col-lg-6 mx-auto text-center">
                     <h2 class="section-title text-center">Nuestros Desarrolladores</h2>
-                    <p class="text-muted">Conoce al equipo que hace posible StockPro.</p>
+                    <p class="text-light">Conoce al equipo que hace posible StockPro.</p>
                 </div>
             </div>
             <div class="row g-4">
@@ -661,7 +654,7 @@
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
                     <a href="javascript:void(0)" class="d-flex align-items-center mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 50 52" style="margin-right: 8px;">
+                        <img src="{{asset('img/logo.png')}}" width="30" height="30" viewBox="0 0 50 52" style="margin-right: 8px;">
                             <path d="M49.626 11.564a.809.809 0 0 1 .028.209v10.972a.8.8 0 0 1-.402.694l-9.209 5.302V39.25c0 .286-.152.55-.4.694L20.42 51.01c-.044.025-.092.041-.14.058-.018.006-.035.017-.054.022a.805.805 0 0 1-.41 0c-.022-.006-.042-.018-.063-.026-.044-.016-.09-.03-.132-.054L.402 39.944A.801.801 0 0 1 0 39.25V6.334c0-.072.01-.142.028-.21.006-.023.02-.044.028-.067.015-.042.029-.085.051-.124.015-.026.037-.047.055-.071.023-.032.044-.065.071-.093.023-.023.053-.04.079-.06.029-.024.055-.05.088-.069h.001l9.61-5.533a.802.802 0 0 1 .8 0l9.61 5.533h.002c.032.02.059.045.088.068.026.02.055.038.078.06.028.029.048.062.072.094.017.024.04.045.054.071.023.04.036.082.052.124.008.023.022.044.028.068a.809.809 0 0 1 .028.209v20.559l8.008-4.611v-10.51c0-.07.01-.141.028-.208.007-.024.02-.045.028-.068.016-.042.03-.085.052-.124.015-.026.037-.047.054-.071.024-.032.044-.065.072-.093.023-.023.052-.04.078-.06.03-.024.056-.05.088-.069h.001l9.611-5.533a.801.801 0 0 1 .8 0l9.61 5.533c.034.02.06.045.09.068.025.02.054.038.077.06.028.029.048.062.072.094.018.024.04.045.054.071.023.039.036.082.052.124.009.023.022.044.028.068z" fill="#FF2D20" fill-rule="evenodd"/>
                         </svg>
                         <span>Stockpro</span>
@@ -686,12 +679,12 @@
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="social-icon">
-                        <a href="mailto:info@inventario-pro.com">
+                        <a href="quinterolevii87@gmail.com">
                             <i class="fas fa-envelope"></i>
                         </a>
                     </div>
                     <div class="social-icon">
-                        <a href="tel:+1234567890">
+                        <a href="tel:+3243046676">
                             <i class="fas fa-phone"></i>
                         </a>
                     </div>
